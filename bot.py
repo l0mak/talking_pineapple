@@ -1,18 +1,23 @@
 import discord
+from discord.ext import commands
 import asyncio
 import logging
+from logging.handlers import RotatingFileHandler
+
+__version__ = '0.1'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+#logger.setLevel(logging.WARNING)
+handler = RotatingFileHandler(filename='discordbot.log', maxBytes=1024*5, backupCount=2, encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-from discord.ext import commands
-
 bot_token = 'NDQ5NTQzNzM4NDg2ODE2NzY5.DqEtYQ.xsdznvBYV-drBvgd3LWhHXCvO-g'
+
 bot = commands.Bot(command_prefix='%')
+bot.user.mentioned_in(message)
 
 @bot.event
 async def on_ready():
@@ -21,6 +26,11 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return    
+    
 @bot.command()
 async def add(ctx, a: int, b: int):
     await ctx.send(a+b)
@@ -31,7 +41,7 @@ async def multiply(ctx, a: int, b: int):
 
 @bot.command()
 async def greet(ctx):
-    await ctx.send("Hello, there! :hugging: ")
+    await ctx.send(" Howdy Ho! :hugging: ")
 
 @bot.command()
 async def author(ctx):
