@@ -1,5 +1,14 @@
 import discord
 import asyncio
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
+
 from discord.ext import commands
 
 bot_token = 'NDQ5NTQzNzM4NDg2ODE2NzY5.DqEtYQ.xsdznvBYV-drBvgd3LWhHXCvO-g'
@@ -26,7 +35,7 @@ async def greet(ctx):
 
 @bot.command()
 async def author(ctx):
-    await ctx.send("https://izismile.com/img/img5/20120417/640/i_have_no_idea_what_im_doing_meme_640_07.jpg")
+    await ctx.send("https://imgur.com/gallery/jH1LRM0")
 
 @bot.command()
 async def info(ctx):
