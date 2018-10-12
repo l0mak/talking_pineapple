@@ -15,8 +15,10 @@ handler = RotatingFileHandler(filename='discordbot.log', maxBytes=1024*5, backup
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-bot = commands.Bot(command_prefix='%')
-bot.user.mentioned_in(message)
+description = '''Talking Pineapple is a bot for Discord Voice Chat. 
+                 It can recognise user's voice commands and use text-to-speech by itself.'''
+
+bot = commands.Bot(command_prefix=loadconfig.__prefix__, description=description)
 
 @bot.event
 async def on_ready():
