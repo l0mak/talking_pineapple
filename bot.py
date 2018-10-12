@@ -53,7 +53,7 @@ async def on_message(message):
         await message.add_reaction(':hugging:') 
     if 'флаттер' or 'флатер' or 'суигинтырно' in message.clean_content.lower():
         await message.add_reaction(':ananasique:')
-    if message.author.id is '258299583698829317'
+    if message.author.id is '258299583698829317':
         await message.add_reaction(':ananasique:')
     await bot.process_commands(message)
     
