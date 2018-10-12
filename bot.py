@@ -15,22 +15,47 @@ handler = RotatingFileHandler(filename='discordbot.log', maxBytes=1024*5, backup
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-description = '''Talking Pineapple is a bot for Discord Voice Chat. 
-                 It can recognise user's voice commands and use text-to-speech by itself.'''
+description = '''Talking Pineapple (Господин Ананасик) is a bot for Discord Voice Chat. 
+                It can recognise user's voice commands and use text-to-speech by itself.'''
 
 bot = commands.Bot(command_prefix=loadconfig.__prefix__, description=description)
 
 @bot.event
 async def on_ready():
     print('Logged in as')
-    print(bot.user.name)
-    print(bot.user.id)
+    print(f'Bot-Name: {bot.user.name}')
+    print(f'Bot-ID: {bot.user.id}')
+    print(f'Dev Mode: {bot.dev}')
+    print(f'Discord Version: {discord.__version__}')
+    print(f'Bot Version: {__version__}')
     print('------')
 
 @bot.event
+async def on_command(ctx):
+    bot.commands_used[ctx.command.name] += 1
+    msg = ctx.message
+
+@bot.event
 async def on_message(message):
-    if message.author == bot.user:
-        return    
+    if message.author.bot
+        return
+    if isinstance(message.channel, discord.DMChannel):
+        await message.author.send(':hugging: Простите, я пока не очень умный, как и мой автор, поэтому пока могу отвечать только в текстовых каналах!')
+        return
+    if bot.dev and not await bot.is_owner(message.author):
+        return
+    if bot.user.mentioned_in(message) and message.mention_everyone is False:
+        if 'help' in message.content.lower():
+            await message.channel.send('Вы можете вызвать описание всего, что я умею командой **%help**')
+        else:
+            await message.add_reaction(':ananasique:')
+    if 'ломак' or 'l0mak' in message.clean_content.lower():
+        await message.add_reaction(':hugging:') 
+    if 'флаттер' or 'флатер' or 'суигинтырно' in message.clean_content.lower():
+        await message.add_reaction(':ananasique:')
+    if 'полосатенькая зеброчка' in message.author
+        await message.add_reaction(':ananasique:')
+    await bot.process_commands(message)
     
 @bot.command()
 async def add(ctx, a: int, b: int):
