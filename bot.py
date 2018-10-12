@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio
 import logging
 from logging.handlers import RotatingFileHandler
+import botconfig
 
 __version__ = '0.1'
 
@@ -13,8 +14,6 @@ logger.setLevel(logging.DEBUG)
 handler = RotatingFileHandler(filename='discordbot.log', maxBytes=1024*5, backupCount=2, encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
-
-bot_token = 'NDQ5NTQzNzM4NDg2ODE2NzY5.DqEtYQ.xsdznvBYV-drBvgd3LWhHXCvO-g'
 
 bot = commands.Bot(command_prefix='%')
 bot.user.mentioned_in(message)
@@ -78,4 +77,4 @@ async def help(ctx):
 
     await ctx.send(embed=embed)
 
-bot.run(bot_token)
+bot.run(loadconfig.__token__)
