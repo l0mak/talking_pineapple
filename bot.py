@@ -37,7 +37,7 @@ async def on_command(ctx):
 
 @bot.event
 async def on_message(message):
-    if message.author.bot
+    if message.author.bot or message.author.id in loadconfig.__blacklist__:
         return
     if isinstance(message.channel, discord.DMChannel):
         await message.author.send(':hugging: Простите, я пока не очень умный, как и мой автор, поэтому пока могу отвечать только в текстовых каналах!')
