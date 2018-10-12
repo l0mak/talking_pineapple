@@ -5,7 +5,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import botconfig
 
-__version__ = '0.1'
+__version__ = '0.2'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
@@ -29,11 +29,6 @@ async def on_ready():
     print(f'Discord Version: {discord.__version__}')
     print(f'Bot Version: {__version__}')
     print('------')
-
-@bot.event
-async def on_command(ctx):
-    bot.commands_used[ctx.command.name] += 1
-    msg = ctx.message
 
 @bot.event
 async def on_message(message):
