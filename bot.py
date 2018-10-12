@@ -18,7 +18,7 @@ logger.addHandler(handler)
 description = '''Talking Pineapple (Господин Ананасик) is a bot for Discord Voice Chat. 
                 It can recognise user's voice commands and use text-to-speech by itself.'''
 
-bot = commands.Bot(command_prefix=loadconfig.__prefix__, description=description)
+bot = commands.Bot(command_prefix=botconfig.__prefix__, description=description)
 
 @bot.event
 async def on_ready():
@@ -37,7 +37,7 @@ async def on_command(ctx):
 
 @bot.event
 async def on_message(message):
-    if message.author.bot or message.author.id in loadconfig.__blacklist__:
+    if message.author.bot or message.author.id in botconfig.__blacklist__:
         return
     if isinstance(message.channel, discord.DMChannel):
         await message.author.send(':hugging: Простите, я пока не очень умный, как и мой автор, поэтому пока могу отвечать только в текстовых каналах!')
@@ -104,4 +104,4 @@ async def help(ctx):
 
     await ctx.send(embed=embed)
 
-bot.run(loadconfig.__token__)
+bot.run(botconfig.__token__)
