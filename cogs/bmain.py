@@ -7,7 +7,7 @@ import discord
 from discord.ext import commands
 import botconfig
 
-class core():
+class bmain():
 	#db = 'reaction.db'
 
 	#bot.remove_command('help')
@@ -118,4 +118,4 @@ class core():
 
 
 def setup(bot):
-    bot.add_cog(core(bot))
+    bot.add_cog(bmain(bot))
