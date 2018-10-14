@@ -1,7 +1,6 @@
 import discord
 
 __games__ = [
-    (discord.user.setStatus, 'asdasd')
     (discord.setActivity.playing, 'с Друзьями'),
     (discord.ActivityType.playing, 'c Фералами'),
     (discord.ActivityType.playing, 'попробуйте %help'),
