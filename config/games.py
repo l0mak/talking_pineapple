@@ -1,8 +1,7 @@
 import discord
-from discord.ext import discord.ActivityType
 
 __games__ = [
-    (discord.ActivityType.playing, 'с Друзьями'),
+    (discord.setActivity.playing, 'с Друзьями'),
     (discord.ActivityType.playing, 'c Фералами'),
     (discord.ActivityType.playing, 'попробуйте %help'),
     (discord.ActivityType.playing, 'попробуйте %info'),
