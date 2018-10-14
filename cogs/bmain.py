@@ -1,3 +1,6 @@
+import sys
+import os
+import aiohttp
 import datetime
 import time
 import random
@@ -6,6 +9,7 @@ import asyncio
 import discord
 from discord.ext import commands
 import loadconfig
+
 
 class bmain():
     #db = 'reaction.db'
