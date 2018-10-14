@@ -16,7 +16,7 @@ class bmain():
 		self.bot = bot
 
 	def _currenttime(self):
-        return datetime.datetime.now(timezone('Europe/Moscow')).strftime("%H:%M:%S")
+   	     return datetime.datetime.now(timezone('Europe/Moscow')).strftime("%H:%M:%S")
 
     	def userOnline(self, memberList):
         	online = []
@@ -28,15 +28,15 @@ class bmain():
 	@commands.command(aliases=['инфо', 'status'])
 	async def info(self, ctx):
 
-    	embed = discord.Embed(title="Господин Ананасик", description="Господин Ананасик - БОТ для дискорда, который в обозримом будущем подружится с Yandex SpeechKit и сможет общаться со своими друзьями!", color=0xa500ff)
+    		embed = discord.Embed(title="Господин Ананасик", description="Господин Ананасик - БОТ для дискорда, который в обозримом будущем подружится с Yandex SpeechKit и сможет общаться со своими друзьями!", color=0xa500ff)
 
-	    embed.add_field(name="Версия", value="__version__")
-    	embed.add_field(name="Автор", value="Тайное общество Ананасиков с сервера [Ордорейд] <https://discord.gg/XJVagge>")
-    	embed.add_field(name="Колличество Серверов", value=f"{len(bot.guilds)}")
-    	embed.add_field(name="Ссылка для добавления", value="До окончания тестирования ссылка недоступна. Хотя, скорее всего, ее не будет и после. :hugging: ")
-    	embed.add_field(name="Вызов справки по командам", value="__prefix__help")
+		embed.add_field(name="Версия", value="__version__")
+    		embed.add_field(name="Автор", value="Тайное общество Ананасиков с сервера [Ордорейд] <https://discord.gg/XJVagge>")
+   	 	embed.add_field(name="Колличество Серверов", value=f"{len(bot.guilds)}")
+   	 	embed.add_field(name="Ссылка для добавления", value="До окончания тестирования ссылка недоступна. Хотя, скорее всего, ее не будет и после. :hugging: ")
+   	 	embed.add_field(name="Вызов справки по командам", value="__prefix__help")
 
-    		await ctx.send(embed=embed)
+    			await ctx.send(embed=embed)
 
 	@commands.command()
 	async def help(self, ctx):
@@ -54,7 +54,7 @@ class bmain():
 	    embed.add_field(name="__prefix__help", value="Вызов этого сообщения.", inline=False)
 	    #embed.add_field(name="Список будущих возможностей/команд", value="Вызов бота в голосовй канал вызывающего. Переключение модуля прослушивания голосового канала. ")
 
-		    await ctx.send(embed=embed)
+		await ctx.send(embed=embed)
 
 #	@commands.command()
 #	async def add(self, ctx, a: int, b: int):
@@ -70,7 +70,7 @@ class bmain():
 
 	@commands.command()
 	async def author(self, ctx):
-    	await ctx.send("https://imgur.com/gallery/jH1LRM0")
+    		await ctx.send("https://imgur.com/gallery/jH1LRM0")
 
  	@commands.command(aliases=['rand', 'roll'])
 	async def random(self, ctx, *arg):
