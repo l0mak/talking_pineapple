@@ -1,5 +1,5 @@
 import discord
-from discord.ext import ActivityType
+from discord.ext import discord.ActivityType
 
 __games__ = [
     (discord.ActivityType.playing, 'с Друзьями'),
