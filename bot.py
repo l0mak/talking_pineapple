@@ -14,7 +14,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from collections import Counter
 from pytz import timezone
-import botconfig
+import loadconfig
 
 __version__ = '0.1'
 
@@ -29,7 +29,7 @@ logger.addHandler(handler)
 description = '''Talking Pineapple Project is a bot for Discord Voice Chat. 
                 It can recognise user's voice commands and use text-to-speech by itself.'''
 
-bot = commands.Bot(command_prefix=botconfig.__prefix__, description=description)
+bot = commands.Bot(command_prefix=loadconfig.__prefix__, description=description)
 
 def _setupDatabase(db):
     with sqlite3.connect(db) as con:
@@ -50,9 +50,9 @@ async def _randomGame():
     while True:
         guildCount = len(bot.guilds)
         memberCount = len(list(bot.get_all_members()))
-        randomGame = random.choice(botconfig.__games__)
+        randomGame = random.choice(loadconfig.__games__)
         await bot.change_presence(activity=discord.Activity(type=randomGame[0], name=randomGame[1].format(guilds = guildCount, members = memberCount)))
-        await asyncio.sleep(botconfig.__gamesTimer__)
+        await asyncio.sleep(loadconfig.__gamesTimer__)
 
 @bot.event
 async def on_ready():
@@ -68,7 +68,7 @@ async def on_ready():
     print(f'Discord Version: {discord.__version__}')
     print(f'Bot Version: {__version__}')
     print('------')
-    for cog in botconfig.__cogs__:
+    for cog in loadconfig.__cogs__:
         try:
             bot.load_extension(cog)
         except Exception:
@@ -177,4 +177,4 @@ async def on_command_error(error, ctx):
             except:
                 pass
                 
-bot.run(botconfig.__token__)
+bot.run(loadconfig.__token__)
