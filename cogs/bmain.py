@@ -5,7 +5,7 @@ import sqlite3
 import asyncio
 import discord
 from discord.ext import commands
-import botconfig
+import loadconfig
 
 class bmain():
     #db = 'reaction.db'
