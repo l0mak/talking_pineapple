@@ -12,7 +12,7 @@ import traceback
 #import aiohttp
 import logging
 from logging.handlers import RotatingFileHandler
-#from collections import Counter
+from collections import Counter
 from pytz import timezone
 import botconfig
 
