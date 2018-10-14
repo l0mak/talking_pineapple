@@ -3,8 +3,8 @@ import discord
 __games__ = [
     (discord.ActivityType.playing, 'с Друзьями'),
     (discord.ActivityType.playing, 'c Фералами'),
-    (discord.ActivityType.playing, 'попробуйте %help'),
-    (discord.ActivityType.playing, 'попробуйте %info'),
+    (discord.ActivityType.watching, 'на команду %help'),
+    (discord.ActivityType.watching, 'на команду %info'),
     (discord.ActivityType.playing, 'в Черепаха Дошла До Воды'),
     (discord.ActivityType.playing, 'с Капитаном Пирожком'),
     (discord.ActivityType.watching, 'за Ордорейдом'),
