@@ -1,5 +1,5 @@
 __cogs__ = [
-	'cogs.core'
-    'cogs.encounters'
-    'cogs.test',
-    ]
+	'cogs.bmain',
+	'cogs.encounters',
+	'cogs.test'
+	]
