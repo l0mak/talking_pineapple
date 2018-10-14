@@ -12,5 +12,6 @@ __games__ = [
     (discord.ActivityType.watching, 'за {guilds} Серверами'),
     (discord.ActivityType.watching, "стрим Джин'Зиггоря"),
     (discord.ActivityType.listening, 'чарующий голос Господина Флаттера')
+]
 
 __gamesTimer__ = 2 * 60
