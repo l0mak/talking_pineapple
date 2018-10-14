@@ -15,15 +15,15 @@ class bmain():
 	def __init__(self, bot):
 		self.bot = bot
 
-    def _currenttime(self):
+	def _currenttime(self):
         return datetime.datetime.now(timezone('Europe/Moscow')).strftime("%H:%M:%S")
 
-    def userOnline(self, memberList):
-        online = []
-        for i in memberList:
-            if i.status == discord.Status.online and i.bot == False:
-                online.append(i)
-        return online
+    	def userOnline(self, memberList):
+        	online = []
+        	for i in memberList:
+            	if i.status == discord.Status.online and i.bot == False:
+                	online.append(i)
+        	return online
 
 	@commands.command(aliases=['инфо', 'status'])
 	async def info(self, ctx):
@@ -72,8 +72,8 @@ class bmain():
 	async def author(self, ctx):
     	await ctx.send("https://imgur.com/gallery/jH1LRM0")
 
-    @commands.command(aliases=['rand', 'roll'])
-    async def random(self, ctx, *arg):
+ 	@commands.command(aliases=['rand', 'roll'])
+	async def random(self, ctx, *arg):
         '''
         :Варианты
         -----------
@@ -107,14 +107,14 @@ class bmain():
                 end = int(arg[1])
             await ctx.send(f':thinking: Случайное число ({start} - {end}): {random.randint(start, end)}')
 
-    @commands.command()
-    async def countdown(self, ctx):
-        '''РЧ НА ПУЛЛ!'''
-        countdown = ['Пять!', 'Четыре!', 'Три!', 'Два!', 'Один!']
-        for num in countdown:
-            await ctx.send('**:{0}:**'.format(num))
-            await asyncio.sleep(1)
-        await ctx.send('Ты приемный!')
+    	@commands.command()
+   	 async def countdown(self, ctx):
+    	    '''РЧ НА ПУЛЛ!'''
+        	countdown = ['Пять!', 'Четыре!', 'Три!', 'Два!', 'Один!']
+        	for num in countdown:
+            	await ctx.send('**:{0}:**'.format(num))
+            	await asyncio.sleep(1)
+       	 await ctx.send('Ты приемный!')
 
 
 def setup(bot):
