@@ -5,7 +5,7 @@ import time
 import datetime
 import random
 import sqlite3
-#import traceback
+import traceback
 #import os
 #import sys
 #import hashlib
@@ -13,10 +13,10 @@ import sqlite3
 import logging
 from logging.handlers import RotatingFileHandler
 #from collections import Counter
-#from pytz import timezone
+from pytz import timezone
 import botconfig
 
-__version__ = '0.2'
+__version__ = '0.1'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
@@ -56,7 +56,7 @@ async def _randomGame():
 
 @bot.event
 async def on_ready():
-    if bot.user.id == 85098986842619904:
+    if bot.user.id == 449543738486816769:
         bot.dev = True
     else:
         bot.dev = False
@@ -116,6 +116,18 @@ async def on_guild_join(guild):
     embed.add_field(name='Количество участников', value=guild.member_count, inline=True)
     embed.add_field(name='Дата создания', value=guild.created_at, inline=True)
     await bot.owner.send(embed=embed)
+    
+@bot.event
+async def on_guild_join(guild):
+    embed = discord.Embed(title='Oora! Новые друзья!', type='rich', color=0xa500ff)
+    embed.set_thumbnail(url=guild.icon_url)
+    embed.add_field(name='Имя', value=guild.name, inline=True)
+    embed.add_field(name='ID', value=guild.id, inline=True)
+    embed.add_field(name='Владелец', value=f'{guild.owner} ({guild.owner.id})', inline=True)
+    embed.add_field(name='Регион', value=guild.region, inline=True)
+    embed.add_field(name='Количество участников', value=guild.member_count, inline=True)
+    embed.add_field(name='Дата создания', value=guild.created_at, inline=True)
+    await ctx.send(embed=embed)    
 
 @bot.event
 async def on_guild_remove(guild):
