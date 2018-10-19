@@ -1,5 +1,6 @@
-# talking_pineapple
+#  talking_pineapple 
 
+![logo](https://github.com/l0mak/talking_pineapple/blob/master/logo.png)
 
 Цель проекта - обучение на примере бота способного распозновать голосовые команды пользователей, интерпетировать их и исполнять, при необходимости так же голосом.
 
