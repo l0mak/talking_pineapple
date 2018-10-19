@@ -1,91 +1,45 @@
-import sys
-import os
-import aiohttp
-import datetime
-import time
-import random
-import sqlite3
-import asyncio
 import discord
 from discord.ext import commands
-import loadconfig
-
+import random
+import asyncio
 
 class bmain():
-    #db = 'reaction.db'
-
-    #bot.remove_command('help')
-
     def __init__(self, bot):
         self.bot = bot
-
-    def _currenttime(self):
-        return datetime.datetime.now(timezone('Europe/Moscow')).strftime("%H:%M:%S")
-
-    def userOnline(self, memberList):
-        online = []
-        for i in memberList:
-            if i.status == discord.Status.online and i.bot == False:
-                online.append(i)
-                return online
-
-    @commands.command(aliases=['инфо', 'status'])
-    async def info(self, ctx):
-
-        embed = discord.Embed(title="Господин Ананасик", description="Господин Ананасик - БОТ для дискорда, который в обозримом будущем подружится с Yandex SpeechKit и сможет общаться со своими друзьями!", color=0xa500ff)
-
-        embed.add_field(name="Версия", value="__version__")
-        embed.add_field(name="Автор", value="Тайное общество Ананасиков с сервера [Ордорейд] <https://discord.gg/XJVagge>")
-        embed.add_field(name="Колличество Серверов", value=f"{len(bot.guilds)}")
-        embed.add_field(name="Ссылка для добавления", value="До окончания тестирования ссылка недоступна. Хотя, скорее всего, ее не будет и после. :hugging: ")
-        embed.add_field(name="Вызов справки по командам", value="__prefix__help")
-
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    async def help(self, ctx):
-            
-        embed = discord.Embed(title="Господин Ананасик", description="Я Говорящий Ананасик! На самом деле пока я не умею говорить! Надеюсь скоро™ смогу. Сейчас я умею:", color=0xa500ff)
-
-        embed.add_field(name="__prefix__add X Y", value="Сложение **X** и **Y**.", inline=False)
-        embed.add_field(name="__prefix__multiply X Y", value="Умножение **X** и **Y**.", inline=False)
-        embed.add_field(name="__prefix__ping", value="Pong!", inline=False)
-        embed.add_field(name="__prefix__bosslist", value="Список имен боссов по которым можно получить тактику.", inline=False)
-        embed.add_field(name="__prefix__tact<boss_name>", value="Тактика на босса.", inline=False)
-        embed.add_field(name="__prefix__random", value="Ананасиковый рандом. (roll, rand)", inline=False)
-        embed.add_field(name="__prefix__author", value="Дает Вам представление о человеке, пишущем Бота.", inline=False)
-        embed.add_field(name="__prefix__info", value="Вызов справки по Боту.", inline=False)
-        embed.add_field(name="__prefix__help", value="Вызов этого сообщения.", inline=False)
-        #embed.add_field(name="Список будущих возможностей/команд", value="Вызов бота в голосовй канал вызывающего. Переключение модуля прослушивания голосового канала. ")
-
-        await ctx.send(embed=embed)
-
-#	@commands.command()
-#	async def add(self, ctx, a: int, b: int):
-#    	await ctx.send(a+b)
-
-#	@bot.command()
-#	async def multiply(self, ctx, a: int, b: int):
-#	    await ctx.send(a*b)
-
-#	@bot.command()
-#	async def ping(self, ctx):
-#	    await ctx.send(" Pong! ")
-
+    
     @commands.command()
     async def author(self, ctx):
         await ctx.send("https://imgur.com/gallery/jH1LRM0")
+    
+    @commands.command()
+    async def help(self, ctx):    
+        embed = discord.Embed(title="Привет!", description="Я Говорящий Ананасик! На самом деле пока я не умею говорить! Надеюсь скоро™ смогу. Сейчас я умею:", color=0xa500ff)
+        embed.set_author(name='Господин Ананасик', icon_url='https://cdn.discordapp.com/avatars/449543738486816769/536e8a791db747e20ace0d0a3df6e070.png')
+        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/449543738486816769/536e8a791db747e20ace0d0a3df6e070.png")
+        embed.add_field(name="**%add X Y**", value="Сложение **X** и **Y**.", inline=False)
+        embed.add_field(name="**%multiply X Y**", value="Умножение **X** и **Y**.", inline=False)
+#        embed.add_field(name="**%ping**", value="Ping urself!", inline=False)
+        embed.add_field(name="**%bosslist**", value="Список имен боссов по которым можно получить тактику.", inline=False)
+        embed.add_field(name="**%<boss_name>**", value="Тактика на босса.", inline=False)
+        embed.add_field(name="**%random**", value="Ананасиковый рандом. (**%roll 22**, **%random flip**, **%random user**)", inline=False)
+        embed.add_field(name="**%countdown**", value="РЧ на пулл!", inline=False)
+        embed.add_field(name="**%author**", value="Дает Вам представление о человеке, пишущем Бота.", inline=False)
+        embed.add_field(name="**%info**", value="Вызов справки по Боту.", inline=False)
+        embed.add_field(name="**%help**", value="Вызов этого сообщения.", inline=False)
+#        embed.add_field(name="Список будущих возможностей/команд", value="Вызов бота в голосовй канал вызывающего. Переключение модуля прослушивания голосового канала. ")
+        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+        await ctx.send(embed=embed)
+        
+    @commands.command()
+    async def add(self, ctx, a: int, b: int):
+        await ctx.send(a+b)
+
+    @commands.command()
+    async def multiply(self, ctx, a: int, b: int):
+        await ctx.send(a*b)        
 
     @commands.command(aliases=['rand', 'roll'])
     async def random(self, ctx, *arg):
-        '''
-        :Варианты
-        -----------
-
-        :random
-        :random coin
-        :random user
-        '''
         if ctx.invoked_subcommand is None:
             if not arg:
                 start = 1
@@ -95,13 +49,13 @@ class bmain():
                 await ctx.send(f':thinking: {random.choice(coin)}')
                 return
             elif arg[0] == 'user':
-                online = self.userOnline(ctx.guild.members)
-                randomuser = random.choice(online)
+                members = ctx.message.guild.members
+                randomuser = random.choice(members)
                 if ctx.channel.permissions_for(ctx.author).mention_everyone:
                     user = randomuser.mention
                 else:
                     user = randomuser.display_name
-                await ctx.send(f'Поздравляю Вас, {user}')
+                await ctx.send(f'{user}! RNG избрал Вас!')
                 return
             elif len(arg) == 1:
                 start = 1
@@ -110,16 +64,37 @@ class bmain():
                 start = int(arg[0])
                 end = int(arg[1])
             await ctx.send(f':thinking: Случайное число ({start} - {end}): {random.randint(start, end)}')
-
+    
     @commands.command()
     async def countdown(self, ctx):
-        '''РЧ НА ПУЛЛ!'''
         countdown = ['Пять!', 'Четыре!', 'Три!', 'Два!', 'Один!']
         for num in countdown:
-            await ctx.send('**:{0}:**'.format(num))
+            await ctx.send('**{0}**'.format(num))
             await asyncio.sleep(1)
-            await ctx.send('Простите, Вы приемный!')
+        await ctx.send('**За Орду! За Ананасиков!**')
+            
+            
+#    @commands.command()
+#    async def serverinfo(self, ctx):
+#        embed = discord.Embed(title='Информация о сервере', type='rich', color=0xa500ff)
+#        embed.set_thumbnail(url=discord.server.icon_url)
+#        embed.add_field(name='Имя', value=discord.server.name, inline=True)
+#        embed.add_field(name='ID', value=discord.server.id, inline=True)
+#        embed.add_field(name='Владелец', value=f'{discord.server.owner} ({discord.server.owner.id})', inline=True)
+#        embed.add_field(name='Регион', value=discord.server.region, inline=True)
+#        embed.add_field(name='Количество участников', value=discord.server.member_count, inline=True)
+#        embed.add_field(name='Дата создания', value=discord.server.created_at, inline=True)
+#        await ctx.send(embed=embed)
 
+ 
+#ne ponial komandi mogoo vot tak  
+#     if message.author.id is '@440103092009304064' or '440103092009304064':
+#        await message.channel.send('Простите, но мне не разрешили с Вами разговаривать. Возможно Вы слишком токсичны...')
+#        return
 
+#@commands.errors
+#async def CommandNotFound(ctx):
+#    await ctx.channel.send('Простите, я не знаю такой команды. Попробуйте **%help**.')
+   
 def setup(bot):
     bot.add_cog(bmain(bot))
