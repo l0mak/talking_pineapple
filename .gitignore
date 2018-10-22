@@ -4,4 +4,4 @@ cogs/__pycache__/
 bac/
 bac_1/
 *.db
-*log
+*.log
