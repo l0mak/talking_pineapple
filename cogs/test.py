@@ -9,9 +9,9 @@ class test():
     async def ping(self, ctx):
         await ctx.send('Pong!')
     
-    @commands.command()
-    async def test(self, ctx):
-        await ctx.send(f'{discord.guild}')
+#    @commands.command()
+#    async def test(self, ctx):
+#        await ctx.send(f'{discord.guild}')
         
                     
 def setup(bot):
