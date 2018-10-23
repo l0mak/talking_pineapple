@@ -56,8 +56,8 @@ async def on_ready():
             bot.load_extension(cog)
         except Exception:
             print(f'Couldn\'t load cog {cog}')
-    while not discord.opus.is_loaded():
-        discord.opus.load_opus(find_library("libopus"))
+#    while not discord.opus.is_loaded():
+#        discord.opus.load_opus(find_library("libopus"))
     bot.startTime = datetime.datetime.now()
     bot.startDate = time.ctime()
     bot.botVersion = __version__
