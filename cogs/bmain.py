@@ -98,8 +98,9 @@ class bmain():
                 start = int(arg[0])
                 end = int(arg[1])
             await ctx.send(f':thinking: Случайное число ({start} - {end}): {random.randint(start, end)}')
-    
+
     @commands.command(aliases=['shipping', 'pairing'])
+    @commands.cooldown(1, 6000, commands.BucketType.user)
     async def shippering(self, ctx):
             members = ctx.message.guild.members
             membersonline = members

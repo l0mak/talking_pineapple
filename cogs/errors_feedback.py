@@ -18,6 +18,10 @@ class errors_feedback:
         if isinstance(error, commands.UserInputError):
             await ctx.channel.send('Простите, но Вы допустили ошибку! Попробуйте ввести данные еще раз или посмотрите команду **;help**')
             return
+        
+        if isinstance(error, commands.CommandOnCooldown):
+            await ctx.channel.send('Простите, эту команду нельзя использовать так часто!')
+            return
 
 def setup(bot):
     bot.add_cog(errors_feedback(bot))
