@@ -1,4 +1,4 @@
-import discord
+#import discord
 from discord.ext import commands
 
 class test():
@@ -7,7 +7,7 @@ class test():
         
     @commands.command()
     async def ping(self, ctx):
-        await ctx.send('Pong!')
+        await ctx.send('Pong! :ananasique:')
     
 #    @commands.command()
 #    async def test(self, ctx):

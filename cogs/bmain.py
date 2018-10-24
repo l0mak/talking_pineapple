@@ -3,6 +3,8 @@ from discord.ext import commands
 import random
 import asyncio
 from asyncio.tasks import sleep
+import io
+import aiohttp
 
 class bmain():
     def __init__(self, bot):
@@ -11,33 +13,35 @@ class bmain():
     @commands.command()
     async def help(self, ctx):    
         embed = discord.Embed(title="Привет!", description="Я Говорящий Ананасик! На самом деле пока я не умею говорить! Надеюсь скоро™ смогу. Сейчас я умею:", color=0xa500ff)
-        embed.set_author(name='Господин Ананасик', icon_url='https://cdn.discordapp.com/avatars/449543738486816769/536e8a791db747e20ace0d0a3df6e070.png')
-        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/449543738486816769/536e8a791db747e20ace0d0a3df6e070.png")
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
         embed.add_field(name="**;thot ;guild**", value="Информация о любимой гильдии Господина Ананасика", inline=False) 
         embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике', inline=False) 
         embed.add_field(name='**;voice**', value='Информация о голосовых возможностях бота. Все очень плохо...', inline=False)       
-        embed.add_field(name="**;add X Y**", value="Сложение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
-        embed.add_field(name="**;multiply X Y**", value="Умножение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
-        embed.add_field(name="**;ping**", value="Ping urself! Ой! Простите...", inline=False)
+#        embed.add_field(name="**;add X Y**", value="Сложение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
+#        embed.add_field(name="**;multiply X Y**", value="Умножение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
+#        embed.add_field(name="**;ping**", value="Ping urself! Ой! Простите...", inline=False)
         embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список имен боссов по которым можно получить тактику", inline=False)
-        embed.add_field(name="**;<boss_name>**", value="Тактика на босса.", inline=False)
-        embed.add_field(name="**;random ;roll ;rand** ", value="Случайное чилсо **;roll**. Случайное число в конкретном диапазоне **;roll 10 20**. Монетка **;roll coin**. Случайный Ананасик **;roll user**.", inline=False)
+#        embed.add_field(name="**;<boss_name>**", value="Тактика на босса.", inline=False)
+        embed.add_field(name="**;random ;roll ;rand** ", value='''**;roll** Случайное чилсо от 0 до 100. 
+                                                                **;roll X Y** Случайное число в конкретном диапазоне. 
+                                                                **;roll coin** Монетка. 
+                                                                **;roll user** Случайный Ананасик.''', inline=False)
         embed.add_field(name="**;shippering ;shipping ;pairing**", value='''Дает двум случайным Ананасикам право не скрывать впредь своих чувств! Найдите друг друга в игре, обнимитесь и совершите любой подвиг, достойный героев Ордорейда!
                                                                             ***По заказу <@!197381022118051840>***''', inline=False)
         embed.add_field(name="**;countdown**", value="РЧ на пулл!", inline=False)
         embed.add_field(name="**;author**", value="Дает Вам представление о человеке, пишущем Бота.", inline=False)
-        embed.add_field(name="**;saythanks**", value="Ссылка на самый благодарный аддон в игре! Disclaimer: многие игроки на него негативно реагируют!", inline=False)
+#        embed.add_field(name="**;saythanks**", value="Ссылка на самый благодарный аддон в игре! Disclaimer: многие игроки на него негативно реагируют!", inline=False)
         embed.add_field(name="**;info**", value="Вызов справки по Боту.", inline=False)
         embed.add_field(name="**;help**", value="Вызов этого сообщения.", inline=False)
-#        embed.add_field(name="Список будущих возможностей/команд", value="Вызов бота в голосовй канал вызывающего. Переключение модуля прослушивания голосового канала. ")
         embed.set_footer(text="Отдельная благодарность господину Суи...")
         await ctx.send(embed=embed)
         
     @commands.command(aliases=['guild'])
     async def thot(self, ctx):    
         embed = discord.Embed(title="**Two Healers One Tank**", description="Два Лекаря Один Танк - гильдия Ананасиков с различных имиджборд.", color=0xa500ff)
-        embed.set_author(name='Господин Ананасик', icon_url='https://cdn.discordapp.com/avatars/449543738486816769/536e8a791db747e20ace0d0a3df6e070.png')
-        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/449543738486816769/536e8a791db747e20ace0d0a3df6e070.png")
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
         embed.add_field(name="**Фракция**", value="Орда", inline=False)
         embed.add_field(name="**Сервер**", value="Twisting Nether", inline=False)
         embed.add_field(name="**РТ**", value="Каждую пятницу, субботу и воскресенье в вечернее время. Подробнее в #info в дискорде ", inline=False)
@@ -62,15 +66,22 @@ class bmain():
         
     @commands.command()
     async def author(self, ctx):
-        await ctx.send("https://imgur.com/gallery/jH1LRM0")
-       
-    @commands.command()
-    async def add(self, ctx, a: int, b: int):
-        await ctx.send(a+b)
+        async with aiohttp.ClientSession() as session:
+            async with session.get('https://i.imgur.com/jH1LRM0.jpg') as resp:
+                if resp.status != 200:
+                    return await ctx.send('Ой-ой! Не могу загрузить картинку!')
+                data = io.BytesIO(await resp.read())
+                await ctx.send(file=discord.File(data, 'cool_image.png'))
+#        await ctx.send("https://imgur.com/gallery/jH1LRM0")
+#        await ctx.send(file=discord.File('https://i.imgur.com/jH1LRM0.jpg'))
+        
+#    @commands.command()
+#    async def add(self, ctx, a: int, b: int):
+#        await ctx.send(a+b)
 
-    @commands.command()
-    async def multiply(self, ctx, a: int, b: int):
-        await ctx.send(a*b)        
+#    @commands.command()
+#    async def multiply(self, ctx, a: int, b: int):
+#        await ctx.send(a*b)        
 
     @commands.command(aliases=['rand', 'roll'])
     async def random(self, ctx, *arg):
@@ -117,12 +128,12 @@ class bmain():
             await ctx.send('**{0}**'.format(num))
             await asyncio.sleep(1)
         await ctx.send('**За Орду! За Ананасиков! За Выдроликого!**')
-        
-    @commands.command()
-    async def saythanks(self, ctx): 
-        await ctx.send('Спасибо!')
-        await sleep(5)
-        await ctx.send('Оу! Аддон же еще! Вот ссылка - <https://yadi.sk/d/zcgFOHZb0isZIw> Простите...')
+
+#    @commands.command()
+#    async def saythanks(self, ctx): 
+#        await ctx.send('Спасибо!')
+#        await sleep(5)
+#        await ctx.send('Оу! Аддон же еще! Вот ссылка - <https://yadi.sk/d/zcgFOHZb0isZIw> Простите...')
      
     @commands.command()
     async def userinfo(self, ctx, *, name=''):
@@ -157,7 +168,7 @@ class bmain():
         embed.add_field(name='Аккаунт Ананасика создан', value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=False)
         embed.add_field(name='Ананасик с нами', value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'), inline=False)
         embed.set_thumbnail(url=avi)
-        embed.set_author(name='Господин Ананасик', icon_url='https://cdn.discordapp.com/avatars/449543738486816769/536e8a791db747e20ace0d0a3df6e070.png')
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         await ctx.send(embed=embed)
 
 def setup(bot):

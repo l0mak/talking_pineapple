@@ -14,7 +14,7 @@ class voice():
         embed.add_field(name="**;test**", value="__", inline=False) 
         embed.add_field(name='**;adeek**', value='__', inline=False)       
         embed.add_field(name="**;theseller**", value='__', inline=False)
-        embed.set_footer(text="Этот модуль пока не работает")
+        embed.set_footer(text="Этот модуль пока не работает...")
         await ctx.send(embed=embed)
 
 #    @commands.command()

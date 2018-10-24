@@ -92,9 +92,8 @@ async def on_message(message):
            
 @bot.command()
 async def info(ctx):
-    embed = discord.Embed(title='Да-да, это я!', description='''БОТ для дискода, созданный исключительно в целях самообучения человеком очень далеким от программирования.
-                                                                В случае если автор будет читать больше и не будет лениться, БОТ подружится с Yandex SpeechKit и сможет общаться со своими друзьями. Или нет...
-                                                                Любые комментарии и предложения приветствуются. В особенности по функционалу.''', color=0xa500ff)
+    embed = discord.Embed(title='Да-да, это я!', description='''БОТ для дискорда, созданный исключительно в целях самообучения человеком очень далеким от программирования.
+                                                                Любые комментарии и предложения приветствуются. В особенности по функционалу. 🍍''', color=0xa500ff)
     embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/449543738486816769/536e8a791db747e20ace0d0a3df6e070.png")
     embed.set_author(name=f'{bot.user.name}', icon_url='https://cdn.discordapp.com/avatars/449543738486816769/536e8a791db747e20ace0d0a3df6e070.png')
     embed.add_field(name="Версия", value=f'{__version__}')
@@ -102,9 +101,10 @@ async def info(ctx):
     embed.add_field(name="Автор", value="<@!440103092009304064>")
     embed.add_field(name="Количество Серверов", value=f'{len(bot.guilds)}')
     embed.add_field(name="Дата и время запуска", value=f'{bot.startDate}')
-    embed.add_field(name="Время работы", value=f'{datetime.datetime.now() - bot.startTime}')
-    embed.add_field(name="Незыблемая истина", value="Катер - моторная лодка!")
+    embed.add_field(name="Время работы", value=f'{(datetime.datetime.now() - bot.startTime)}')
+    embed.add_field(name="Пинг", value=f'{1000*round(bot.latency, 3)}')
     embed.add_field(name="Справка по командам", value="**;help**")
+    embed.add_field(name="Незыблемая истина", value="Катер - моторная лодка!");
     embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
     await ctx.send(embed=embed)
 
@@ -116,7 +116,7 @@ async def on_member_join(member):
 @bot.event
 async def on_member_remove(member):
     channel = get(member.guild.channels, name='user_count')
-    await channel.send(f'Ананасик покинул нас, милорд! {member.mention} куда же ты!') 
+    await channel.send(f'Ананасик покинул нас, милорд! {member.mention} куда же Вы!') 
     
 @bot.command(hidden=True)
 async def qb(ctx):
