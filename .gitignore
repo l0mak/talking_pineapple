@@ -7,3 +7,4 @@ bac_1/
 *.log
 *.1
 *.2
+.vscode/settings.json
