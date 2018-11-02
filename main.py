@@ -1,5 +1,3 @@
-import discord
-from discord.ext import commands
 import asyncio
 import random
 import logging
@@ -7,8 +5,12 @@ from logging.handlers import RotatingFileHandler
 import datetime
 import time
 import sys
-import loadconfig
+
+import discord
+from discord.ext import commands
 from discord.utils import get
+
+import loadconfig
 
 __version__ = '1.2.1'
 
