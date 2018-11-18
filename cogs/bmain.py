@@ -3,8 +3,7 @@ from discord.ext import commands
 import random
 import asyncio
 from asyncio.tasks import sleep
-import io
-import aiohttp
+
 
 class bmain():
     def __init__(self, bot):
@@ -15,73 +14,28 @@ class bmain():
         embed = discord.Embed(title="Привет!", description="Я Говорящий Ананасик! На самом деле пока я не умею говорить! Надеюсь скоро™ смогу. Сейчас я умею:", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="**;thot ;guild**", value="Информация о любимой гильдии Господина Ананасика", inline=False) 
-        embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике', inline=False) 
-        embed.add_field(name='**;voice**', value='Информация о голосовых возможностях бота. Все очень плохо...', inline=False)       
-#        embed.add_field(name="**;add X Y**", value="Сложение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
-#        embed.add_field(name="**;multiply X Y**", value="Умножение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
-#        embed.add_field(name="**;ping**", value="Ping urself! Ой! Простите...", inline=False)
-        embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список имен боссов по которым можно получить тактику", inline=False)
-#        embed.add_field(name="**;<boss_name>**", value="Тактика на босса.", inline=False)
+        embed.add_field(name="**;wt ;wf ;wq**", value="WowToken, Warfronts, WorldQuests", inline=False)
+        embed.add_field(name="**;wowlinks ;uselesslinks**", value="Ссылки на никому не нужную информацию.", inline=False)
+        embed.add_field(name="**;thot ;guild**", value="Информация о любимой гильдии Господина Ананасика.", inline=False) 
+        embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
+        embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. <username> - @mention или ник Ананасика (чувствительно к регистру). Просто ;userinfo выдаст информацию о Вас', inline=False) 
+        embed.add_field(name='**;serverinfo**', value='Информация о дискорд сервере Ордорейда.', inline=False)
+        embed.add_field(name='**;choose X Y Z**', value='Случайный выбор из введенных вариантов (не больше 6; просто потому что!).', inline=False)
         embed.add_field(name="**;random ;roll ;rand** ", value='''**;roll** Случайное чилсо от 0 до 100. 
                                                                 **;roll X Y** Случайное число в конкретном диапазоне. 
                                                                 **;roll coin** Монетка. 
-                                                                **;roll user** Случайный Ананасик.''', inline=False)
+                                                                **;roll user** Случайный Ананасик.
+                                                                ''', inline=False)
         embed.add_field(name="**;shippering ;shipping ;pairing**", value='''Дает двум случайным Ананасикам право не скрывать впредь своих чувств! Найдите друг друга в игре, обнимитесь и совершите любой подвиг, достойный героев Ордорейда!
+                                                                            Доказавшие свой подвиг скриншотом Ананасики, получат по 1000 золотых на TN!
                                                                             ***По заказу <@!197381022118051840>***''', inline=False)
         embed.add_field(name="**;countdown**", value="РЧ на пулл!", inline=False)
-        embed.add_field(name="**;author**", value="Дает Вам представление о человеке, пишущем Бота.", inline=False)
-#        embed.add_field(name="**;saythanks**", value="Ссылка на самый благодарный аддон в игре! Disclaimer: многие игроки на него негативно реагируют!", inline=False)
         embed.add_field(name="**;info**", value="Вызов справки по Боту.", inline=False)
         embed.add_field(name="**;help**", value="Вызов этого сообщения.", inline=False)
-        embed.set_footer(text="Отдельная благодарность господину Суи...")
+        embed.add_field(name='**;voice**', value='Информация о голосовых возможностях бота. *Все очень плохо...*', inline=False)
+        embed.add_field(name='**;other**', value='Прочие команды.', inline=False)       
+        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
         await ctx.send(embed=embed)
-        
-    @commands.command(aliases=['guild'])
-    async def thot(self, ctx):    
-        embed = discord.Embed(title="**Two Healers One Tank**", description="Два Лекаря Один Танк - гильдия Ананасиков с различных имиджборд.", color=0xa500ff)
-        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="**Фракция**", value="Орда", inline=False)
-        embed.add_field(name="**Сервер**", value="Twisting Nether", inline=False)
-        embed.add_field(name="**РТ**", value="Каждую пятницу, субботу и воскресенье в вечернее время. Подробнее в #info в дискорде ", inline=False)
-        embed.add_field(name="**WoWprogress**", value='[Link](https://www.wowprogress.com/guild/eu/twisting-nether/Two+Healers+One+Tank)', inline=False)
-        embed.add_field(name="**Информация**", value='''Мы ходим вместе в рейды и ключики, делаем ачивки и просто весело проводим время в игре.
-                                                    Рады всем ананасикам независимо от уровня игры. С нами играют и ньюфаги, и хардкорные рейдеры, и поехавшие сычи-солоплееры и казуальные битурды. Всех нас объединяет желание рейдить с анонами.
-                                                    Из-за того что модератор удаляет наши посты в треде, мы перенесли всю кооперацию в дискорд:
-                                                    https://discord.gg/XJVagge - обязательно заходите, мы рады всем.''', inline=False)
-        embed.add_field(name="**Правила**", value='''**Быть аноном**
-                                                **Не обижать других ананасиков**
-                                                **Посещение рейдов полностью свободное, но в рейд нужно приходить готовыми и стараться, а не надеяться, что тебя протащат и подарят лутеш.**
-                                                ***В обычную сложность необходим 335 илвл, в героическую - 350***''', inline=False)
-        embed.add_field(name="**Как попасть**", value='''Чтобы попасть в рейд, зайдите в «Заранее собранные группы - Другое – Ордорейд» в назначенное время. Пароль – название борды.
-                                                    В нормал, героик и ключи вы можете ходить персонажами с любого сервера.
-                                                    В рейды эпохальной сложности – только персонажем с сервера Twisting Nether или ждать межсерверные мифики.
-                                                    Изменения в расписании и анонсы дополнительных рейдов в #info и #lfg дискорда.''', inline=False)
-        embed.add_field(name="**Battle.tag для связи**", value='''Sprotae#2918
-                                                            Fluttershy#2165
-                                                            Tinkeron#1337''', inline=False)
-        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
-        await ctx.send(embed=embed)
-        
-    @commands.command()
-    async def author(self, ctx):
-        async with aiohttp.ClientSession() as session:
-            async with session.get('https://i.imgur.com/jH1LRM0.jpg') as resp:
-                if resp.status != 200:
-                    return await ctx.send('Ой-ой! Не могу загрузить картинку!')
-                data = io.BytesIO(await resp.read())
-                await ctx.send(file=discord.File(data, 'cool_image.png'))
-#        await ctx.send("https://imgur.com/gallery/jH1LRM0")
-#        await ctx.send(file=discord.File('https://i.imgur.com/jH1LRM0.jpg'))
-        
-#    @commands.command()
-#    async def add(self, ctx, a: int, b: int):
-#        await ctx.send(a+b)
-
-#    @commands.command()
-#    async def multiply(self, ctx, a: int, b: int):
-#        await ctx.send(a*b)        
 
     @commands.command(aliases=['rand', 'roll'])
     async def random(self, ctx, *arg):
@@ -94,13 +48,14 @@ class bmain():
                 await ctx.send(f':thinking: {random.choice(coin)}')
                 return
             elif arg[0] == 'user':
-                members = ctx.message.guild.members
-                randomuser = random.choice(members)
-                if ctx.channel.permissions_for(ctx.author).mention_everyone:
-                    user = randomuser.mention
-                else:
-                    user = randomuser.display_name
-                await ctx.send(f'{user}! RNG избрал Вас!')
+                ulist = []
+                for user in ctx.channel.members:
+                   if user.status != discord.Status.offline and user.bot == False:
+                        ulist.append(user)
+                randomUser = random.choice(ulist)
+                user = randomUser.mention
+                author = ctx.message.author.mention
+                await ctx.send(f'{user}! RNG избрал Вас! Все вопросы к {author}! Я только посредник.')
                 return
             elif len(arg) == 1:
                 start = 1
@@ -110,16 +65,32 @@ class bmain():
                 end = int(arg[1])
             await ctx.send(f':thinking: Случайное число ({start} - {end}): {random.randint(start, end)}')
 
+    @commands.command()
+    async def choose(self, ctx, *choices : str):
+        if len(choices) > 6:
+            await ctx.send('Слишком сложно! Попробуйте ввести 6 или меньше вариантов!')
+        else:
+            await ctx.send(f':thinking: {random.choice(choices[:6])} - таков мой выбор!')
+
     @commands.command(aliases=['shipping', 'pairing'])
-    @commands.cooldown(1, 6000, commands.BucketType.user)
+    @commands.cooldown(1, 7200, commands.BucketType.guild)
     async def shippering(self, ctx):
-            members = ctx.message.guild.members
-            membersonline = members
-            randomuser1 = random.choice(membersonline)
-            randomuser2 = random.choice(membersonline)
-            await ctx.send(f'{randomuser1.mention}...')
-            await sleep(3)
-            await ctx.send(f'...и {randomuser2.mention}! Нет лучше пары в Ордорейде!')
+            ulist = []
+            for user in ctx.channel.members:
+                if user.status != discord.Status.offline and user.bot == False:
+                    ulist.append(user)
+            randomUser = random.choice(ulist)
+            ulist1 = []
+            for user in ctx.channel.members:
+                if user.status != discord.Status.offline and user.bot == False and user != randomUser:
+                    ulist1.append(user)            
+            if len(ulist1) == 0:
+               await ctx.send('Ой-ой! Что-то пошло не так и я не смог выбрать второго ананасика! Вызвайте экзорциста! Или вы надо мной подтруниваете и решили проверить вызову ли я Вас дважды если Вы один в канале?! Хитро (нет)')
+            else:
+                randomUser1 = random.choice(ulist1)
+                await ctx.send(f'{randomUser.mention} и...')
+                await sleep(1)
+                await ctx.send(f'...{randomUser1.mention}! Нет лучше пары в Ордорейде!')
 
     @commands.command()
     async def countdown(self, ctx):
@@ -129,12 +100,6 @@ class bmain():
             await asyncio.sleep(1)
         await ctx.send('**За Орду! За Ананасиков! За Выдроликого!**')
 
-#    @commands.command()
-#    async def saythanks(self, ctx): 
-#        await ctx.send('Спасибо!')
-#        await sleep(5)
-#        await ctx.send('Оу! Аддон же еще! Вот ссылка - <https://yadi.sk/d/zcgFOHZb0isZIw> Простите...')
-     
     @commands.command()
     async def userinfo(self, ctx, *, name=''):
         if name:
@@ -143,11 +108,11 @@ class bmain():
             except IndexError:
                 user = ctx.guild.get_member_named(name)
             if not user:
-                user = ctx.guild.get_member(int(name))
+                user = ctx.guild.get_member(str(name))
             if not user:
-                user = self.bot.get_user(int(name))
+                user = self.bot.get_user(str(name))
             if not user:
-                await ctx.send(self.bot.bot_prefix + 'Не могу найти такого Ананасика!')
+                await ctx.send('Не могу найти такого Ананасика! Команда чувствительна к регистру.')
                 return
         else:
             user = ctx.message.author
@@ -170,6 +135,51 @@ class bmain():
         embed.set_thumbnail(url=avi)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         await ctx.send(embed=embed)
+
+    @staticmethod
+    def _getRoles(roles):
+        string = ''
+        for role in roles:
+            if not role.is_default():
+                string += f'{role.mention}, '
+        if string is '':
+            return 'None'
+        else:
+            return string[:-2]
+
+    @staticmethod
+    def _getEmojis(emojis):
+        string = ''
+        for emoji in emojis:
+            string += str(emoji)
+        if string is '':
+            return 'None'
+        else:
+            return string[:1000]
+
+    @commands.command()
+    @commands.cooldown(1, 600, commands.BucketType.guild)
+    async def serverinfo(self, ctx):
+        emojis = self._getEmojis(ctx.guild.emojis)
+        roles = self._getRoles(ctx.guild.roles)
+        embed = discord.Embed(title='**Это мой дом!**', colour=0xa500ff)
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+        embed.set_thumbnail(url=ctx.guild.icon_url)
+        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+        embed.add_field(name='Название', value=ctx.guild.name, inline=True)
+        embed.add_field(name='ID', value=ctx.guild.id, inline=True)
+        embed.add_field(name='Создатель', value=ctx.guild.owner.mention, inline=True)
+        embed.add_field(name='Регион', value=ctx.guild.region, inline=True)
+        embed.add_field(name='Количество Ананасиков', value=ctx.guild.member_count, inline=True)
+        embed.add_field(name='Дата создания', value=ctx.guild.created_at.strftime('%d.%m.%Y'), inline=True)
+        embed.add_field(name='AFK таймаут', value=f'{int(ctx.guild.afk_timeout / 60)} min', inline=True)
+        embed.add_field(name='AFK канал', value=ctx.guild.afk_channel, inline=True)
+        embed.add_field(name='Фильтр контента', value=ctx.guild.explicit_content_filter, inline=True)
+        embed.add_field(name='Уровень верификации', value=ctx.guild.verification_level, inline=True)
+        embed.add_field(name='Роли', value=roles, inline=True)
+        embed.add_field(name='Емодзи', value=emojis, inline=True)
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(bmain(bot))

@@ -1,189 +1,295 @@
 import discord
 from discord.ext import commands
 
+
 class encounters():
 	def __init__(self, bot):
 		self.bot = bot
 
 	@commands.command(aliases=['bossiques', 'listboss'])
 	async def bosslist(self, ctx):
-		embed = discord.Embed(title="Ульдир, Чертоги Управления:", color=0xa500ff)
-		embed.set_thumbnail(url="https://www.felboost.com/wp-content/uploads/2018/08/Uldir-Raid-Normal.png")
-		embed.add_field(name="Талок", value="%taloc")
-		embed.add_field(name="МАТРИАРХ", value="%mother")
-		embed.add_field(name="Зловонный пожиратель", value="%fetid")
-		embed.add_field(name="Зек'воз, глашатай Н'Зота", value="%zekvoz")
-		embed.add_field(name="Вектис", value="%vectis")
-		embed.add_field(name="Зул", value="%zul")
-		embed.add_field(name="Митракс Развоплотитель", value="%mythrax")
-		embed.add_field(name="Г'уун", value="%ghuun")
-		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+		embed = discord.Embed(title="Список рейдовых подземелий и боссов про которые я могу дать справочную информацию:", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url='https://i.imgur.com/A7tQuJ1.png')
+		embed.add_field(name="**Мифические подземелья:**", value='''**;mythicplus ;плюсы** - Общая информация по М+
+																	**;ataldazar ;аталдазар** - Атал'Дазар
+																	**;motherlode ;жила** - ЗОЛОТАЯ ЖИЛА!!!
+																	**;sethraliss  ;tos ;сетралисс** - Храм Сетралисс
+																	**;kingsrest ;гробница** - Гробница королей
+																	**;toldagor ;толдагор** - Тол Дагор
+																	**;boralus ;sob ;боралус** - Осада Боралуса
+																	**;underrot ;подгнилье** - Подгнилье
+																	**;freehold ;гавань** - Вольная гавань
+																	**;waycrest ;manor ;усадьба** - Усадьба Уэйкрестов
+																	**;shrine ;storm ;святилище** - Святилище штормов
+																	''')
+		embed.add_field(name="**Ульдир, Чертоги Управления:**", value='''**;taloc ;талок** - Талок
+																		**;mother ;матриарх** - МАТРИАРХ
+																		**;fetid ;пожиратель** - Зловонный пожиратель
+																		**;zekvoz ;зеквоз** - Зек'воз, глашатай Н'Зота
+																		**;vectis ;вектис** - Вектис
+																		**;zul ;зул** - Зул
+																		**;mythrax ;митракс** - Митракс Развоплотитель
+																		**;ghuun ;гахун ;гуун** - Г'уун
+																		''')
+		embed.add_field(name="**Горнило бурь:**", value='''**;crucible ;cos  ;горнило** - Горнило бурь
+																	''', inline=False)
+		embed.add_field(name="**Битва за Дазар'алор:**", value='''**;dazaralor ;bod ;дазаралор** - Битва за Дазар'алор
+																	''',inline=False)
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
 		await ctx.send(embed=embed)
-	
-	@commands.command()
+
+	@commands.command(aliases=['плюсы'])
+	async def mythicplus(self, ctx):
+		embed = discord.Embed(title="Общая информация по М+", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQphTFhRv7K17fWZiL6YkIPHwFVLdBgEvVQrpHtJb6xKrRcjf7Cg")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/mythic-keystones-and-dungeons-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/mythic-guides)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49227.0)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['аталдазар'])
+	async def ataldazar(self, ctx):
+		embed = discord.Embed(title="Атал'Дазар", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-yazma.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/ataldazar-dungeon-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=48894.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=QmZqfPkYxKU)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['жила'])
+	async def motherlode(self, ctx):
+		embed = discord.Embed(title="ЗОЛОТАЯ ЖИЛА!!!", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-mogulrazdunk.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/motherlode-dungeon-ability-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=48926.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=MDNwapFUH8U)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['сетралисс', 'tos'])
+	async def sethraliss(self, ctx):
+		embed = discord.Embed(title="Храм Сетралисс", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-avatarofsethraliss.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/temple-of-sethraliss-dungeon-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49155.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=8yFEoGPo37M)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['гробница'])
+	async def kingsrest(self, ctx):
+		embed = discord.Embed(title="Гробница королей", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-dazarthefirstking.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/kings-rest-dungeon-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49010.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=Wgv6BaT0zPQ)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['толдагор'])
+	async def toldagor(self, ctx):
+		embed = discord.Embed(title="Тол Дагор", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-overseerkorgus.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/tol-dagor-dungeon-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=48954.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=NA217FsaWCQ)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['боралус', 'sob'])
+	async def boralus(self, ctx):
+		embed = discord.Embed(title="Талок", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-viqgoth.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/siege-of-boralus-dungeon-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49178.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=AA4jD4gllSw)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['подгнилье'])
+	async def underrot(self, ctx):
+		embed = discord.Embed(title="Подгнилье", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-unboundabomination.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/underrot-dungeon-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49021.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=Eu-fVQychkU)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['усадьба', 'manor'])
+	async def waycrest(self, ctx):
+		embed = discord.Embed(title="Усадьба Уэйкрестов", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-goraktul.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/waycrest-manor-dungeon-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=48998.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=XvdWNmxtsAk)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['гавань'])
+	async def freehold(self, ctx):
+		embed = discord.Embed(title="Вольная гавань", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-harlan-sweete.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/freehold-dungeon-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=48902.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=ydXF-Fj8msw)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['святилище', 'storm'])
+	async def shrine(self, ctx):
+		embed = discord.Embed(title="Святилище штормов", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-volziththewhisperer.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/shrine-of-the-storm-dungeon-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49142.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=pvSFZjjAOV0)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['талок'])
 	async def taloc(self, ctx):
 		embed = discord.Embed(title="Талок", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-taloc.png")
-		embed.add_field(name="Фаза 1", value='''Бойцы и целители выносят Выброс плазмы в одну сторону.
-												По достижению 100 ед. энергии Талок применяет Кровавый отбойник на активного танка. Танк должен забежать в скопление луж, чтобы поглотить их.
-												Во время Кровавого отбойника отбегайте от места удара на расстояние более 30 м.
-												Не стойте на пути босса, когда он возвращается за дубиной обратно. Он откидывает и наносит урон всем, кто был на его пути.
-												Избегайте урона от шаров Кровавого обстрела.''')
-		embed.add_field(name="Фаза 2", value='''Вторая фаза начинается в момент, когда здоровье босса опускается до 35%. В это время он выйдет к центру платформы и отключится, разлив под собой большую лужу. Платформа начнёт спускаться вниз.
-												Танки берут на себя Сгустки крови, ведя их по окружности, по мере засорения платформы войд-зонами.
-												Нестабильные капли фиксируются на случайном персонаже и при контакте с любым игроком взрываются, нанося урон и раскидывая всех в радиусе 5 м. На них действуют эффекты замедления, отталкивания и оглушения.
-												Все участники рейда передвигаются одной группой, уничтожая Сгустки крови и Нестабильные капли.
-												Следите за возникающими Ульдирскими защитными лучами по проему между стеной и платформой.''')
-		embed.add_field(name="Фаза 3", value='''Третья фаза начнется в момент, когда платформа опустится до конца вниз. Талок вновь станет активным, оглушив и раскидав игроков в направлении от центра платформы. Всем можно спрыгнуть заранее, чтобы лучше разлить лужи от Кровавой бури.
-												Один танк берёт босса на себя. Второй оставшийся – Сгустки крови. После этого свободный танк может взрывать своим телом Нестабильные капли. Бойцы дальнего боя помогают убивать Сгустки крови.
-												Затем бой становится аналогичен первой фазе, за тем лишь исключением, что платформа больше по размерам и продолжают появляться Нестабильные капли.''')
-		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/taloc-uldir-raid-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49185.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=CRR9glyQYUg)')
 		await ctx.send(embed=embed)
 
-	@commands.command()
+	@commands.command(aliases=['матриарх'])
 	async def mother(self, ctx):
 		embed = discord.Embed(title="МАТРИАРХ", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-mother.png")
-		embed.add_field(name="__", value='''Зона боя разделена на три комнаты. Находясь внутри, МАТРИАРХ активирует Полное очищение и через 3 минуты все, кто остался в комнате, погибнут.
-											Комнаты разделены Защитной матрицей. При переходе любого игрока все участники рейда получат урон и через 3 секунды появится Остаточная порча. Кроме того, через Защитную матрицу не проходит урон и исцеление.
-											С начала боя активный танк провоцирует босса на себя и держит возле входа в следующую комнату спиной к рейду.
-											Танк может уворачиваться от удара Дезинфекции, который МАТРИАРХ применяет в секторе перед собой (или меняться на 1-2 стаках эффекта Дезинфекции с другим танком).
-											На протяжении всего боя босс применяет Очищающее пламя – войд-зоны под каждым игроком, из которых необходимо выбегать, и Ветряной туннель – поток ветра, который сдувает всех игроков в огонь.''')
-		embed.add_field(name='__', value='''Перебегая через Защитную матрицу, каждый игрок создаёт одну Остаточную порчу, которую необходимо быстро убить, при этом прерывая ей заклинание Цепкая порча.
-											С начала сражения можно отправить через Защитную матрицу 3-5 игроков (одного целителя и бойцов), затем постепенно перебегать остальным. Последними перейти должны активный танк и его целитель. Как только босс перейдёт в следующую комнату, запустится 3-минутный таймер Полное очищение.
-											Начиная со второй комнаты станут появляться Ульдирские защитные лучи – игрокам необходимо протиснуться в широкий проём между лучами.
-											В третьей комнате МАТРИАРХ станет наиболее уязвима и будет получать на 100% больше урона, благодаря Энергетическому истощению. БЛ и его аналоги лучше всего использовать в третьей комнате.
-											Бой завершиться на 10% здоровья босса.''')
-		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/mother-uldir-raid-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/mother-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49193.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=d3Et9e8OYMI)')
 		await ctx.send(embed=embed)
 
-	@commands.command()
+	@commands.command(aliases=['пожиратель'])
 	async def fetid(self, ctx):
 		embed = discord.Embed(title="Зловонный пожиратель", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-fetiddevourer.png")
-		embed.add_field(name='__', value='''Танк провоцирует босса на себя и отводит к центру комнаты. Второй танк становится близко к первому, чтобы делить Ужасающую взбучку.
-											Накопив 100 ед. энергии, босс применит Срыгивание гнили – конусная атака размером с комнату. От нее проще всего увернуться, стоя близко к боссу.
-											На случайных игроках время от времени будет появляться отрицательный эффект Зловонные миазмы, который наносит небольшой урон и длятся 18 сек. По истечении времени эффект заменяется на Тлетворные миазмы, которые длятся меньше, но наносят больше урона.''')
-		embed.add_field(name="__", value='''Из двух ячеек время от времени начинает сочится кровь, которая образует Частицу порчи. При появлении Частицы применяют Манящую эссенцию, и по окончании ее действия босс побежит к Частице и съест её, восполнив себе 10% здоровья.
-											Игрокам следует как можно быстрее убивать Частицы порчи. Опасайтесь Срыгивания гнили, следите за энергией босса, чтобы не попасть под его дыхание.
-											Когда запас здоровья босса опустится до 50%, он получит бафф Зловонное бешенство, который увеличит наносимый им урон на 25% и получаемый на 50%. БЛ и его аналоги эффективнее всего сдавать после достижения боссом 50% здоровья.''')
-		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/fetid-devourer-uldir-raid-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/fetid-devourer-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49194.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=H-8LizAiKbw)')
 		await ctx.send(embed=embed)
 
-	@commands.command()
+	@commands.command(aliases=['зеквоз'])
 	async def zekvoz(self, ctx):
 		embed = discord.Embed(title="Зек'воз, глашатай Н'Зота", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-zekvozheraldofnzoth.png")
-		embed.add_field(name="Общие умения", value='''С пулла активный танк провоцирует Зек’воза на себя и разворачивает спиной к рейду. Второй танк стоит сбоку, чтобы не попасть под конусный удар Хлыста Бездны. Меняются танки при получении Раскалывания, увеличивающего входящий урон на 50%.
-														Накопив 100 ед. энергии, босс применяет Извергающуюся тьму. Это серия из трёх взрывов, которые наносят урон всем игрокам и дополнительно тем, кто оказался в местах падения снарядов. Во время Извергающийся тьмы возникают свободные пространства в виде колец – забегайте в них.''')
-		embed.add_field(name="Фаза 1: ХАОС", value='''На этой фазе начнут появляться Силитиды-воины, которые фиксируются на игроках. Их нужно убить побочным уроном по области, и для упрощения этого желательно сгруппироваться. К существам можно применять Хватку Кровожада.
-														На первой фазе будет появляться проекция К’Туна, которую можно отследить по таймерам. По очереди на случайных игроков будет вешаться Пронзающий взгляд, который взрывается через 3,5 сек. и наносит средний урон. С ним необходимо держать дистанцию, иначе эффект перескочит на другого игрока в радиусе 10 м. и нанесёт ему куда больший урон, затем еще на одного игрока и так далее.''')
-		embed.add_field(name="Фаза 2: ОБМАН", value='''Как только здоровье босса опустится до 65%, начнётся вторая фаза. Общие способности босса останутся, а все умения первой фазы заменятся на новые.
-														В трёх фиксированных точках начинают появляться Нерубские заклинатели Бездны. Их можно откидывать, притягивать, использовать на них почти все виды контроля. Ваша задача – убить их поскорее и постараться, чтобы они применили как можно меньше Стрел Бездны.
-														Важнейшей частью этой фазы является Тревожный обман. Это отрицательный эффект, с которым за 12 сек. игрок должен выбежать в место, где нет других игроков. Как только время эффекта истечёт, под игроком образуется облако,  перемещающееся медленно и хаотично. Облака будут существовать до конца всего боя, и если любой игрок заденет одно из них – появится страж Йогг-Сарона. Страж при смерти или накоплении 100 ед. энергии наносит сильный урон всем участникам рейда. Для этого важно выносить Обман в свободные от людей места.''')
-		embed.add_field(name="Фаза 3: ПОРЧА", value='''На 30% здоровья Зек’воз переходит в последнюю стадию. Здесь вас ждут общие способности босса и Сфера порчи. Босс перестает применять умения со второй фазы.
-														Ключевая особенность последней фазы заключается в Сфере порчи. Это шар, который медленно опускается на пол. Ваша задача перекрыть его своим телом, оттолкнув обратно вверх. Сделав это, вы получите эффект Сделка с Осквернителем, увеличивающий здоровье, урон и исцеление на 100% на 30 секунд.
-														Важно отметить, что если в зоне приземления сферы будет несколько человек, то Сделку с Осквернителем получит лишь один игрок. Если игроков при приземлении не окажется, то сфера опустится и начнет периодически наносить урон всему рейду.
-														Как только Сделка с Осквернителем закончится, игрок окажется под контролем босса, став враждебным к другим игрокам. Задача бойцов – опустить запас здоровья этого игрока до 50%, чтобы развеять эффект. Желательно под конец действия Сделки с Осквернителем находится рядом с боссом.''')
-		embed.add_field(name="__", value='''БЛ и его аналоги лучше придержать до момента, когда один – два бойца окажутся под эффектом Сделки с Осквернителем''')
-		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/zekvoz-herald-of-nzoth-uldir-raid-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/zek-voz-herald-of-n-zoth-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49235.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=8uPeKRXuiTQ)')
 		await ctx.send(embed=embed)
 
-	@commands.command()
+	@commands.command(aliases=['вектис'])
 	async def vectis(self, ctx):
 		embed = discord.Embed(title="Вектис", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-vectis.png")
-		embed.add_field(name="Краткое описание боя с боссом:", value='''Ключевая способность в сражении с боссом – Омега-вектор. С самого начала и до конца сражения три дебафа Омега-вектора перекидываются с одних игроков на других ближайших по окончании действия. Наносит периодический урон и вешает отрицательный эффект Непроходящее заражение, увеличивающий урон от танковского удара и периодического урона босса по всем.
-																	Старайтесь, чтобы Омега-вектор не перекидывался на танков и несколько Омега-векторов не было на одном игроке сразу.
-																	Бой с боссом состоит из двух фаз, сменяющих друг друга. Первая фаза длится 95 сек., а вторая – 30 сек. На первой фазе игроки могут атаковать босса напрямую, на второй – нет.''')
-		embed.add_field(name="Фаза 1: Поиск хозяев", value='''Танки меняются по спаданию эффекта Развивающийся патоген.
-																Отходите от человека с Вызреванием, чтобы не получать лишний урон.
-																При появлении Концентрированной чумы бойцы должны переключится на неё, не дав применить Иммуноподавление более одного раза.''')	
-		embed.add_field(name="Фаза 2: Распространение пандемии", value='''Босс превращается в бесформенную лужу, став недоступным для атак. Каждый кто касается лужи, получает отрицательный эффект Непроходящее заражение.
-																		Вектис переплывает в одну из восьми фиксированных точек и запускает Фонтан крови. Уворачивайтесь от гейзеров.
-																		Распределитесь по комнате, чтобы эффективно перекрывать Чумные бомбы. На одну бомбу нужно выделить по одному человеку, так как урон от перекрытия не делится. Если Чумная бомба не была перекрыта, то появится Концентрированная чума''')
-		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/vectis-uldir-raid-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/vectis-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49268.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=oJK7an7qlmA)')
 		await ctx.send(embed=embed)
 
-	@commands.command()
+	@commands.command(aliases=['зул'])
 	async def zul(self, ctx):
 		embed = discord.Embed(title="Зул", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-zulreborn.png")
-		embed.add_field(name="Фаза 1: армия крови", value='''Отбегайте подальше от рейда по окончанию таймера Темных откровений. В идеале поставить 2 метки рядом друг с другом, куда игроки будут выбегать.
-															После Темных откровений в месте взрыва появятся несколько Прислужников Зула. Их нужно убить или лучше массово развеять, иначе дойдя до цели моб введёт игроков в радиусе 5 м. в страх.
-															При этом рейд позиционируется ближе к центру платформы, что бы быть подальше от Темных откровений и Прислужников Зула, которые появятся после него.
-															Танк провоцирует на себя Назманийскую крушительницу и разворачивает от рейда, так как перед собой «она» применяет Кровавый размах.
-															Танк отводит Назманийскую крушительницу или свободный танк провоцирует её при накоплении 90-95 ед. энергии.
-															Увести нужно более 30 м. от других врагов, что бы крушительница не дала врагам баф Пульсирующий гул увеличивающий их урон на 50%.''')
-		embed.add_field(name="__", value='''В начале боя второй танк берёт на себя Назманийскую проклинательница крови и Кровожадных крогов.
-											Кровожадные кроги умирают в центре платформы возле Зула от побочного клива, до того как они взорвутся. Бойцы в приоритете убивают Назманийскую проклинательница крови, только после этого переключаются в Назманийскую крушительницу.
-											Последующих проклинательниц крови следует танку держать подальше от рейда, а бойцам дальнего боя переключатся на неё. В случаи, когда не будет добита крушительница, вторую проклинательницу крови танк должен взять на себя и все бойцы очень быстро убивают её.
-											Сбивайте ей заклинания Кровавый осколок. Убивайте Оживленный гной который создаёт проклинательница, на гной действует большинство эффектов контроля.''')
-		embed.add_field(name="Фаза 2: Зул Пробужденный", value='''По достижению Зула 40% здоровья он станет активным, в этот и последующий момент не стойте у него перед лицом, иначе получите танковский удар Взрыв крови.
-																Свободный танк провоцирует Зула и отворачивает от рейда.
-																Активный танк получает стаки от конусного клива Взрыв крови, на 4-5 стаков которого танки меняются. По окончанию действия этого эффекта образуется лужа.
-																Танк по окончанию таймера Взрыва крови должен отбежать в свободную часть платформы.
-																Бойцы и целители располагаются подальше от края платформы так, чтобы между ними и краем не было лужи Взрыва крови.''')
-		embed.add_field(name="__", value='''Босс применяет к случайным игрокам Желание смерти из-за которого они под контролем движутся в ближайшую сторону к краю, что бы самоубиться. От игроков под действием Желание смерти нужно отойти и рассеять его. Появятся нам уже известные враги Прислужники Зула, которых также рассеять или убить
-																Целителям следует оставить мощные защитные заклинания на вторую фазу. На протяжении всей фазы рейд будет получать тикающий урон Порченая кровь, который не снимается, накапливается и висит бесконечно.''')
-		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/zul-reborn-uldir-raid-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/zul-reborn-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49315.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=VpeAfPT51oQ)')
 		await ctx.send(embed=embed)
 
-	@commands.command()
+	@commands.command(aliases=['митракс'])
 	async def mythrax(self, ctx):
 		embed = discord.Embed(title="Митракс Развоплотитель", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-mythraxtheunraveler.png")
-		embed.add_field(name="Общее для всех фаз", value='''Собирайте сферы Фрагмента сущего, что бы снять с себя стаки Аннигиляции.''')
-		embed.add_field(name="Фаза 1: Зов забвения", value='''Танк с пула провоцирует босса на себя и отворачивает его от рейда в стену, неактивный танк становится на 90 градусов в сторону, дабы не получить Разрыв сущности. Танки меняются по истечению эффекта Разрыва сущности.
-															Держите расстояние друг с другом не менее 8 м., чтобы не допустить попадания нескольких игроков в Сферу забвения.
-															Назначьте двух человек ответственными за выбивание из Сфер, желательно бойцов дальнего боя с мгновенной атакой, которую можно использовать без особых затрат (обычно это охотники).
-															Убегайте, когда босс развернулся в вашу сторону и применяет Уничтожающий взрыв.
-															Когда на вас эффект Неизбежное уничтожение, выбегайте к стене, на 40+ м. от рейда. Так вы минимизируете урон по другим участникам.''')
-		embed.add_field(name="Фаза 2: Древнее пробуждение", value='''На 66% и 33% здоровья Митракс переходит на вторую фазу, которая длится 1 минуту.
-																	Босс идёт в центр комнаты, и, дойдя, становится почти неуязвимым, благодаря Пелене забвения, которая уменьшает получаемый урон на 99%.
-																	Митракс применит Пробуждение Залзеикса, нанеся большой урон всему рейду, в этот момент целителю лучше всего произвести мощное защитное заклинание.
-																	Держите расстояние друг от друга, так как при переходе на вторую фазу сразу две Сферы забвения появятся на игроках. Других Сфер на этой фазе уже не будет.
-																	Танки берут своих Н'ракских разрушителей и разводят их на 40+ м. друг от друга, иначе они будут получать на 80% меньше урона и наносить на 80% урона больше. Не забывайте прерывать им Залп Бездны.
-																	Бойцы и целители плотно становятся к одному из Н'ракских разрушителей. Таким образом проще будет убивать и прерывать касты Видениям безумца появляющемся из игроков и по таймеру отбегать от Луча уничтожения.''')
-		embed.add_field(name="__", value='''Через минуту Митракс станет активным и вновь начнется первая фаза.
-											За минуту постарайтесь убить двух Н'ракских разрушителей и получить как можно меньше стаков Аннигиляции.
-											По окончанию второй фазы можете заняться сбором Фрагментами сущего. В первую очередь это касается танков, поскольку к этому моменту на них может быть большое количество стаков Аннигиляции.''')
-		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/mythrax-the-unraveler-uldir-raid-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/mythrax-the-unraveler-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49297.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=OKz4tnYNvs8)')
 		await ctx.send(embed=embed)
 
-	@commands.command()
+	@commands.command(aliases=['гахун','гуун'])
 	async def ghuun(self, ctx):
 		embed = discord.Embed(title="Г'уун", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-ghuun.png")
-		embed.add_field(name="Общее для всех фаз", value='''Выносите подальше от рейда дебаф Взрывоопасная порча.
-															Избегайте шаров Смертоносной порчи, которые летят из игрока по спадению таймера Взрывоопасной порчи.''')
-		embed.add_field(name="Фаза 1: Зов забвения. Нижний уровень поля боя", value='''Атаковать Г’ууна на первой фазе бесполезно, на него действует эффект Щит крови.
-																					Танк провоцирует на себя Порождение тьмы и подводит к Непомерным ужасам.
-																					Бойцы и целители подбегают в зону действия (10 м.) Порождения тьмы, когда оно накопит 100 ед. энергии и применит Темную сделку. Вы получите эффект, увеличивающий ваш урон и исцеление на 25%.
-																					Танку, напротив, следует отбежать, так как дебаф увеличивает и входящий урон на 25%. При повторном получении эффекта Темной сделки, пока висит другой, вы подчинитесь Г’ууну и вас придётся доводить до 50% здоровья. Подбегайте получать баф через раз.
-																					Бойцы в приоритете убивают Непомерный ужас и, по возможности, сбивают Мучения.
-																					Порождение тьмы целенаправленно убивать не нужно. Дайте Порождению тьмы трижды применить Темную сделку.''')
-		embed.add_field(name="Фаза 1: Зов забвения. Верхние платформы", value='''Заранее распределите последовательность отправки игроков на верхнюю платформу для перетаскивания Силовой матрицы в реактор. Обычно с этой задачей справляются два человека.
-																				Игроки с Силовой матрицей используют все доступные способности для ускорения передвижения. (Если в рейде есть чернокнижники, то перед боем они могут поставить ворота)
-																				Наносите урон Бесформенным кистам, что бы уменьшить радиус Пульсирующей массы, которая замедляет передвижение игрокам и наносит небольшой урон.''')
-		embed.add_field(name="__", value='''Игрок, который несёт Силовую матрицу, постепенно замедляется, вплоть до полной остановки. В этот момент используйте кнопку, чтобы перекинуть Силовую матрицу другому игроку. Радиус броска равен 20 м., и если вы промахнётесь, то Силовая матрица пропадёт и будет нужно нести другую с противоположной стороны.
-											На игрока, который нёс матрицу, повесится дебаф Несовершенная физиология, не позволяющий снова брать матрицу в течении 3 мин.
-											Как только 3 Силовые матрицы окажутся в реакторе, начнётся переход на вторую фазу. Запустится Взрыв пересозидания, который нанесет урон всем: игрокам и существам. Спуститесь на нижнюю платформу и встаньте кучей для исцеления.''')
-		embed.add_field(name="Фаза 2: Узрите мощь Г'ууна! Нижний уровень поля боя", value='''Появляется Г’уун и один из танков провоцирует его на себя. Танки меняются на 6-8 стаках дебафа Растущей порчи.
-																							Периодически босс сдаёт Волны порчи, которые наносят урон и вешают стак Порченой крови.''')
-		embed.add_field(name="__", value='''Эффект Порченая кровь не имеет ограничения по времени, снять его можно только тогда, когда на случайном игроке появится отрицательный эффект Кровавое пиршество. Все персонажи на нижнем уровне должны сбежаться на расстояние меньше чем 10 м. к игроку с Кровавым пиршеством. После чего появится Стонущий кошмар.
-											Стонущий кошмар повышает здоровье и урон за каждый поглощенный эффект Порченой крови. Свободный танк провоцирует Стонущий кошмар на себя, а бойцы мигом переключаются на него и убивают.
-											Целителям и бойца дальнего боя нужно быть особенно внимательными с Отупляющим бормотанием, которое наносит небольшой урон всему рейду и прерывает чтение заклинаний.''')
-		embed.add_field(name="Фаза 2: Узрите мощь Г'ууна! Верхние платформы", value='''Рейд должнен продолжить носить Силовые матрицы. При этом рассчитывайте, что нужно будет притащить ещё 3 сферы и активировать Взрыв пересозидания. Взрыв в свою очередь наносит большой урон Г’ууну. Дополнительно во время действия взрыва игроки наносят ему на 100% больше урона.
-																					На второй фазе на верхней платформе, возможно, потребуется целитель, так как к постоянному урону может прибавиться Порченая кровь на некоторых игроках.''')
-		embed.add_field(name="Фаза 3: Вы будете уничтожены!", value='''Как только запас здоровья босса достигнет 20%, реактор будет уничтожен и нужда ходить на верхние платформы исчезнет.
-																		Из-за взрыва реактора начинается Коллапс. Отбегайте от обломков подальше, так как с расстоянием от места падения их урон уменьшается.
-																		Танки по-прежнему меняются на 6-8 стаках Растущей порчи.
-																		Отворачивайтесь от босса под конец применения Взора Г'ууна.
-																		Г’уун продолжит применять Волны порчи, но теперь очистится от Порченой крови будет невозможно.
-																		Оставляйте БЛ и его аналоги на эту фазу.''')
-		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд [discord.gg/XJVagge]")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/ghuun-uldir-raid-strategy-guide)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/g-huun-guide-for-uldir)')
+		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49310.0)')
+		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=fxMamsFlplk)')
 		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['cos', 'горнило'])
+	async def crucible(self, ctx):
+		embed = discord.Embed(title="Горнило бурь", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://www.paymentscardsandmobile.com/wp-content/uploads/2016/09/World-of-Warcraft.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://ptr.wowhead.com/guides/crucible-of-storms-raid-overview)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/crucible-of-storms-raid-guides-for-battle-for-azeroth)')
+#		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49185.0)')
+#		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=CRR9glyQYUg)')
+		await ctx.send(embed=embed)
+
+	@commands.command(aliases=['bod','дазаралор'])
+	async def dazaralor(self, ctx):
+		embed = discord.Embed(title="Битва за Дазар'алор", color=0xa500ff)
+		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+		embed.set_thumbnail(url="https://www.paymentscardsandmobile.com/wp-content/uploads/2016/09/World-of-Warcraft.png")
+		embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+		embed.add_field(name='Wowhead', value='[Link](https://ptr.wowhead.com/guides/battle-of-dazaralor-raid-overview)')
+		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/battle-of-dazar-alor-raid-guides-for-battle-for-azeroth)')
+#		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49185.0)')
+#		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=CRR9glyQYUg)')
+		await ctx.send(embed=embed)
+
 
 def setup(bot):
 	bot.add_cog(encounters(bot))
