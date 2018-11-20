@@ -30,7 +30,7 @@ bot = commands.Bot(command_prefix=';', description=description)
 
 blacklist = [259237790749818880, 243839361173553154]
 
-shitlist = [212541475928408064]
+#huglist = [250235707975663616, 271018969140428800, 212541475928408064]
 
 bot.remove_command('help')
 
@@ -74,8 +74,8 @@ async def on_message(message):
         return
     if message.author.id in blacklist:
         return
-    if message.author.id in shitlist:
-        await message.add_reaction('💩')
+#    if message.author.id in huglist:
+#        await message.add_reaction('🤗')
     if isinstance(message.channel, discord.DMChannel):
         await message.author.send('Простите, я пока не очень умный, поэтому могу отвечать только в текстовых каналах! На самом деле это ограничение обусловленно тестовыми соображениями! :hugging: ')
         return

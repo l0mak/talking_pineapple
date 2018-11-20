@@ -18,7 +18,7 @@ class bmain():
         embed.add_field(name="**;wowlinks ;uselesslinks**", value="Ссылки на никому не нужную информацию.", inline=False)
         embed.add_field(name="**;thot ;guild**", value="Информация о любимой гильдии Господина Ананасика.", inline=False) 
         embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
-        embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. <username> - @mention или ник Ананасика (чувствительно к регистру). Просто ;userinfo выдаст информацию о Вас', inline=False) 
+        embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. **<username> - @mention или ник Ананасика** (чувствительно к регистру). Просто **;userinfo** выдаст информацию о Вас', inline=False) 
         embed.add_field(name='**;serverinfo**', value='Информация о дискорд сервере Ордорейда.', inline=False)
         embed.add_field(name='**;choose X Y Z**', value='Случайный выбор из введенных вариантов (не больше 6; просто потому что!).', inline=False)
         embed.add_field(name="**;random ;roll ;rand** ", value='''**;roll** Случайное чилсо от 0 до 100. 
@@ -70,7 +70,7 @@ class bmain():
         if len(choices) > 6:
             await ctx.send('Слишком сложно! Попробуйте ввести 6 или меньше вариантов!')
         else:
-            await ctx.send(f':thinking: {random.choice(choices[:6])} - таков мой выбор!')
+            await ctx.send(f':thinking: {random.choice(choices[:6])} - RNG боги сделали выбор!')
 
     @commands.command(aliases=['shipping', 'pairing'])
     @commands.cooldown(1, 7200, commands.BucketType.guild)
