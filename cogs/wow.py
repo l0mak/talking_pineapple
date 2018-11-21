@@ -92,6 +92,8 @@ class wow():
                     embed.add_field(name="**Последнее обновление API**", value=f'{timestmp}')
                     embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
                     await ctx.send(embed=embed)
+                else:
+                    await ctx.send('Ой-ой! Что-то пошло не так! Попробуйте еще раз, пожалуйста. Ну или вызвайте экзорциста!')
 
     @commands.command(aliases=['guild'])
     async def thot(self, ctx):    

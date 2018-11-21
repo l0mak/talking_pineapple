@@ -12,7 +12,7 @@ class other():
 
     @commands.command()
     async def other(self, ctx):    
-        embed = discord.Embed(title="**¯\ (°_o)/¯**", description="Команды не связанные ни с ордорейдом, ни с игрой, ни с ботом:", color=0xa500ff)
+        embed = discord.Embed(title="**¯\ (°_o)/¯**", description="Этот модуль будет пополняться всяким шлаком", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
         embed.add_field(name="**;ping**", value="Ping urself! Ой! Простите...", inline=False)
@@ -21,7 +21,6 @@ class other():
 #        embed.add_field(name="**;add X Y**", value="Сложение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
 #        embed.add_field(name="**;multiply X Y**", value="Умножение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
 #        embed.add_field(name="**;saythanks**", value="Ссылка на самый благодарный аддон в игре! Disclaimer: многие игроки на него негативно реагируют!", inline=False)
-        embed.set_footer(text="Этот модуль будет пополняться всяким шлаком")
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -49,7 +48,7 @@ class other():
 
     @commands.command()
     async def ping(self, ctx):
-        await ctx.send('Pong! :ananasique:')
+        await ctx.send('Pong!')
 
     @commands.command()
     async def author(self, ctx):
@@ -60,8 +59,6 @@ class other():
                     return 
                 data = io.BytesIO(await resp.read())
                 await ctx.send(file=discord.File(data, 'pic.png'))
-#        await ctx.send("https://imgur.com/gallery/jH1LRM0")
-#        await ctx.send(file=discord.File('https://i.imgur.com/jH1LRM0.jpg'))
 
 #    @commands.command()
 #    async def add(self, ctx, a: int, b: int):

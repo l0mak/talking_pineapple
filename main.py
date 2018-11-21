@@ -11,6 +11,7 @@ from discord.ext import commands
 from discord.utils import get
 
 import loadconfig
+from loadconfig import __blacklist__, __whitelist__
 
 __version__ = '1.2.1'
 
@@ -27,10 +28,6 @@ extensions = ['cogs.bmain', 'cogs.wow', 'cogs.test', 'cogs.encounters', 'cogs.er
 description = "Talking Pineapple Project is a Bot for Discord Voice Chat. It can recognise user's voice commands and use text-to-speech by itself. Soon..."
 
 bot = commands.Bot(command_prefix=';', description=description)
-
-blacklist = [259237790749818880, 243839361173553154]
-
-#huglist = [250235707975663616, 271018969140428800, 212541475928408064]
 
 bot.remove_command('help')
 
@@ -72,7 +69,7 @@ async def on_ready():
 async def on_message(message):
     if message.author.bot:
         return
-    if message.author.id in blacklist:
+    if message.author.id in __blacklist__:
         return
 #    if message.author.id in huglist:
 #        await message.add_reaction('🤗')
@@ -84,12 +81,12 @@ async def on_message(message):
             await message.channel.send('Здравствуйте!')
         else:
             await message.channel.send('Простите, не понимаю Вас! Вы можете использовать комнады **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:')
-    if 'молод' in message.content.lower():
-        await message.add_reaction('🤗')
-    if 'спас' in message.content.lower():
-        await message.add_reaction('🍍')
-    if 'токс' in message.content.lower():
-        await message.add_reaction('🍆')
+#    if 'молод' in message.content.lower():
+#        await message.add_reaction('🤗')
+#    if 'спас' in message.content.lower():
+#        await message.add_reaction('🍍')
+#    if 'токс' in message.content.lower():
+#        await message.add_reaction('🍆')
     else:
         await bot.process_commands(message)
            

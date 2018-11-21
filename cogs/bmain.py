@@ -70,7 +70,7 @@ class bmain():
         if len(choices) > 6:
             await ctx.send('Слишком сложно! Попробуйте ввести 6 или меньше вариантов!')
         else:
-            await ctx.send(f':thinking: {random.choice(choices[:6])} - RNG боги сделали выбор!')
+            await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(choices[:6])}')
 
     @commands.command(aliases=['shipping', 'pairing'])
     @commands.cooldown(1, 7200, commands.BucketType.guild)
@@ -88,9 +88,9 @@ class bmain():
                await ctx.send('Ой-ой! Что-то пошло не так и я не смог выбрать второго ананасика! Вызвайте экзорциста! Или вы надо мной подтруниваете и решили проверить вызову ли я Вас дважды если Вы один в канале?! Хитро (нет)')
             else:
                 randomUser1 = random.choice(ulist1)
-                await ctx.send(f'{randomUser.mention} и...')
+                await ctx.send(f'{randomUser.name} и...')
                 await sleep(1)
-                await ctx.send(f'...{randomUser1.mention}! Нет лучше пары в Ордорейде!')
+                await ctx.send(f'...{randomUser1.name}! Нет лучше пары в Ордорейде!')
 
     @commands.command()
     async def countdown(self, ctx):
