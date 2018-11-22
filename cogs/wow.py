@@ -8,15 +8,169 @@ import json
 import datetime
 import requests
 import re
+#import pickle
 
 from bs4 import BeautifulSoup
 
-from loadconfig import __wowID__, __wowSecret__, __wowLocale__
+from loadconfig import __wowID__, __wowSecret__, __wowLocale__, __whitelist__
+
+#from lists import tanks, healers, dodos, maybe
 
 class wow():
     def __init__(self, bot):
         self.bot = bot
-    
+
+#        self.tanks = [__tanks__]
+#        self.healers = [__healers__]
+#        self.dodos = [__dodos__]
+#        self.maybe = [__maybe__]
+
+#        self.themessage = 
+
+    @commands.command()
+    async def ml(self, ctx):
+        channel = discord.utils.get(self.bot.get_all_channels(), guild__name='Ордорейд', name='info')
+
+        with open('lists/tanks.txt', 'r') as t:
+            tanks = [line.strip() for line in t]
+            t.close
+
+        with open('lists/healers.txt', 'r') as h:
+            healers = [line.strip() for line in h]
+            h.close
+
+        with open('lists/dodos.txt', 'r') as d:
+            dodos = [line.strip() for line in d]
+            d.close
+
+        with open('lists/maybe.txt', 'r') as m:
+            maybe = [line.strip() for line in m]
+            m.close
+
+        embed = discord.Embed(title="Список записавшихся в мифический рейд:", description=f'Записаться можно командой **;mladd**, чтобы выбрать роль добавьте **tank heal dd** после пробела! Отписаться можно командой **;mlrm**. Информацию о рейдах можно посмотреть в канале {channel.mention}', color=0xa500ff)
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
+        embed.add_field(name="Всего:", value=f'''**{len(tanks)+len(healers)+len(dodos)+len(maybe)}** Ананасиков
+                                                **{len(tanks)}** Танков
+                                                **{len(healers)}** Лекарей
+                                                **{len(dodos)}** Наносителей урона
+                                                **{len(maybe)}** Неопределившихся''')
+        embed.add_field(name="Танки", value=tanks)
+        embed.add_field(name="Лекари", value=healers)
+        embed.add_field(name="Бойцы", value=dodos)
+        embed.add_field(name="Мутные какие-то", value=maybe)
+        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def mladd(self, ctx, *arg):
+        channel = discord.utils.get(self.bot.get_all_channels(), guild__name='Ордорейд', name='info')
+        name = ctx.author.mention
+        
+        with open('lists/maybe.txt', 'r+') as m:
+            mlines = m.readlines()
+            m.seek(0)
+            for i in mlines:
+                if name not in i:
+                    m.write(i)
+            m.truncate()
+
+        with open('lists/tanks.txt', 'r+') as t:
+            tlines = t.readlines()
+            t.seek(0)
+            for i in tlines:
+                if name not in i:
+                    t.write(i)
+            t.truncate()
+
+        with open('lists/healers.txt', 'r+') as h:
+            hlines = h.readlines()
+            h.seek(0)
+            for i in hlines:
+                if name not in i:
+                    h.write(i)
+            h.truncate()
+
+        with open('lists/dodos.txt', 'r+') as d:
+            dlines = d.readlines()
+            d.seek(0)
+            for i in dlines:
+                if name not in i:
+                    d.write(i)
+            d.truncate()
+
+        if ctx.invoked_subcommand is None:
+            if not arg:
+                t = open('lists/maybe.txt', 'a')
+                t.writelines(name+'\n')
+                t.close
+            elif arg[0] == 'tank':
+                t = open('lists/tanks.txt', 'a')
+                t.writelines(name+'\n')
+                t.close
+            elif arg[0] == 'heal' or arg[0 == 'healer']:
+                t = open('lists/healers.txt', 'a')
+                t.writelines(name+'\n')
+                t.close
+            elif arg[0] == 'dd':
+                t = open('lists/dodos.txt', 'a')
+                t.writelines(name+'\n')
+                t.close
+            await ctx.send(f'Oora! Вы записались в мифический рейд! Чтобы отписаться используйте команду **;mlrm** Информацию о рейдах можно посмотреть в канале {channel.mention}')
+   
+    @commands.command()
+    async def mlrm(self, ctx):
+        name = ctx.author.mention
+
+        with open('lists/maybe.txt', 'r+') as m:
+            mlines = m.readlines()
+            m.seek(0)
+            for i in mlines:
+                if name not in i:
+                    m.write(i)
+            m.truncate()
+
+        with open('lists/tanks.txt', 'r+') as t:
+            tlines = t.readlines()
+            t.seek(0)
+            for i in tlines:
+                if name not in i:
+                    t.write(i)
+            t.truncate()
+
+        with open('lists/healers.txt', 'r+') as h:
+            hlines = h.readlines()
+            h.seek(0)
+            for i in hlines:
+                if name not in i:
+                    h.write(i)
+            h.truncate()
+
+        with open('lists/dodos.txt', 'r+') as d:
+            dlines = d.readlines()
+            d.seek(0)
+            for i in dlines:
+                if name not in i:
+                    d.write(i)
+            d.truncate()
+
+        await ctx.send('Вы отписались от похода в мифический рейд! Ой-ой! Записаться вновь можно командой **;mladd**, чтобы выбрать роль добавьте **tank heal dd** после пробела!')
+
+    @commands.command()
+    async def mlclear(self, ctx):
+        if ctx.author.id in __whitelist__:
+            m = open('lists/maybe.txt', 'w')
+            m.close
+            t = open('lists/tanks.txt', 'w')
+            t.close
+            h = open('lists/healers.txt', 'w')
+            h.close
+            h = open('lists/dodos.txt', 'w')
+            h.close
+            await ctx.send('Ой-ой! Вы очистили список мифических Ананасиков!')
+        else:
+            await ctx.send('Ой-ой! Вам нельзя пользоваться этой командой!')
+
     @commands.command()
     async def wq(self, ctx):
         wq_page = 'https://www.wowhead.com/world-quests/bfa/eu'        
@@ -31,7 +185,7 @@ class wow():
             all_names.append(emissary.contents)
 
         str_names = "".join( repr(e) for e in all_names[:-7])
-        names = re.sub('[^A-Za-z0-9 ]+', '\n', str_names )
+        names = re.sub("[^A-Za-z0-9'` ]+", '\n', str_names )
 
         embed = discord.Embed(title="Сейчас в игре:", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')

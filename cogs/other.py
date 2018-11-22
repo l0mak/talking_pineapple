@@ -2,6 +2,10 @@ import discord
 from discord.ext import commands
 import aiohttp
 import io
+import random
+import asyncio
+from asyncio.tasks import sleep
+
 from discord.utils import get
 
 
@@ -17,21 +21,72 @@ class other():
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
         embed.add_field(name="**;ping**", value="Ping urself! Ой! Простите...", inline=False)
         embed.add_field(name="**;author**", value="Дает Вам представление о человеке, пишущем Бота.", inline=False)
-        embed.add_field(name="**;echo**", value="Вы хотите выговориться, но при этом остаться анонимным? Введите команду в формате ;echo <channel_id> <text> и яскажу все за Вас", inline=False)
+        embed.add_field(name="**;echo**", value='''Вы хотите выговориться, но при этом остаться анонимным? Введите команду в формате ;echo <channel_id> <text> и яскажу все за Вас.
+                                                    Ваше сообщение будет удалено не мгновенно. Но факт удаления не будет сохранен нигде, кроме моих логов. 
+                                                    Иными словами, если никто из двуногих Вас не заметит, все будет хорошо. 
+                                                    ```;echo 371799616687046658 Привет, Я Господин Ананасик!```''', inline=False)
+        embed.add_field(name="**;guess**", value="Игра низкой степни веселости.", inline=False)
+        embed.add_field(name="**;shippering ;shipping ;pairing**", value='''Дает двум случайным Ананасикам право не скрывать впредь своих чувств! Найдите друг друга в игре, обнимитесь и совершите любой подвиг, достойный героев Ордорейда!
+                                                                            Доказавшие свой подвиг скриншотом Ананасики, получат по 1000 золотых на TN!
+                                                                            ***По заказу <@!197381022118051840>***''', inline=False)
+        embed.add_field(name="**;countdown**", value="РЧ на пулл!", inline=False)
 #        embed.add_field(name="**;add X Y**", value="Сложение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
 #        embed.add_field(name="**;multiply X Y**", value="Умножение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
 #        embed.add_field(name="**;saythanks**", value="Ссылка на самый благодарный аддон в игре! Disclaimer: многие игроки на него негативно реагируют!", inline=False)
         await ctx.send(embed=embed)
 
+    @commands.command(aliases=['shipping', 'pairing'])
+    @commands.cooldown(1, 7200, commands.BucketType.guild)
+    async def shippering(self, ctx):
+            ulist = []
+            for user in ctx.channel.members:
+                if user.status != discord.Status.offline and user.bot == False:
+                    ulist.append(user)
+            randomUser = random.choice(ulist)
+            ulist1 = []
+            for user in ctx.channel.members:
+                if user.status != discord.Status.offline and user.bot == False and user != randomUser:
+                    ulist1.append(user)            
+            if len(ulist1) == 0:
+               await ctx.send('Ой-ой! Что-то пошло не так и я не смог выбрать второго ананасика! Вызвайте экзорциста! Или вы надо мной подтруниваете и решили проверить вызову ли я Вас дважды если Вы один в канале?! Хитро (нет)')
+            else:
+                randomUser1 = random.choice(ulist1)
+                await ctx.send(f'{randomUser.name} и...')
+                await sleep(1)
+                await ctx.send(f'...{randomUser1.name}! Нет лучше пары в Ордорейде!')
+
+    @commands.command()
+    async def countdown(self, ctx):
+        countdown = ['Пять!', 'Четыре!', 'Три!', 'Два!', 'Один!']
+        for num in countdown:
+            await ctx.send('**{0}**'.format(num))
+            await asyncio.sleep(1)
+        await ctx.send('**За Орду! За Ананасиков! За Выдроликого!**')
+
+    @commands.command()
+    async def guess(self, ctx):
+        await ctx.send('Угадайте число от 1 до 5')
+        def is_correct(m):
+            return m.author == ctx.author and m.content.isdigit()
+        answer = random.randint(1, 5)
+        try:
+            guess = await self.bot.wait_for('message', check=is_correct, timeout=5.0)
+        except asyncio.TimeoutError:
+            return await ctx.send('Простите! Вы слишком долго думали! Ответ был {}.'.format(answer))
+        if int(guess.content) == answer:
+            await ctx.send('Вы большой молодец!')
+        else:
+            await ctx.send('Вы не угадали! Ответ был {}.'.format(answer))
+
     @commands.command()
     async def echo(self, ctx, channel: str, *message: str):
-        if await ctx.bot.is_owner(ctx.author):
+ #       if await ctx.bot.is_owner(ctx.author):
             ch = self.bot.get_channel(int(channel))
             msg = ' '.join(message)
             await ch.send(msg)
             await ctx.message.delete()
-        else:
-            await ctx.send('Боюсь, что этой командой может пользоваться только мой автор. Простите!')
+#        else:
+#            await ctx.send('Боюсь, что этой командой может пользоваться только мой автор. Простите!')
 
 #    @commands.command()
 #    async def react(self, ctx):

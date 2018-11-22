@@ -11,9 +11,8 @@ from discord.ext import commands
 from discord.utils import get
 
 import loadconfig
-from loadconfig import __blacklist__, __whitelist__
 
-__version__ = '1.2.1'
+__version__ = '1.2.2'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
@@ -57,8 +56,8 @@ async def on_ready():
             bot.load_extension(cog)
         except Exception:
             print(f'Couldn\'t load cog {cog}')
-#    while not discord.opus.is_loaded():
-#        discord.opus.load_opus(find_library("libopus"))
+    while not discord.opus.is_loaded():
+        discord.opus.load_opus('opus')
     bot.startTime = datetime.datetime.now()
     bot.startDate = time.ctime()
     bot.botVersion = __version__
@@ -69,7 +68,7 @@ async def on_ready():
 async def on_message(message):
     if message.author.bot:
         return
-    if message.author.id in __blacklist__:
+    if message.author.id in loadconfig.__blacklist__:
         return
 #    if message.author.id in huglist:
 #        await message.add_reaction('🤗')
@@ -81,15 +80,12 @@ async def on_message(message):
             await message.channel.send('Здравствуйте!')
         else:
             await message.channel.send('Простите, не понимаю Вас! Вы можете использовать комнады **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:')
-#    if 'молод' in message.content.lower():
-#        await message.add_reaction('🤗')
-#    if 'спас' in message.content.lower():
-#        await message.add_reaction('🍍')
-#    if 'токс' in message.content.lower():
-#        await message.add_reaction('🍆')
+#    if 'когда рейд' in message.content.lower():
+#        channel = discord.utils.get(bot.get_all_channels(), guild__name='Ордорейд', name='info')
+#        await message.channel.send(f'Вся информация о рейдах в канале {channel.mention} ')
     else:
         await bot.process_commands(message)
-           
+
 @bot.command()
 async def info(ctx):
     embed = discord.Embed(title='Да-да, я 🍍', description='''Бот для дискорда, созданный исключительно в целях самообучения человеком очень далеким от программирования.
@@ -105,30 +101,29 @@ async def info(ctx):
     embed.add_field(name="Время работы", value=f'{(datetime.datetime.now() - bot.startTime)}')
     embed.add_field(name="Пинг", value=f'{1000*round(bot.latency, 3)}')
     embed.add_field(name="Справка по командам", value="**;help**")
-    embed.add_field(name='changelog', value='''Некоторые команды удалены за ненадобностью.
-                                                Команды **;pairing и ;random user** теперь выдают только пользователей онлайн из списка на канале вызова, не выдают Ботов (xD) и **;pairing** не может выдать одного пользователя дважды (pic).
-                                                Добавлен блок команд средней бесполезности и он будет пополняться. **;other**
-                                                Добавлены команды средней полезности. **;wt ;wf ;wq и ;wowlinks**
-                                                Модуль боссиков переделан так, чтобы вместо простыни текста выдавать ссылки на полезные ресурсы. В том числе и на грядущие рейды(Если есть, конечно, что выдавать) 
-                                                ''', inline=False)
-    embed.set_image(url='https://cdn.discordapp.com/attachments/389595828567801869/512177709397573632/unknown.png')
+    embed.add_field(name='Changelog', value='''Разблокировал **;echo** для всех. Делайте с этим что хотите.
+                                            Снял Mention с пейринга.
+                                            Бот умеет коннектиться к войсу и молчать в нем и не только. **;voice**
+                                            Сделал список мифических рейдеров как у Мистера Ордорейда. **Пользоваться им не надо! Он просто есть.** Я просто учусь.
+                                            ''', inline=False) #Команда для остановки(не ребута) бота **;qb**, пользоваться могут только Господин Суигинтырно, Шпротус Максимус и Джинзи-Великолепный (мало ли что). 
+    embed.set_image(url='http://4.bp.blogspot.com/-jS8wOvk80nI/UFQtgRYER5I/AAAAAAAAEVA/GEcnHkXasBM/w1200-h630-p-k-no-nu/cat_pineapple_makini_edit-2.jpg')
     embed.set_footer(text="/t Adeek,Sui,Sprotae /hug")
     await ctx.send(embed=embed)
 
 @bot.event
 async def on_member_join(member):
     channel = get(member.guild.channels, name='user_count')
-    await channel.send('Сдается мне, у нас новый друг! Oora!') 
+    await channel.send(f'Сдается мне, у нас новый друг! {member.mention} Oora!') 
             
 @bot.event
 async def on_member_remove(member):
     channel = get(member.guild.channels, name='user_count')
-    await channel.send(f'Ананасик покинул нас, милорд! {member.mention} куда же Вы!') 
+    await channel.send(f'Ананасик покинул наc! {member.mention} куда же Вы!') 
     
 @bot.command(hidden=True)
 async def qb(ctx):
     if await ctx.bot.is_owner(ctx.author):
-        await ctx.send('Споки!')
+        await ctx.send('Спокойной ночи!')
         bot.logout()
         sys.exit(0)
     else:

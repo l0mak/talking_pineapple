@@ -8,13 +8,13 @@ class errors_feedback:
     async def on_command_error(self, ctx, error):
         if hasattr(ctx.command, 'on_error'):
             return
-        
+
         error = getattr(error, 'original', error)
         
         if isinstance(error, commands.CommandNotFound):
             await ctx.channel.send('Простите, но я не знаю такой команды! Попробуйте **;help**')
             return
-
+        
         if isinstance(error, commands.UserInputError):
             await ctx.channel.send('Простите, но Вы допустили ошибку! Попробуйте ввести данные еще раз или посмотрите команду **;help**')
             return
@@ -22,6 +22,9 @@ class errors_feedback:
         if isinstance(error, commands.CommandOnCooldown):
             await ctx.channel.send('Простите, эту команду нельзя использовать так часто! Попробуйте еще раз через {:.2f} секунд.'.format(error.retry_after))
             return
-
+        
+        else:
+            await ctx.channel.send(f'Ой-ой! Что-то пошло не так! Возможно это как-то Вам поможет: {error}')
+            
 def setup(bot):
     bot.add_cog(errors_feedback(bot))

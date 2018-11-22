@@ -16,6 +16,10 @@ class bmain():
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
         embed.add_field(name="**;wt ;wf ;wq**", value="WowToken, Warfronts, WorldQuests", inline=False)
         embed.add_field(name="**;wowlinks ;uselesslinks**", value="Ссылки на никому не нужную информацию.", inline=False)
+        embed.add_field(name="**;ml**", value="Mythic List. Список мифических Ананасиков.", inline=False)
+        embed.add_field(name="**;mladd <role>**", value="Записаться в ряды мифических ананасиков. Роли **tank heal dd** ```;mladd tank```", inline=False)
+        embed.add_field(name="**;mlrm**", value="Убрать себя из списка мифических Ананасиков.", inline=False)
+        embed.add_field(name="**;mlclear**", value="Очистить список мифических Ананасиков.", inline=False)
         embed.add_field(name="**;thot ;guild**", value="Информация о любимой гильдии Господина Ананасика.", inline=False) 
         embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
         embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. **<username> - @mention или ник Ананасика** (чувствительно к регистру). Просто **;userinfo** выдаст информацию о Вас', inline=False) 
@@ -26,14 +30,10 @@ class bmain():
                                                                 **;roll coin** Монетка. 
                                                                 **;roll user** Случайный Ананасик.
                                                                 ''', inline=False)
-        embed.add_field(name="**;shippering ;shipping ;pairing**", value='''Дает двум случайным Ананасикам право не скрывать впредь своих чувств! Найдите друг друга в игре, обнимитесь и совершите любой подвиг, достойный героев Ордорейда!
-                                                                            Доказавшие свой подвиг скриншотом Ананасики, получат по 1000 золотых на TN!
-                                                                            ***По заказу <@!197381022118051840>***''', inline=False)
-        embed.add_field(name="**;countdown**", value="РЧ на пулл!", inline=False)
+        embed.add_field(name='**;voice**', value='Информация о голосовых возможностях бота.', inline=False)
+        embed.add_field(name='**;other**', value='Прочие команды.', inline=False)       
         embed.add_field(name="**;info**", value="Вызов справки по Боту.", inline=False)
         embed.add_field(name="**;help**", value="Вызов этого сообщения.", inline=False)
-        embed.add_field(name='**;voice**', value='Информация о голосовых возможностях бота. *Все очень плохо...*', inline=False)
-        embed.add_field(name='**;other**', value='Прочие команды.', inline=False)       
         embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
         await ctx.send(embed=embed)
 
@@ -71,34 +71,6 @@ class bmain():
             await ctx.send('Слишком сложно! Попробуйте ввести 6 или меньше вариантов!')
         else:
             await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(choices[:6])}')
-
-    @commands.command(aliases=['shipping', 'pairing'])
-    @commands.cooldown(1, 7200, commands.BucketType.guild)
-    async def shippering(self, ctx):
-            ulist = []
-            for user in ctx.channel.members:
-                if user.status != discord.Status.offline and user.bot == False:
-                    ulist.append(user)
-            randomUser = random.choice(ulist)
-            ulist1 = []
-            for user in ctx.channel.members:
-                if user.status != discord.Status.offline and user.bot == False and user != randomUser:
-                    ulist1.append(user)            
-            if len(ulist1) == 0:
-               await ctx.send('Ой-ой! Что-то пошло не так и я не смог выбрать второго ананасика! Вызвайте экзорциста! Или вы надо мной подтруниваете и решили проверить вызову ли я Вас дважды если Вы один в канале?! Хитро (нет)')
-            else:
-                randomUser1 = random.choice(ulist1)
-                await ctx.send(f'{randomUser.name} и...')
-                await sleep(1)
-                await ctx.send(f'...{randomUser1.name}! Нет лучше пары в Ордорейде!')
-
-    @commands.command()
-    async def countdown(self, ctx):
-        countdown = ['Пять!', 'Четыре!', 'Три!', 'Два!', 'Один!']
-        for num in countdown:
-            await ctx.send('**{0}**'.format(num))
-            await asyncio.sleep(1)
-        await ctx.send('**За Орду! За Ананасиков! За Выдроликого!**')
 
     @commands.command()
     async def userinfo(self, ctx, *, name=''):
