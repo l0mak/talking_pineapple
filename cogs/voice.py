@@ -185,7 +185,7 @@ class voice:
         embed.add_field(name='**;adeekdruid**', value='Получить бесценное знание о содержимом рук друида', inline=False)       
         embed.add_field(name='**;adeekspasibo**', value='SayThanks', inline=False)       
         embed.add_field(name='**;adeekzhoo**', value='Adeek pchelqa', inline=False)       
-        embed.set_footer(text="Этот модуль супер далек от совершенства. И в нем крайне мало написанного мной...")
+        embed.set_footer(text="Этот модуль супер далек от совершенства.")
         await ctx.send(embed=embed)
 
 

@@ -103,9 +103,10 @@ async def info(ctx):
     embed.add_field(name="Справка по командам", value="**;help**")
     embed.add_field(name='Changelog', value='''Разблокировал **;echo** для всех. Делайте с этим что хотите.
                                             Снял Mention с пейринга.
-                                            Бот умеет коннектиться к войсу и молчать в нем и не только. **;voice**
+                                            Бот умеет коннектиться к войсу, молчать в нем и не только. **;voice**
                                             Сделал список мифических рейдеров как у Мистера Ордорейда. **Пользоваться им не надо! Он просто есть.** Я просто учусь.
-                                            ''', inline=False) #Команда для остановки(не ребута) бота **;qb**, пользоваться могут только Господин Суигинтырно, Шпротус Максимус и Джинзи-Великолепный (мало ли что). 
+                                            Команда для остановки(не ребута) бота **;qb**, пользоваться могут только Господин Суигинтырно, Шпротус Максимус и Джинзи-Великолепный (мало ли что).
+                                            ''', inline=False)  
     embed.set_image(url='http://4.bp.blogspot.com/-jS8wOvk80nI/UFQtgRYER5I/AAAAAAAAEVA/GEcnHkXasBM/w1200-h630-p-k-no-nu/cat_pineapple_makini_edit-2.jpg')
     embed.set_footer(text="/t Adeek,Sui,Sprotae /hug")
     await ctx.send(embed=embed)
@@ -122,12 +123,13 @@ async def on_member_remove(member):
     
 @bot.command(hidden=True)
 async def qb(ctx):
-    if await ctx.bot.is_owner(ctx.author):
+    #if await ctx.bot.is_owner(ctx.author):
+    if ctx.author.id in loadconfig.__whitelist__:
         await ctx.send('Спокойной ночи!')
         bot.logout()
         sys.exit(0)
     else:
-        await ctx.send('Но Вы не мой Автор!')
+        await ctx.send('Вам нельзя укладывать меня спать!')
     
 
 if __name__ == '__main__':
