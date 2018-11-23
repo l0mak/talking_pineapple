@@ -57,7 +57,7 @@ async def on_ready():
         except Exception:
             print(f'Couldn\'t load cog {cog}')
     while not discord.opus.is_loaded():
-        discord.opus.load_opus('opus')
+        discord.opus.load_opus('libopus')
     bot.startTime = datetime.datetime.now()
     bot.startDate = time.ctime()
     bot.botVersion = __version__
@@ -106,8 +106,10 @@ async def info(ctx):
                                             Бот умеет коннектиться к войсу, молчать в нем и не только. **;voice**
                                             Сделал список мифических рейдеров как у Мистера Ордорейда. **Пользоваться им не надо! Он просто есть.** Я просто учусь.
                                             Команда для остановки(не ребута) бота **;qb**, пользоваться могут только Господин Суигинтырно, Шпротус Максимус и Джинзи-Великолепный (мало ли что).
-                                            ''', inline=False)  
-    embed.set_image(url='http://4.bp.blogspot.com/-jS8wOvk80nI/UFQtgRYER5I/AAAAAAAAEVA/GEcnHkXasBM/w1200-h630-p-k-no-nu/cat_pineapple_makini_edit-2.jpg')
+                                            Адик кисулькен!
+                                            ''', inline=False) 
+    embed.set_image(url='https://i.gifer.com/ZQ6E.gif') 
+#    embed.set_image(url='http://s011.radikal.ru/i318/1611/88/10a8427ad95f.gif')
     embed.set_footer(text="/t Adeek,Sui,Sprotae /hug")
     await ctx.send(embed=embed)
 
