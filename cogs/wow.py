@@ -58,7 +58,7 @@ class wow():
         embed.add_field(name="Танки", value=tanks)
         embed.add_field(name="Лекари", value=healers)
         embed.add_field(name="Бойцы", value=dodos)
-        embed.add_field(name="Мутные какие-то", value=maybe)
+        embed.add_field(name="Ананасики без роли", value=maybe)
         embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
         await ctx.send(embed=embed)
 
