@@ -29,7 +29,7 @@ class wow():
 
     @commands.command()
     async def ml(self, ctx):
-        channel = discord.utils.get(self.bot.get_all_channels(), guild__name='Ордорейд', name='info')
+        channel = discord.utils.get(self.bot.get_all_channels(), guild__id=300288070744539136, name='info')
 
         with open('lists/tanks.txt', 'r') as t:
             tanks = [line.strip() for line in t]
@@ -64,7 +64,7 @@ class wow():
 
     @commands.command()
     async def mladd(self, ctx, *arg):
-        channel = discord.utils.get(self.bot.get_all_channels(), guild__name='Ордорейд', name='info')
+        channel = discord.utils.get(self.bot.get_all_channels(), guild__id=300288070744539136, name='info')
         name = ctx.author.mention
         
         with open('lists/maybe.txt', 'r+') as m:
