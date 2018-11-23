@@ -30,6 +30,7 @@ class other():
                                                                             Доказавшие свой подвиг скриншотом Ананасики, получат по 1000 золотых на TN!
                                                                             ***По заказу <@!197381022118051840>***''', inline=False)
         embed.add_field(name="**;countdown**", value="РЧ на пулл!", inline=False)
+        embed.add_field(name="**;defence**", value="Ррр!", inline=False)
 #        embed.add_field(name="**;add X Y**", value="Сложение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
 #        embed.add_field(name="**;multiply X Y**", value="Умножение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
 #        embed.add_field(name="**;saythanks**", value="Ссылка на самый благодарный аддон в игре! Disclaimer: многие игроки на него негативно реагируют!", inline=False)
@@ -114,6 +115,21 @@ class other():
                     return 
                 data = io.BytesIO(await resp.read())
                 await ctx.send(file=discord.File(data, 'pic.png'))
+
+    @commands.command()
+    async def defence(self, ctx, *name : str):
+        async with aiohttp.ClientSession() as session:
+            async with session.get('http://s011.radikal.ru/i318/1611/88/10a8427ad95f.gif') as resp:
+                if resp.status != 200:
+                    await ctx.send('Ой-ой! Не могу загрузить зашитную картинку!')
+                    return 
+                data = io.BytesIO(await resp.read())
+                await ctx.send(f'Протокол защиты {name} активирован!')
+                await ctx.send(file=discord.File(data, 'pic.gif'))
+                await ctx.message.delete()
+#                else:
+#                    await ctx.send(f'Протокол защиты {name} активирован!')
+#                    await ctx.send(file=discord.File(data, 'pic.png'))
 
 #    @commands.command()
 #    async def add(self, ctx, a: int, b: int):
