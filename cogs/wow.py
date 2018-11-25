@@ -8,24 +8,15 @@ import json
 import datetime
 import requests
 import re
-#import pickle
 
 from bs4 import BeautifulSoup
 
 from loadconfig import __wowID__, __wowSecret__, __wowLocale__, __whitelist__
 
-#from lists import tanks, healers, dodos, maybe
 
 class wow():
     def __init__(self, bot):
         self.bot = bot
-
-#        self.tanks = [__tanks__]
-#        self.healers = [__healers__]
-#        self.dodos = [__dodos__]
-#        self.maybe = [__maybe__]
-
-#        self.themessage = 
 
     @commands.command()
     async def ml(self, ctx):

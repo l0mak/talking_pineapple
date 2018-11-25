@@ -104,13 +104,11 @@ async def info(ctx):
     embed.add_field(name='Changelog', value='''Разблокировал **;echo** для всех. Делайте с этим что хотите.
                                             Снял Mention с пейринга.
                                             Бот умеет коннектиться к войсу, молчать в нем и не только. **;voice**
-                                            Сделал список мифических рейдеров как у Мистера Ордорейда. **Пользоваться им не надо! Он просто есть.** Я просто учусь.
-                                            Команда для остановки(не ребута) бота **;qb**, пользоваться могут только Господин Суигинтырно, Шпротус Максимус и Джинзи-Великолепный (мало ли что).
-                                            Адик кисулькен!
+                                            Сделал список мифических рейдеров как у Мистера Ордорейда. **Пользоваться им не надо! Он просто есть.**
                                             ''', inline=False) 
     embed.set_image(url='https://i.gifer.com/ZQ6E.gif') 
 #    embed.set_image(url='http://s011.radikal.ru/i318/1611/88/10a8427ad95f.gif')
-    embed.set_footer(text="/t Adeek,Sui,Sprotae /hug")
+    embed.set_footer(text="/hug")
     await ctx.send(embed=embed)
 
 @bot.event
@@ -125,8 +123,8 @@ async def on_member_remove(member):
     
 @bot.command(hidden=True)
 async def qb(ctx):
-    #if await ctx.bot.is_owner(ctx.author):
-    if ctx.author.id in loadconfig.__whitelist__:
+    if await ctx.bot.is_owner(ctx.author):
+#    if ctx.author.id in loadconfig.__whitelist__:
         await ctx.send('Спокойной ночи!')
         bot.logout()
         sys.exit(0)

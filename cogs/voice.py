@@ -181,11 +181,11 @@ class voice:
         embed.add_field(name='**;queue ;np ;skip**', value='Управлеие очередью', inline=False)    
         embed.add_field(name='**;volume 0 - 100**', value='Управлеие громкостью', inline=False)
         embed.add_field(name='**Проигрывание файлов.**', value='Для комнад ниже Господина Ананасика сперва нужно пригласить в голосовй канал командой **;connect или ;join**', inline=False)
-        embed.add_field(name="**;test**", value="Получить лишнее доказательство уровня IQ человека, пишущего бота", inline=False) 
-        embed.add_field(name='**;adeekdruid**', value='Получить бесценное знание о содержимом рук друида', inline=False)       
-        embed.add_field(name='**;adeekspasibo**', value='SayThanks', inline=False)       
-        embed.add_field(name='**;adeekzhoo**', value='Adeek pchelqa', inline=False)       
-        embed.set_footer(text="Этот модуль супер далек от совершенства.")
+        embed.add_field(name="**;meow**", value="Получить лишнее доказательство уровня IQ человека, пишущего бота", inline=False) 
+#        embed.add_field(name='**;adeekdruid**', value='Получить бесценное знание о содержимом рук друида', inline=False)       
+#        embed.add_field(name='**;adeekspasibo**', value='SayThanks', inline=False)       
+#        embed.add_field(name='**;adeekzhoo**', value='Adeek pchelqa', inline=False)       
+#        embed.set_footer(text="")
         await ctx.send(embed=embed)
 
 
@@ -264,20 +264,20 @@ class voice:
         await ctx.send(f'Подключился к: **{channel}**', delete_after=20)
 
     @commands.command(pass_context=True)
-    async def test(self, ctx):
-        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/test.ogg'), after=lambda e: print('done', e))
+    async def meow(self, ctx):
+        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/meow.ogg'), after=lambda e: print('done', e))
 
-    @commands.command(pass_context=True)
-    async def adeekdruid(self, ctx):
-        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/adeekdruid.ogg'), after=lambda e: print('done', e))
+#    @commands.command(pass_context=True)
+#    async def adeekdruid(self, ctx):
+#        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/adeekdruid.ogg'), after=lambda e: print('done', e))
 
-    @commands.command(pass_context=True)
-    async def adeekzhoo(self, ctx):
-        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/adeekzhoo.ogg'), after=lambda e: print('done', e))
+#    @commands.command(pass_context=True)
+#    async def adeekzhoo(self, ctx):
+#        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/adeekzhoo.ogg'), after=lambda e: print('done', e))
 
-    @commands.command(pass_context=True)
-    async def adeekspasibo(self, ctx):
-        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/adeekspasibo.ogg'), after=lambda e: print('done', e))
+#    @commands.command(pass_context=True)
+#    async def adeekspasibo(self, ctx):
+#        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/adeekspasibo.ogg'), after=lambda e: print('done', e))
 
     @commands.command(name='play', aliases=['sing'])
     async def play_(self, ctx, *, search: str):

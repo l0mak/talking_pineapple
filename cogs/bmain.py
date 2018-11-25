@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import random
+import re
 import asyncio
 from asyncio.tasks import sleep
 
@@ -11,7 +12,7 @@ class bmain():
     
     @commands.command()
     async def help(self, ctx):    
-        embed = discord.Embed(title="Привет!", description="Я Говорящий Ананасик! На самом деле пока я не умею говорить! Надеюсь скоро™ смогу. Сейчас я умею:", color=0xa500ff)
+        embed = discord.Embed(title="Привет!", description="Я Говорящий Ананасик! Сейчас я умею:", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
         embed.add_field(name="**;wt ;wf ;wq**", value="WowToken, Warfronts, WorldQuests", inline=False)
@@ -24,7 +25,7 @@ class bmain():
         embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
         embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. **<username> - @mention или ник Ананасика** (чувствительно к регистру). Просто **;userinfo** выдаст информацию о Вас', inline=False) 
         embed.add_field(name='**;serverinfo**', value='Информация о дискорд сервере Ордорейда.', inline=False)
-        embed.add_field(name='**;choose X Y Z**', value='Случайный выбор из введенных вариантов (не больше 6; просто потому что!).', inline=False)
+        embed.add_field(name='**;choose X Y Z**', value='Случайный выбор из введенных вариантов (не больше 10; просто потому что!), разделенными запятыми. ```;choose Druid, Shaman, Priest```', inline=False)
         embed.add_field(name="**;random ;roll ;rand** ", value='''**;roll** Случайное чилсо от 0 до 100. 
                                                                 **;roll X Y** Случайное число в конкретном диапазоне. 
                                                                 **;roll coin** Монетка. 
@@ -66,11 +67,13 @@ class bmain():
             await ctx.send(f':thinking: Случайное число ({start} - {end}): {random.randint(start, end)}')
 
     @commands.command()
-    async def choose(self, ctx, *choices : str):
-        if len(choices) > 6:
-            await ctx.send('Слишком сложно! Попробуйте ввести 6 или меньше вариантов!')
+    async def choose(self, ctx, *choices: str):
+        chstr = " ".join(choices)
+        chlist = chstr.split(',')
+        if len(chlist) > 10:
+            await ctx.send('Слишком сложно! Попробуйте ввести 10 или меньше вариантов!')
         else:
-            await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(choices[:6])}')
+            await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(chlist)}')
 
     @commands.command()
     async def userinfo(self, ctx, *, name=''):
