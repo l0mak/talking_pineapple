@@ -278,7 +278,7 @@ class wow():
         embed.add_field(name="**Симкрафт:**", value='[SimulationCraft](http://simulationcraft.org/)|[Noxxic](http://www.noxxic.com/wow/dps|rankings/)|[AskMrRobot](https://www.askmrrobot.com/)|[RaidBots](https://www.raidbots.com/simbot)')
         embed.add_field(name="**Сравнения тринкетов, трейтов etc:**", value='[Bloodmallet](https://bloodmallet.com/index.html)|[HeroDamage](https://www.herodamage.com/)')
         embed.add_field(name="**Аддоны, викауры, профили ElvUI etc:**", value='[Curse](https://wow.curseforge.com/addons)|[TwitchClient](https://app.twitch.tv/download)|[TukUI&ElvUI](https://www.tukui.org/)|[WagoIO](https://wago.io)|[WoWinterface](http://wowinterface.com/addons.php)')
-        embed.add_field(name="**Гайды по петикам:**", value='[PetGuide](http://www.en.wow|petguide.com)')
+        embed.add_field(name="**Гайды по петикам:**", value='[PetGuide](http://www.wow-petguide.com)')
         embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
         await ctx.send(embed=embed)
 
