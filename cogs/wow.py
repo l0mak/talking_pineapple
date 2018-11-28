@@ -91,11 +91,11 @@ class wow():
                 t = open('lists/tanks.txt', 'a')
                 t.writelines(name+'\n')
                 t.close
-            elif arg[0] == 'heal' or arg[0 == 'healer']:
+            elif arg[0] == 'heal' or arg[0] == 'healer':
                 t = open('lists/healers.txt', 'a')
                 t.writelines(name+'\n')
                 t.close
-            elif arg[0] == 'dd':
+            elif arg[0] == 'dd' or arg[0] == 'dodo':
                 t = open('lists/dodos.txt', 'a')
                 t.writelines(name+'\n')
                 t.close
