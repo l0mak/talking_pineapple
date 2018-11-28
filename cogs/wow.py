@@ -20,25 +20,21 @@ class wow():
 
     @commands.command()
     async def ml(self, ctx):
-        channel = discord.utils.get(self.bot.get_all_channels(), guild__id=300288070744539136, name='info')
-
+#        channel = discord.utils.get(self.bot.get_all_channels(), guild__id=300288070744539136, name='info')
         with open('lists/tanks.txt', 'r') as t:
             tanks = [line.strip() for line in t]
             t.close
-
         with open('lists/healers.txt', 'r') as h:
             healers = [line.strip() for line in h]
             h.close
-
         with open('lists/dodos.txt', 'r') as d:
             dodos = [line.strip() for line in d]
             d.close
-
         with open('lists/maybe.txt', 'r') as m:
             maybe = [line.strip() for line in m]
             m.close
-
-        embed = discord.Embed(title="Список записавшихся в мифический рейд:", description=f'Записаться можно командой **;mladd**, чтобы выбрать роль добавьте **tank heal dd** после пробела! Отписаться можно командой **;mlrm**. Информацию о рейдах можно посмотреть в канале {channel.mention}', color=0xa500ff)
+#Информацию о рейдах можно посмотреть в канале {channel.mention}
+        embed = discord.Embed(title="Список записавшихся в мифический рейд:", description=f'Записаться можно командой **;mladd**, чтобы выбрать роль добавьте **tank heal dd** после пробела! Отписаться можно командой **;mlrm**. ', color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
         embed.add_field(name="Всего:", value=f'''**{len(tanks)+len(healers)+len(dodos)+len(maybe)}** Ананасиков
@@ -55,9 +51,8 @@ class wow():
 
     @commands.command()
     async def mladd(self, ctx, *arg):
-        channel = discord.utils.get(self.bot.get_all_channels(), guild__id=300288070744539136, name='info')
+#        channel = discord.utils.get(self.bot.get_all_channels(), guild__id=300288070744539136, name='info')
         name = ctx.author.mention
-        
         with open('lists/maybe.txt', 'r+') as m:
             mlines = m.readlines()
             m.seek(0)
@@ -65,7 +60,6 @@ class wow():
                 if name not in i:
                     m.write(i)
             m.truncate()
-
         with open('lists/tanks.txt', 'r+') as t:
             tlines = t.readlines()
             t.seek(0)
@@ -73,7 +67,6 @@ class wow():
                 if name not in i:
                     t.write(i)
             t.truncate()
-
         with open('lists/healers.txt', 'r+') as h:
             hlines = h.readlines()
             h.seek(0)
@@ -81,7 +74,6 @@ class wow():
                 if name not in i:
                     h.write(i)
             h.truncate()
-
         with open('lists/dodos.txt', 'r+') as d:
             dlines = d.readlines()
             d.seek(0)
@@ -107,12 +99,12 @@ class wow():
                 t = open('lists/dodos.txt', 'a')
                 t.writelines(name+'\n')
                 t.close
-            await ctx.send(f'Oora! Вы записались в мифический рейд! Чтобы отписаться используйте команду **;mlrm** Информацию о рейдах можно посмотреть в канале {channel.mention}')
-   
+            await ctx.send(f'Oora! Вы записались в мифический рейд! Чтобы отписаться используйте команду **;mlrm**')
+#Информацию о рейдах можно посмотреть в канале {channel.mention}   
+    
     @commands.command()
     async def mlrm(self, ctx):
         name = ctx.author.mention
-
         with open('lists/maybe.txt', 'r+') as m:
             mlines = m.readlines()
             m.seek(0)
@@ -120,7 +112,6 @@ class wow():
                 if name not in i:
                     m.write(i)
             m.truncate()
-
         with open('lists/tanks.txt', 'r+') as t:
             tlines = t.readlines()
             t.seek(0)
@@ -128,7 +119,6 @@ class wow():
                 if name not in i:
                     t.write(i)
             t.truncate()
-
         with open('lists/healers.txt', 'r+') as h:
             hlines = h.readlines()
             h.seek(0)
@@ -136,7 +126,6 @@ class wow():
                 if name not in i:
                     h.write(i)
             h.truncate()
-
         with open('lists/dodos.txt', 'r+') as d:
             dlines = d.readlines()
             d.seek(0)
