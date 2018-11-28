@@ -87,19 +87,24 @@ class wow():
                 t = open('lists/maybe.txt', 'a')
                 t.writelines(name+'\n')
                 t.close
+                await ctx.send(f'Oora! Вы записались в мифический рейд без роли! Чтобы отписаться используйте команду **;mlrm**')
             elif arg[0] == 'tank':
                 t = open('lists/tanks.txt', 'a')
                 t.writelines(name+'\n')
                 t.close
+                await ctx.send(f'Oora! Вы записались в мифический рейд как танк! Чтобы отписаться используйте команду **;mlrm**')
             elif arg[0] == 'heal' or arg[0] == 'healer':
                 t = open('lists/healers.txt', 'a')
                 t.writelines(name+'\n')
                 t.close
+                await ctx.send(f'Oora! Вы записались в мифический рейд как лекарь! Чтобы отписаться используйте команду **;mlrm**')
             elif arg[0] == 'dd' or arg[0] == 'dodo':
                 t = open('lists/dodos.txt', 'a')
                 t.writelines(name+'\n')
                 t.close
-            await ctx.send(f'Oora! Вы записались в мифический рейд! Чтобы отписаться используйте команду **;mlrm**')
+                await ctx.send(f'Oora! Вы записались в мифический рейд как наноситель урона! Чтобы отписаться используйте команду **;mlrm**')
+            else:
+                await ctx.send(f'Возможно что-то пошло не так и я Вас не понял. Названия ролей: **;mladd dd/dodo/heal/healer/tank**')
 #Информацию о рейдах можно посмотреть в канале {channel.mention}   
     
     @commands.command()
