@@ -17,14 +17,10 @@ class other():
 
     @commands.command()
     async def other(self, ctx):    
-        embed = discord.Embed(title="**¯\ (°_o)/¯**", description="Этот модуль будет пополняться всяким шлаком", color=0xa500ff)
+        embed = discord.Embed(title="**¯ \ _ (°_o) _ / ¯**", description="такие дела", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="**;ping**", value="Ping urself! Ой! Простите...", inline=False)
-        embed.add_field(name="**;author**", value="Дает Вам представление о человеке, пишущем Бота.", inline=False)
         embed.add_field(name="**;echo**", value='''Вы хотите выговориться, но при этом остаться анонимным? Введите команду в формате ;echo <channel_id> <text> и яскажу все за Вас.
-                                                    Ваше сообщение будет удалено не мгновенно. Но факт удаления не будет сохранен нигде, кроме моих логов. 
-                                                    Иными словами, если никто из двуногих Вас не заметит, все будет хорошо. 
                                                     ```;echo 371799616687046658 Привет, Я Господин Ананасик!```''', inline=False)
         embed.add_field(name="**;guess**", value="Игра низкой степни веселости.", inline=False)
         embed.add_field(name="**;shippering ;shipping ;pairing**", value='''Дает двум случайным Ананасикам право не скрывать впредь своих чувств! Найдите друг друга в игре, обнимитесь и совершите любой подвиг, достойный героев Ордорейда!
@@ -32,6 +28,8 @@ class other():
                                                                             ***По заказу <@!197381022118051840>***''', inline=False)
         embed.add_field(name="**;countdown**", value="РЧ на пулл!", inline=False)
         embed.add_field(name="**;defence**", value="Защитный кисулькен!", inline=False)
+        embed.add_field(name="**;ping**", value="Ping urself! Ой! Простите...", inline=False)
+        embed.add_field(name="**;author**", value="Дает Вам представление о человеке, пишущем Бота.", inline=False)
 #        embed.add_field(name="**;add X Y**", value="Сложение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
 #        embed.add_field(name="**;multiply X Y**", value="Умножение **X** и **Y** где **X** и **Y** натуральные числа", inline=False)
 #        embed.add_field(name="**;saythanks**", value="Ссылка на самый благодарный аддон в игре! Disclaimer: многие игроки на него негативно реагируют!", inline=False)
@@ -63,7 +61,7 @@ class other():
         for num in countdown:
             await ctx.send('**{0}**'.format(num))
             await asyncio.sleep(1)
-        await ctx.send('**За Орду! За Ананасиков! За Выдроликого!**')
+        await ctx.send('**За Ананасиков!**')
 
     @commands.command()
     async def guess(self, ctx):

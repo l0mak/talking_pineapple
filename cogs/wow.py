@@ -20,7 +20,6 @@ class wow():
 
     @commands.command()
     async def ml(self, ctx):
-#        channel = discord.utils.get(self.bot.get_all_channels(), guild__id=300288070744539136, name='info')
         with open('lists/tanks.txt', 'r') as t:
             tanks = [line.strip() for line in t]
             t.close
@@ -33,7 +32,6 @@ class wow():
         with open('lists/maybe.txt', 'r') as m:
             maybe = [line.strip() for line in m]
             m.close
-#Информацию о рейдах можно посмотреть в канале {channel.mention}
         embed = discord.Embed(title="Список записавшихся в мифический рейд:", description=f'Записаться можно командой **;mladd**, чтобы выбрать роль добавьте **tank heal dd** после пробела! Отписаться можно командой **;mlrm**. ', color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
@@ -46,12 +44,10 @@ class wow():
         embed.add_field(name="Лекари", value=healers)
         embed.add_field(name="Бойцы", value=dodos)
         embed.add_field(name="Ананасики без роли", value=maybe)
-        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
         await ctx.send(embed=embed)
 
     @commands.command()
     async def mladd(self, ctx, *arg):
-#        channel = discord.utils.get(self.bot.get_all_channels(), guild__id=300288070744539136, name='info')
         name = ctx.author.mention
         with open('lists/maybe.txt', 'r+') as m:
             mlines = m.readlines()
@@ -105,7 +101,6 @@ class wow():
                 await ctx.send(f'Oora! Вы записались в мифический рейд как наноситель урона! Чтобы отписаться используйте команду **;mlrm**')
             else:
                 await ctx.send(f'Возможно что-то пошло не так и я Вас не понял. Названия ролей: **;mladd dd/dodo/heal/healer/tank**')
-#Информацию о рейдах можно посмотреть в канале {channel.mention}   
     
     @commands.command()
     async def mlrm(self, ctx):
@@ -176,7 +171,6 @@ class wow():
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
         embed.add_field(name="Локальные задания", value=names)
-        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
         await ctx.send(embed=embed)
 
 
@@ -203,8 +197,7 @@ class wow():
         embed = discord.Embed(title="Сейчас в игре:", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="Фронты", value=fronts)
-        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
+        embed.add_field(name="Arathi", value=fronts)
         await ctx.send(embed=embed)
 
 
@@ -229,37 +222,9 @@ class wow():
                     embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
                     embed.add_field(name="**Цена**", value=('{:,}'.format(api_json['price'] / 10000)[:-1]))
                     embed.add_field(name="**Последнее обновление API**", value=f'{timestmp}')
-                    embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
                     await ctx.send(embed=embed)
                 else:
                     await ctx.send('Ой-ой! Что-то пошло не так! Попробуйте еще раз, пожалуйста. Ну или вызвайте экзорциста!')
-
-    @commands.command(aliases=['guild'])
-    async def thot(self, ctx):    
-        embed = discord.Embed(title="**Two Healers One Tank**", description="Два Лекаря Один Танк - гильдия Ананасиков с различных имиджборд.", color=0xa500ff)
-        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="**Фракция**", value="Орда", inline=False)
-        embed.add_field(name="**Сервер**", value="Twisting Nether", inline=False)
-        embed.add_field(name="**РТ**", value="Каждую пятницу, субботу и воскресенье в вечернее время. Подробнее в #info в дискорде ", inline=False)
-        embed.add_field(name="**WoWprogress**", value='[Link](https://www.wowprogress.com/guild/eu/twisting-nether/Two+Healers+One+Tank)', inline=False)
-        embed.add_field(name="**Информация**", value='''Мы ходим вместе в рейды и ключики, делаем ачивки и просто весело проводим время в игре.
-                                                    Рады всем ананасикам независимо от уровня игры. С нами играют и ньюфаги, и хардкорные рейдеры, и поехавшие сычи-солоплееры и казуальные битурды. Всех нас объединяет желание рейдить с анонами.
-                                                    Из-за того что модератор удаляет наши посты в треде, мы перенесли всю кооперацию в дискорд:
-                                                    https://discord.io/Ordoraid - обязательно заходите, мы рады всем.''', inline=False)
-        embed.add_field(name="**Правила**", value='''**Быть аноном**
-                                                **Не обижать других ананасиков**
-                                                **Посещение рейдов полностью свободное, но в рейд нужно приходить готовыми и стараться, а не надеяться, что тебя протащат и подарят лутеш.**
-                                                ***В обычную сложность необходим 335 илвл, в героическую - 350***''', inline=False)
-        embed.add_field(name="**Как попасть**", value='''Чтобы попасть в рейд, зайдите в «Заранее собранные группы - Другое – Ордорейд» в назначенное время. Пароль – название борды.
-                                                    В нормал, героик и ключи вы можете ходить персонажами с любого сервера.
-                                                    В рейды эпохальной сложности – только персонажем с сервера Twisting Nether или ждать межсерверные мифики.
-                                                    Изменения в расписании и анонсы дополнительных рейдов в #info и #lfg дискорда.''', inline=False)
-        embed.add_field(name="**Battle.tag для связи**", value='''Sprotae#2918
-                                                            Fluttershy#2165
-                                                            ''', inline=False)
-        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
-        await ctx.send(embed=embed)
 
     @commands.command(aliases=['uselesslinks'])
     async def wowlinks(self, ctx):    
@@ -273,7 +238,6 @@ class wow():
         embed.add_field(name="**Сравнения тринкетов, трейтов etc:**", value='[Bloodmallet](https://bloodmallet.com/index.html)|[HeroDamage](https://www.herodamage.com/)')
         embed.add_field(name="**Аддоны, викауры, профили ElvUI etc:**", value='[Curse](https://wow.curseforge.com/addons)|[TwitchClient](https://app.twitch.tv/download)|[TukUI&ElvUI](https://www.tukui.org/)|[WagoIO](https://wago.io)|[WoWinterface](http://wowinterface.com/addons.php)')
         embed.add_field(name="**Гайды по петикам:**", value='[PetGuide](http://www.wow-petguide.com)')
-        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
         await ctx.send(embed=embed)
 
 

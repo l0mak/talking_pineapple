@@ -265,19 +265,7 @@ class voice:
 
     @commands.command(pass_context=True)
     async def meow(self, ctx):
-        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/meow.ogg'), after=lambda e: print('done', e))
-
-#    @commands.command(pass_context=True)
-#    async def adeekdruid(self, ctx):
-#        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/adeekdruid.ogg'), after=lambda e: print('done', e))
-
-#    @commands.command(pass_context=True)
-#    async def adeekzhoo(self, ctx):
-#        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/adeekzhoo.ogg'), after=lambda e: print('done', e))
-
-#    @commands.command(pass_context=True)
-#    async def adeekspasibo(self, ctx):
-#        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/adeekspasibo.ogg'), after=lambda e: print('done', e))
+        ctx.voice_client.play(discord.FFmpegPCMAudio('voice/meow.ogg'))
 
     @commands.command(name='play', aliases=['sing'])
     async def play_(self, ctx, *, search: str):
@@ -423,7 +411,7 @@ class voice:
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
-            return await ctx.send('Но я ничего и не проигрываю в данный момент!', delete_after=20)
+            return await ctx.send('Да я особо и не проигрываю ничего!', delete_after=20)
 
         await self.cleanup(ctx.guild)
 

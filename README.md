@@ -2,14 +2,28 @@
 
 ![logo](https://github.com/l0mak/talking_pineapple/blob/master/logo.png)
 
-Цель проекта - обучение на примере бота способного распозновать голосовые команды пользователей, интерпетировать их и исполнять, при необходимости так же голосом.
+Бот для [Discord](https://discordapp.com/).
 
-current version - 1.1.7
+Господин Ананасик умеет:
+-пеердавать сообщения пользователей от своего имени (анонимизация общения)
+-выдавать информацию о стоимости WoW Token с Blizzard API
+-выдавать информацию о стадиях фронтов и активных локальных заданиях взятую с [WoWhead](wowhead.com)
+-выдавать полезные ссылки связанные с классами, механиками боссов и прочим связанным с WoW
+-работать со списком рейдеров (создавать, редактировать и очищать по командам пользователей)
+-проигрывать музыку с [YouTuBe](youtobe.com)
+-выдавать информацию по пользователям и серверу дискорд на котором работает
+-и прочие мелочи
 
-planned rev:
+Первоначально планировалось, что бот будет способен распозновать голосовые команды пользователей, интерпетировать их и исполнять, при необходимости так же голосом по средству Google tts или технолгий Яндекса (в тот момент мне довелось познакомиться с ЯндексОблаком и SpeechKit). Однако, как стало ясно в процессе разработки, этого будет достаточно сложно добиться ввиду различных ограничений возможностей ботов наложенных самим Discord. Поскольку во время работы над ботом я находился в составе небольшого коммьюнити посвященного игре World of Warcraft, которое как раз и кооперировалось в дискорде, у бота есть разный функционал так или иначе связанный с игрой.
 
-v1.1.* - текстовый функционал
+Mr. Pineapple can:
+-send the messages from users on his own behalf(anonymization of communication)
+-output information about the cost of WoW Token from Blizzard API
+-output information about the stages of fronts and active local quests from [WoWhead] (wowhead.com)
+-output useful links related to classes, mechanics of bosses and others related to WoW
+-work with the list of raiders (create, edit and clear by user commands)
+-play music from [YouTuBe] (youtobe.com)
+-submit information about users and server which it works on
+-and other little things
 
-v1.2.* - текстовый функционал + работа над голосовыми функциями
-
-v1.3.* - полностью жизнеспособный текстовый бот со всеми необходимыми функциями, способный подключаться к голосовым каналам, понимать голосовые команды пользователей и по необходимости генерировать голосовые ответы на них. Вероятность этого крайне мала.
+Initially, it was planned that the bot would be able to recognize the voice commands of users, interpritate them and execute, if necessary, using voice himself by Google tts or Yandex technologies (at that time i get acquainted with YandexCloud and SpeechKit). However, as it became clear during the development process, that will be quite difficult to achieve due to the various limitations of the capabilities of the bots imposed by Discord itself. Since while I was working on a bot, I was part of a small community dedicated to the game World of Warcraft, which was cooperating in the Discord, the bot has different functions related to the game one way or another.

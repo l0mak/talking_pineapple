@@ -15,13 +15,12 @@ class bmain():
         embed = discord.Embed(title="Привет!", description="Я Говорящий Ананасик! Сейчас я умею:", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="**;wt ;wf ;wq**", value="WowToken, Warfronts, WorldQuests", inline=False)
+        embed.add_field(name="**;wt ;wf ;wq**", value="WowToken, WarFronts, WorldQuests", inline=False)
         embed.add_field(name="**;wowlinks ;uselesslinks**", value="Ссылки на никому не нужную информацию.", inline=False)
         embed.add_field(name="**;ml**", value="Mythic List. Список мифических Ананасиков.", inline=False)
         embed.add_field(name="**;mladd <role>**", value="Записаться в ряды мифических ананасиков. Роли **tank heal dd** ```;mladd tank```", inline=False)
         embed.add_field(name="**;mlrm**", value="Убрать себя из списка мифических Ананасиков.", inline=False)
         embed.add_field(name="**;mlclear**", value="Очистить список мифических Ананасиков.", inline=False)
-        embed.add_field(name="**;thot ;guild**", value="Информация о любимой гильдии Господина Ананасика.", inline=False) 
         embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
         embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. **<username> - @mention или ник Ананасика** (чувствительно к регистру). Просто **;userinfo** выдаст информацию о Вас', inline=False) 
         embed.add_field(name='**;serverinfo**', value='Информация о дискорд сервере Ордорейда.', inline=False)
@@ -35,7 +34,6 @@ class bmain():
         embed.add_field(name='**;other**', value='Прочие команды.', inline=False)       
         embed.add_field(name="**;info**", value="Вызов справки по Боту.", inline=False)
         embed.add_field(name="**;help**", value="Вызов этого сообщения.", inline=False)
-        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['rand', 'roll'])
@@ -56,7 +54,7 @@ class bmain():
                 randomUser = random.choice(ulist)
                 user = randomUser.mention
                 author = ctx.message.author.mention
-                await ctx.send(f'{user}! RNG избрал Вас! Все вопросы к {author}! Я только посредник.')
+                await ctx.send(f'{user}! RNG избрал Вас! Все вопросы к {author}, Я только посредник!')
                 return
             elif len(arg) == 1:
                 start = 1
@@ -68,14 +66,15 @@ class bmain():
 
     @commands.command()
     async def choose(self, ctx, *choices: str):
-        chstr = " ".join(choices)
-        chlist = chstr.split(',')
-        if len(chlist) > 10:
+        choosestr = " ".join(choices)
+        chooselist = choosestr.split(',')
+        if len(chooselist) > 10:
             await ctx.send('Слишком сложно! Попробуйте ввести 10 или меньше вариантов!')
         else:
-            await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(chlist)}')
+            await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(chooselist)}')
 
     @commands.command()
+    @commands.cooldown(1, 600, commands.BucketType.guild)
     async def userinfo(self, ctx, *, name=''):
         if name:
             try:
@@ -99,7 +98,7 @@ class bmain():
             role = user.top_role.name
             if role == "@everyone":
                 role = "Не знает свою роль..."
-        embed = discord.Embed(title='**А не тинкерон ли Вы часом?**', colour=0xa500ff)
+        embed = discord.Embed(title='**Настало время прочекать Ваши привилегии!**', colour=0xa500ff)
         embed.add_field(name='ID Ананасика', value=user.id, inline=True)
         embed.add_field(name='Имя Ананасика', value=user.name, inline=True)
         embed.add_field(name='Ник Ананасика', value=user.nick, inline=True)
@@ -137,15 +136,14 @@ class bmain():
     async def serverinfo(self, ctx):
         emojis = self._getEmojis(ctx.guild.emojis)
         roles = self._getRoles(ctx.guild.roles)
-        embed = discord.Embed(title='**Это мой дом!**', colour=0xa500ff)
+        embed = discord.Embed(title='**Я тут живу!!**', colour=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url=ctx.guild.icon_url)
-        embed.set_footer(text="Заранее собранные группы - Другое - Ордорейд")
         embed.add_field(name='Название', value=ctx.guild.name, inline=True)
         embed.add_field(name='ID', value=ctx.guild.id, inline=True)
         embed.add_field(name='Создатель', value=ctx.guild.owner.mention, inline=True)
         embed.add_field(name='Регион', value=ctx.guild.region, inline=True)
-        embed.add_field(name='Количество Ананасиков', value=ctx.guild.member_count, inline=True)
+        embed.add_field(name='Количество друзей', value=ctx.guild.member_count, inline=True)
         embed.add_field(name='Дата создания', value=ctx.guild.created_at.strftime('%d.%m.%Y'), inline=True)
         embed.add_field(name='AFK таймаут', value=f'{int(ctx.guild.afk_timeout / 60)} min', inline=True)
         embed.add_field(name='AFK канал', value=ctx.guild.afk_channel, inline=True)
