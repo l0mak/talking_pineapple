@@ -7,10 +7,10 @@
 Mr. Pineapple can:
 * send the messages from users on his own behalf(anonymization of communication)
 * output information about the cost of WoW Token from Blizzard API
-* output information about the stages of fronts and active local quests from [WoWhead](wowhead.com)
+* output information about the stages of fronts and active local quests from [WoWhead](http://wowhead.com/)
 * output useful links related to classes, mechanics of bosses and others related to WoW
 * work with the list of raiders (create, edit and clear by user commands)
-* play music from [Youtobe](youtobe.com)
+* play music from [Youtube](https://www.youtube.com/)
 * submit information about users and server which it works on
 * and other little things
 
