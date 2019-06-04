@@ -24,7 +24,7 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 extensions = ['cogs.bmain', 'cogs.wow', 'cogs.test', 'cogs.encounters',
-              'cogs.errors_feedback', 'cogs.music', 'cogs.other', 'cogs.voice']
+              'cogs.errors_feedback', 'cogs.other', 'cogs.voice']
 
 description = "Talking Pineapple Project is a Bot for Discord Voice Chat."
 
