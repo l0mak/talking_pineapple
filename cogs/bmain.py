@@ -1,12 +1,9 @@
 import discord
 from discord.ext import commands
 import random
-import re
-import asyncio
-from asyncio.tasks import sleep
 
 
-class bmain():
+class bmain(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
@@ -15,7 +12,14 @@ class bmain():
         embed = discord.Embed(title="Привет!", description="Я Говорящий Ананасик! Сейчас я умею:", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="**;wt ;wf ;wq**", value="WowToken, WarFronts, WorldQuests", inline=False)
+        embed.add_field(name="**;echo**",
+                        value='''Вы хотите выговориться, но при этом остаться анонимным?
+                                Введите команду в формате ;echo <channel_id> <text> и я скажу все за Вас.
+                                ```;echo 85099334776913920 Привет, Я Господин Ананасик!```''', inline=False)
+        embed.add_field(name="**;channels**", value="Получить список каналов и их ID для этого сервера", inline=False)
+        embed.add_field(name="**;wt**", value="WowToken", inline=True)
+        embed.add_field(name="**;wf**", value="WarFronts", inline=True)
+        embed.add_field(name="**;wq**", value="WorldQuests", inline=True)
         embed.add_field(name="**;wowlinks ;uselesslinks**", value="Ссылки на никому не нужную информацию.", inline=False)
         embed.add_field(name="**;ml**", value="Mythic List. Список мифических Ананасиков.", inline=False)
         embed.add_field(name="**;mladd <role>**", value="Записаться в ряды мифических ананасиков. Роли **tank heal dd** ```;mladd tank```", inline=False)
@@ -31,10 +35,53 @@ class bmain():
                                                                 **;roll user** Случайный Ананасик.
                                                                 ''', inline=False)
         embed.add_field(name='**;voice**', value='Информация о голосовых возможностях бота.', inline=False)
-        embed.add_field(name='**;other**', value='Прочие команды.', inline=False)       
+        embed.add_field(name='**;music**', value='Информация о музыкальном плеере бота.', inline=False)
+        embed.add_field(name='**;other**', value='Прочие команды.', inline=False)
         embed.add_field(name="**;info**", value="Вызов справки по Боту.", inline=False)
         embed.add_field(name="**;help**", value="Вызов этого сообщения.", inline=False)
         await ctx.send(embed=embed)
+
+
+    @commands.command()
+    async def echo(self, ctx, channel: str, *message: str):
+        if isinstance(ctx.message.channel, discord.DMChannel):
+            await ctx.send('Сообщение отправлено!')
+        else:
+            await ctx.message.delete()
+
+        ch = self.bot.get_channel(int(channel))
+        msg = ' '.join(message)
+
+        embed = discord.Embed(title='Анонимное сообщение:', description=f'{msg}', color=0xa500ff)
+        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+        embed.set_footer(text='Я тут ни при чем')
+
+        await ch.send(embed=embed)
+
+
+    @commands.command()
+    async def channels(self, ctx):
+        tch = []
+        for channel in ctx.guild.text_channels:
+            tch.append(channel.name + '=' + str(channel.id))
+        # await ctx.send(tch)
+
+        vch = []
+        for channel in ctx.guild.voice_channels:
+            vch.append(channel.name + '=' + str(channel.id))
+        # await ctx.send(vch)
+
+        embed = discord.Embed(title=f'Список каналов сервера {ctx.guild.name}', color=0xa500ff)
+        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+        embed.set_footer(text='Помогите, меня держат в заложниках!')
+
+        embed.add_field(name='Текстовые каналы', value='\n'.join(tch))
+        embed.add_field(name='Голосовые каналы', value='\n'.join(vch))
+
+        await ctx.send(embed=embed)
+
 
     @commands.command(aliases=['rand', 'roll'])
     async def random(self, ctx, *arg):
@@ -74,7 +121,7 @@ class bmain():
             await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(chooselist)}')
 
     @commands.command()
-    @commands.cooldown(1, 600, commands.BucketType.guild)
+    # @commands.cooldown(1, 600, commands.BucketType.guild)
     async def userinfo(self, ctx, *, name=''):
         if name:
             try:
@@ -129,10 +176,10 @@ class bmain():
         if string is '':
             return 'None'
         else:
-            return string[:1000]
+            return string[:1200]
 
     @commands.command()
-    @commands.cooldown(1, 600, commands.BucketType.guild)
+    # @commands.cooldown(1, 600, commands.BucketType.guild)
     async def serverinfo(self, ctx):
         emojis = self._getEmojis(ctx.guild.emojis)
         roles = self._getRoles(ctx.guild.roles)
