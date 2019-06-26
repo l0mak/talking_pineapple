@@ -1,21 +1,34 @@
-import discord
-from discord import Status
-from discord import utils
+# import discord
+# from discord import Status
+# from discord import utils
 from discord.ext import commands
-import random
+# import random
+
+from bs4 import BeautifulSoup
+
+import requests
 
 
-class test():
+class test(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
-#    @commands.command()
-#    async def tt(self, ctx):
+    @commands.command()
+    async def tt(self, ctx):
+        wpage = 'https://www.wowhead.com'
+        page = requests.get(wpage)
+        soup = BeautifulSoup(page.text, 'html.parser')
+        cont = soup.find_all(class_='tiw-blocks-status-progress')
 
-#        for user in ctx.guild.members:
-#            if user.status != discord.Status.offline:
-#                await ctx.send(user.name+"#"+user.discriminator)
-            
+        names = []
+        for d in cont:
+            names.append(d.contents)
+
+        str_names = "".join( repr(e) for e in names)
+
+        await ctx.send(str_names)
+
+
 #    @commands.command()
 #    async def test(self, ctx):
 

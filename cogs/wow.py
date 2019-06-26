@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 from loadconfig import __wowID__, __wowSecret__, __wowLocale__, __whitelist__
 
 
-class wow():
+class wow(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -176,28 +176,33 @@ class wow():
 
     @commands.command()
     async def wf(self, ctx):
-        f_page = 'https://www.wowhead.com'
-        page = requests.get(f_page)
+        fr_page = 'https://www.wowhead.com'
+        page = requests.get(fr_page)
         soup = BeautifulSoup(page.text, 'html.parser')
 
-        f_eu_div = soup.find(class_='tiw-region-EU')
-        f_div = f_eu_div.find(class_='tiw-blocks-warfront')
-        f_items = f_div.find_all(class_='imitation-heading')
-        f_perc = f_div.find(class_='tiw-blocks-status-progress')
+        fr_eu_div = soup.find(class_='tiw-region-EU')
+        fr_div = fr_eu_div.find(class_='tiw-group-wrapper-warfront')
 
-        f_names = []
-        for t in f_items:
-            f_names.append(t.contents)
-        for d in f_perc:
-            f_names.append(d.contents)
+        fr_headings = fr_div.find_all(class_='imitation-heading')
+        fr_perc_spans = fr_div.find_all('span')
 
-        str_f_names = "".join( repr(e) for e in f_names)
-        fronts = re.sub('[^A-Za-z0-9 %]+', '\n', str_f_names )
+        fr_states = []
+        for s in fr_headings:
+            fr_states.append(s.contents)
+
+        fr_perc = []
+        for s in fr_perc_spans:
+            fr_perc.append(s.contents)
+
+        arathi_wf = "".join("{0} - {1}".format(x,y) for x,y in zip(fr_states[0],fr_perc[0]))
+        darkshore_wf= "".join("{0} - {1}".format(x,y) for x,y in zip(fr_states[1],fr_perc[1]))
 
         embed = discord.Embed(title="Сейчас в игре:", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="Arathi", value=fronts)
+        embed.add_field(name="Arathi", value=arathi_wf, inline=False )
+        embed.add_field(name="Dark Shore", value=darkshore_wf, inline=False )
+
         await ctx.send(embed=embed)
 
 

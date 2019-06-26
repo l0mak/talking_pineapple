@@ -1,10 +1,11 @@
 from discord.ext import commands
 
 
-class errors_feedback:
+class errors_feedback(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        
+
+    @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if hasattr(ctx.command, 'on_error'):
             return
@@ -16,11 +17,11 @@ class errors_feedback:
             return
         
         if isinstance(error, commands.UserInputError):
-            await ctx.channel.send('Простите, но Вы допустили ошибку! Попробуйте ввести данные еще раз или посмотрите команду **;help**')
+            await ctx.channel.send('''Простите, но Вы допустили ошибку! Попробуйте ввести данные еще раз или посмотрите команду **;help**''')
             return
         
         if isinstance(error, commands.CommandOnCooldown):
-            await ctx.channel.send('Простите, эту команду нельзя использовать так часто! Попробуйте еще раз через {:.2f} секунд.'.format(error.retry_after))
+            await ctx.channel.send('''Простите, эту команду нельзя использовать так часто! Попробуйте еще раз через {:.2f} секунд.'''.format(error.retry_after))
             return
         
         else:
