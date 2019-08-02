@@ -11,6 +11,8 @@ from discord.ext import commands
 from discord.voice_client import VoiceClient
 
 from youtube_dl import YoutubeDL
+from gtts import gTTS
+
 
 ytdlopts = {
     'format': 'bestaudio/best',
@@ -34,8 +36,10 @@ ffmpegopts = {
 ytdl = YoutubeDL(ytdlopts)
     
 class VoiceConnectionError(commands.CommandError):
+    '''VoiceConnectionError'''
 
 class InvalidVoiceChannel(VoiceConnectionError):
+    '''InvalidVoiceChannel'''
 
 class YTDLSource(discord.PCMVolumeTransformer):
 
@@ -175,6 +179,25 @@ class music(commands.Cog):
 #        embed.add_field(name='**;adeekzhoo**', value='Adeek pchelqa', inline=False)       
 #        embed.set_footer(text="")
         await ctx.send(embed=embed)
+
+
+
+    @commands.command(aliases=['сэй'])
+    async def say(self, ctx):
+        message = ctx.message
+
+        if len(message.clean_content) <= 4:
+            await ctx.send('Но тут же не о чем говорить.')
+        else:
+            path = 'voice/' + str(message.id) + '.mp3'
+
+            tts = gTTS(text=message.clean_content[5:], lang='ru', slow=False)
+            tts.save(path)
+
+            ctx.guild.voice_client.play(discord.FFmpegPCMAudio(path))
+
+        await ctx.message.delete()
+
 
 
     async def cleanup(self, guild):

@@ -114,8 +114,10 @@ class bmain(commands.Cog):
     @commands.command()
     async def choose(self, ctx, *choices: str):
         choosestr = " ".join(choices)
-        chooselist = choosestr.split(',')
-        if len(chooselist) > 10:
+        chooselist = choosestr.split(' ')
+        if len(chooselist) <= 1:
+            await ctx.send('Боюсь, что тут выбор очевиден! Вы Dodique!')
+        elif len(chooselist) > 10:
             await ctx.send('Слишком сложно! Попробуйте ввести 10 или меньше вариантов!')
         else:
             await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(chooselist)}')
