@@ -7,6 +7,7 @@ bac_1/
 *.log
 *.1
 *.2
+*.3
 .vscode/
 .venv/
 .env/

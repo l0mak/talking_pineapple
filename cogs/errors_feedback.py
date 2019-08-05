@@ -21,7 +21,7 @@ class errors_feedback(commands.Cog):
             return
         
         if isinstance(error, commands.CommandOnCooldown):
-            await ctx.channel.send('''Простите, эту команду нельзя использовать так часто! Попробуйте еще раз через {:.2f} секунд.'''.format(error.retry_after))
+            await ctx.channel.send(f'Простите, эту команду нельзя использовать так часто! Попробуйте еще раз через примерно {int(error.retry_after)//60} минут.')
             return
         
         else:

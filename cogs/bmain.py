@@ -28,7 +28,7 @@ class bmain(commands.Cog):
         embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
         embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. **<username> - @mention или ник Ананасика** (чувствительно к регистру). Просто **;userinfo** выдаст информацию о Вас', inline=False) 
         embed.add_field(name='**;serverinfo**', value='Информация о дискорд сервере Ордорейда.', inline=False)
-        embed.add_field(name='**;choose X Y Z**', value='Случайный выбор из введенных вариантов (не больше 10; просто потому что!), разделенными запятыми. ```;choose Druid, Shaman, Priest```', inline=False)
+        embed.add_field(name='**;choose X Y Z**', value='Случайный выбор из введенных вариантов (не больше 10; просто потому что!) ```;choose Druid Shaman Priest```', inline=False)
         embed.add_field(name="**;random ;roll ;rand** ", value='''**;roll** Случайное чилсо от 0 до 100. 
                                                                 **;roll X Y** Случайное число в конкретном диапазоне. 
                                                                 **;roll coin** Монетка. 
@@ -123,7 +123,7 @@ class bmain(commands.Cog):
             await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(chooselist)}')
 
     @commands.command()
-    # @commands.cooldown(1, 600, commands.BucketType.guild)
+    @commands.cooldown(1, 600, commands.BucketType.user)
     async def userinfo(self, ctx, *, name=''):
         if name:
             try:
@@ -139,10 +139,7 @@ class bmain(commands.Cog):
                 return
         else:
             user = ctx.message.author
-        if user.avatar_url_as(static_format='png')[54:].startswith('a_'):
-            avi = user.avatar_url.rsplit("?", 1)[0]
-        else:
-            avi = user.avatar_url_as(static_format='png')
+        avi = user.avatar_url_as(static_format='png')
         if isinstance(user, discord.Member):
             role = user.top_role.name
             if role == "@everyone":
@@ -181,7 +178,7 @@ class bmain(commands.Cog):
             return string[:1200]
 
     @commands.command()
-    # @commands.cooldown(1, 600, commands.BucketType.guild)
+    @commands.cooldown(1, 600, commands.BucketType.guild)
     async def serverinfo(self, ctx):
         emojis = self._getEmojis(ctx.guild.emojis)
         roles = self._getRoles(ctx.guild.roles)

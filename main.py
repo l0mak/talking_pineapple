@@ -13,7 +13,7 @@ from discord.utils import get
 import loadconfig
 
 
-__version__ = '1.2.3'
+__version__ = '1.2.4'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
@@ -109,7 +109,7 @@ async def info(ctx):
     embed.add_field(name="Автор", value="<@!440103092009304064>")
     embed.add_field(name="Количество Серверов", value=f'{len(bot.guilds)}')
     embed.add_field(name="Дата и время запуска", value=f'{bot.startDate}')
-    embed.add_field(name="Время работы", value=f'{(datetime.datetime.now() - bot.startTime)}')
+    embed.add_field(name="Время работы", value=f'{str((datetime.datetime.now() - bot.startTime))[:-7]}')
     embed.add_field(name="Пинг", value=f'{1000*round(bot.latency, 3)}')
     embed.add_field(name="Справка по командам", value="**;help**")
     embed.set_footer(text="/hug")
