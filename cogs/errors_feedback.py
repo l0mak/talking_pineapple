@@ -17,7 +17,7 @@ class errors_feedback(commands.Cog):
             return
         
         if isinstance(error, commands.UserInputError):
-            await ctx.channel.send('''Простите, но Вы допустили ошибку! Попробуйте ввести данные еще раз или посмотрите команду **;help**''')
+            await ctx.channel.send('''Простите, но Вы допустили ошибку при вводе параметров! Попробуйте ввести данные еще раз или посмотрите команду **;help**''')
             return
         
         if isinstance(error, commands.CommandOnCooldown):

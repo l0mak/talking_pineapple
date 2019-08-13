@@ -8,7 +8,7 @@ class encounters(commands.Cog):
 
 	@commands.command(aliases=['bossiques', 'listboss'])
 	async def bosslist(self, ctx):
-		embed = discord.Embed(title="Список рейдовых подземелий и боссов про которые я могу дать справочную информацию:", color=0xa500ff)
+		embed = discord.Embed(title="Список рейдовых подземелий про которые я могу дать справочную информацию:", color=0xa500ff)
 		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url='https://i.imgur.com/A7tQuJ1.png')
 
@@ -24,18 +24,10 @@ class encounters(commands.Cog):
 																	**;waycrest ;manor ;усадьба** - Усадьба Уэйкрестов
 																	**;shrine ;storm ;святилище** - Святилище штормов
 																	''')
-		embed.add_field(name="**Ульдир, Чертоги Управления:**", value='''**;taloc ;талок** - Талок
-																		**;mother ;матриарх** - МАТРИАРХ
-																		**;fetid ;пожиратель** - Зловонный пожиратель
-																		**;zekvoz ;зеквоз** - Зек'воз, глашатай Н'Зота
-																		**;vectis ;вектис** - Вектис
-																		**;zul ;зул** - Зул
-																		**;mythrax ;митракс** - Митракс Развоплотитель
-																		**;ghuun ;гахун ;гуун** - Г'уун
-																		''')
-		embed.add_field(name="**Горнило бурь:**", value='''**;crucible ;cos  ;горнило** - Горнило бурь
-																	''', inline=False)
-		embed.add_field(name="**Битва за Дазар'алор:**", value='''**;dazaralor ;bod ;дазаралор** - Битва за Дазар'алор
+		embed.add_field(name="**Рейды:**", value='''Полезную информацию по рейдам Вы всегда можете найти на:
+												[Wowhead](http://wowhead.com/)
+												[Icy-Veins](https://www.icy-veins.com/)
+												[NoobClub](https://noob-club.ru/)
 																	''',inline=False)
 		await ctx.send(embed=embed)
 
@@ -112,7 +104,7 @@ class encounters(commands.Cog):
 
 	@commands.command(aliases=['боралус', 'sob'])
 	async def boralus(self, ctx):
-		embed = discord.Embed(title="Талок", color=0xa500ff)
+		embed = discord.Embed(title="Боралус", color=0xa500ff)
 		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
 		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-viqgoth.png")
 
@@ -168,122 +160,6 @@ class encounters(commands.Cog):
 		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
 		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49142.0)')
 		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=pvSFZjjAOV0)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['талок'])
-	async def taloc(self, ctx):
-		embed = discord.Embed(title="Талок", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-taloc.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/taloc-uldir-raid-strategy-guide)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/taloc-guide-for-uldir)')
-		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49185.0)')
-		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=CRR9glyQYUg)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['матриарх'])
-	async def mother(self, ctx):
-		embed = discord.Embed(title="МАТРИАРХ", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-mother.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/mother-uldir-raid-strategy-guide)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/mother-guide-for-uldir)')
-		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49193.0)')
-		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=d3Et9e8OYMI)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['пожиратель'])
-	async def fetid(self, ctx):
-		embed = discord.Embed(title="Зловонный пожиратель", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-fetiddevourer.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/fetid-devourer-uldir-raid-strategy-guide)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/fetid-devourer-guide-for-uldir)')
-		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49194.0)')
-		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=H-8LizAiKbw)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['зеквоз'])
-	async def zekvoz(self, ctx):
-		embed = discord.Embed(title="Зек'воз, глашатай Н'Зота", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-zekvozheraldofnzoth.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/zekvoz-herald-of-nzoth-uldir-raid-strategy-guide)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/zek-voz-herald-of-n-zoth-guide-for-uldir)')
-		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49235.0)')
-		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=8uPeKRXuiTQ)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['вектис'])
-	async def vectis(self, ctx):
-		embed = discord.Embed(title="Вектис", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-vectis.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/vectis-uldir-raid-strategy-guide)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/vectis-guide-for-uldir)')
-		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49268.0)')
-		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=oJK7an7qlmA)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['зул'])
-	async def zul(self, ctx):
-		embed = discord.Embed(title="Зул", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-zulreborn.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/zul-reborn-uldir-raid-strategy-guide)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/zul-reborn-guide-for-uldir)')
-		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49315.0)')
-		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=VpeAfPT51oQ)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['митракс'])
-	async def mythrax(self, ctx):
-		embed = discord.Embed(title="Митракс Развоплотитель", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-mythraxtheunraveler.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/mythrax-the-unraveler-uldir-raid-strategy-guide)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/mythrax-the-unraveler-guide-for-uldir)')
-		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49297.0)')
-		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=OKz4tnYNvs8)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['гахун','гуун'])
-	async def ghuun(self, ctx):
-		embed = discord.Embed(title="Г'уун", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-ghuun.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://www.wowhead.com/guides/ghuun-uldir-raid-strategy-guide)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/g-huun-guide-for-uldir)')
-		embed.add_field(name='NoobClub', value='[Link](https://www.noob-club.ru/index.php?topic=49310.0)')
-		embed.add_field(name='FatbossTV', value='[Link](https://www.youtube.com/watch?v=fxMamsFlplk)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['cos', 'горнило'])
-	async def crucible(self, ctx):
-		embed = discord.Embed(title="Горнило бурь", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://www.paymentscardsandmobile.com/wp-content/uploads/2016/09/World-of-Warcraft.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://ptr.wowhead.com/guides/crucible-of-storms-raid-overview)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/crucible-of-storms-raid-guides-for-battle-for-azeroth)')
-		await ctx.send(embed=embed)
-
-	@commands.command(aliases=['bod','дазаралор'])
-	async def dazaralor(self, ctx):
-		embed = discord.Embed(title="Битва за Дазар'алор", color=0xa500ff)
-		embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-		embed.set_thumbnail(url="https://www.paymentscardsandmobile.com/wp-content/uploads/2016/09/World-of-Warcraft.png")
-
-		embed.add_field(name='Wowhead', value='[Link](https://ptr.wowhead.com/guides/battle-of-dazaralor-raid-overview)')
-		embed.add_field(name='IcyVeins', value='[Link](https://www.icy-veins.com/wow/battle-of-dazar-alor-raid-guides-for-battle-for-azeroth)')
 		await ctx.send(embed=embed)
 
 

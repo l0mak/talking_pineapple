@@ -4,10 +4,11 @@ import aiohttp
 import io
 import random
 import re
+import requests
 import asyncio
 from asyncio.tasks import sleep
 
-#from discord.utils import get
+# from discord.utils import get
 
 
 class other(commands.Cog):
@@ -26,6 +27,7 @@ class other(commands.Cog):
                         value='''Дает двум случайным Ананасикам право не скрывать впредь своих чувств! 
                                 ***По заказу <@!197381022118051840>***''', inline=False)
         embed.add_field(name="**;countdown**", value="РЧ на пулл!", inline=False)
+        embed.add_field(name="**;urban <some words>**", value="Посмотреть значение слов в урбан словаре", inline=False)
         embed.add_field(name="**;defence**", value="Защитный кисулькен!", inline=False)
         embed.add_field(name="**;ping**", value="Ping urself! Ой! Простите...", inline=False)
         embed.add_field(name="**;author**", value="Дает Вам представление о человеке, пишущем Бота.", inline=False)
@@ -61,7 +63,13 @@ class other(commands.Cog):
         for num in countdown:
             await ctx.send('**{0}**'.format(num))
             await asyncio.sleep(1)
-        await ctx.send('**За Ананасиков!**')
+        user_list = []
+        for user in ctx.channel.members:
+            if user.status != discord.Status.offline and user.bot == False:
+                user_list.append(user)
+        random_user = random.choice(user_list)
+        user = random_user.mention
+        await ctx.send(f'**{user} большой молодец!**')
 
     @commands.command()
     async def guess(self, ctx):
@@ -77,6 +85,23 @@ class other(commands.Cog):
             await ctx.send('Вы большой молодец!')
         else:
             await ctx.send('Вы не угадали! Ответ был {}.'.format(answer))
+
+    @commands.command()
+    async def urban(self, ctx, *, msg: str):
+        word = ''.join(msg)
+        api = "http://api.urbandictionary.com/v0/define"
+        response = requests.get(api, params=[("term", word)]).json()
+        if len(response["list"]) == 0:
+            return await ctx.send("Не могу найти такого слова! Может вы не мемный?")
+
+        embed = discord.Embed(title="Urban Dictionary", description=word, color=0xa500ff)
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
+
+        embed.add_field(name="Наибольшие совпадения", value=response['list'][0]['definition'])
+        embed.add_field(name="Примеры", value=response['list'][0]["example"])
+
+        await ctx.send(embed=embed)
 
 
 #    @commands.command()

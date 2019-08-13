@@ -3,7 +3,7 @@ from discord.ext import commands
 import random
 
 
-class bmain(commands.Cog):
+class BotMain(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
@@ -15,7 +15,7 @@ class bmain(commands.Cog):
         embed.add_field(name="**;echo**",
                         value='''Вы хотите выговориться, но при этом остаться анонимным?
                                 Введите команду в формате ;echo <channel_id> <text> и я скажу все за Вас.
-                                ```;echo 85099334776913920 Привет, Я Господин Ананасик!```''', inline=False)
+                                ```;echo 499938558174560256 Привет, Я Господин Ананасик!```''', inline=False)
         embed.add_field(name="**;channels**", value="Получить список каналов и их ID для этого сервера", inline=False)
         embed.add_field(name="**;wt**", value="WowToken", inline=True)
         embed.add_field(name="**;wf**", value="WarFronts", inline=True)
@@ -41,7 +41,6 @@ class bmain(commands.Cog):
         embed.add_field(name="**;help**", value="Вызов этого сообщения.", inline=False)
         await ctx.send(embed=embed)
 
-
     @commands.command()
     async def echo(self, ctx, channel: str, *message: str):
         if isinstance(ctx.message.channel, discord.DMChannel):
@@ -50,6 +49,7 @@ class bmain(commands.Cog):
             await ctx.message.delete()
 
         ch = self.bot.get_channel(int(channel))
+
         msg = ' '.join(message)
 
         embed = discord.Embed(title='Анонимное сообщение:', description=f'{msg}', color=0xa500ff)
@@ -59,20 +59,19 @@ class bmain(commands.Cog):
 
         await ch.send(embed=embed)
 
-
     @commands.command()
     async def channels(self, ctx):
         tch = []
         for channel in ctx.guild.text_channels:
-            tch.append(channel.name + '=' + str(channel.id))
+            tch.append(channel.name + ' = ' + f'**{str(channel.id)}**')
         # await ctx.send(tch)
 
         vch = []
         for channel in ctx.guild.voice_channels:
-            vch.append(channel.name + '=' + str(channel.id))
+            vch.append(channel.name + ' = ' + f'**{str(channel.id)}**')
         # await ctx.send(vch)
 
-        embed = discord.Embed(title=f'Список каналов сервера {ctx.guild.name}', color=0xa500ff)
+        embed = discord.Embed(title=f'Список каналов сервера **{ctx.guild.name}**', color=0xa500ff)
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_footer(text='Помогите, меня держат в заложниках!')
@@ -81,7 +80,6 @@ class bmain(commands.Cog):
         embed.add_field(name='Голосовые каналы', value='\n'.join(vch))
 
         await ctx.send(embed=embed)
-
 
     @commands.command(aliases=['rand', 'roll'])
     async def random(self, ctx, *arg):
@@ -94,15 +92,16 @@ class bmain(commands.Cog):
                 await ctx.send(f':thinking: {random.choice(coin)}')
                 return
             elif arg[0] == 'user':
-                ulist = []
+                user_list = []
                 for user in ctx.channel.members:
-                   if user.status != discord.Status.offline and user.bot == False:
-                        ulist.append(user)
-                randomUser = random.choice(ulist)
-                user = randomUser.mention
+                    if user.status != discord.Status.offline and user.bot == False:
+                        user_list.append(user)
+                random_user = random.choice(user_list)
+                user = random_user.mention
                 author = ctx.message.author.mention
                 await ctx.send(f'{user}! RNG избрал Вас! Все вопросы к {author}, Я только посредник!')
                 return
+
             elif len(arg) == 1:
                 start = 1
                 end = int(arg[0])
@@ -113,14 +112,14 @@ class bmain(commands.Cog):
 
     @commands.command()
     async def choose(self, ctx, *choices: str):
-        choosestr = " ".join(choices)
-        chooselist = choosestr.split(' ')
-        if len(chooselist) <= 1:
+        choose_str = " ".join(choices)
+        choose_list = choose_str.split(' ')
+        if len(choose_list) <= 1:
             await ctx.send('Боюсь, что тут выбор очевиден! Вы Dodique!')
-        elif len(chooselist) > 10:
+        elif len(choose_list) > 10:
             await ctx.send('Слишком сложно! Попробуйте ввести 10 или меньше вариантов!')
         else:
-            await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(chooselist)}')
+            await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(choose_list)}')
 
     @commands.command()
     @commands.cooldown(1, 600, commands.BucketType.user)
@@ -201,4 +200,4 @@ class bmain(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(bmain(bot))
+    bot.add_cog(BotMain(bot))
