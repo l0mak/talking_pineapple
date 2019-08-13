@@ -1,7 +1,7 @@
 from discord.ext import commands
 
 
-class errors_feedback(commands.Cog):
+class ErrorsFeedback(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -28,4 +28,4 @@ class errors_feedback(commands.Cog):
             await ctx.channel.send(f'Ой-ой! Что-то пошло не так! Возможно это как-то Вам поможет: {error}')
             
 def setup(bot):
-    bot.add_cog(errors_feedback(bot))
+    bot.add_cog(ErrorsFeedback(bot))

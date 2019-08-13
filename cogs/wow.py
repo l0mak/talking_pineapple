@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 from loadconfig import __wowID__, __wowSecret__, __wowLocale__, __whitelist__
 
 
-class wow(commands.Cog):
+class WowRelated(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -247,4 +247,4 @@ class wow(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(wow(bot))
+    bot.add_cog(WowRelated(bot))

@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-class test(commands.Cog):
+class Test(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
@@ -47,4 +47,4 @@ class test(commands.Cog):
         
                     
 def setup(bot):
-    bot.add_cog(test(bot))
+    bot.add_cog(Test(bot))

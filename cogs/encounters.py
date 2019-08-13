@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 
-class encounters(commands.Cog):
+class Encounters(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
@@ -164,4 +164,4 @@ class encounters(commands.Cog):
 
 
 def setup(bot):
-	bot.add_cog(encounters(bot))
+	bot.add_cog(Encounters(bot))

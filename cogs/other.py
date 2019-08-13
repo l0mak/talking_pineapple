@@ -11,7 +11,7 @@ from asyncio.tasks import sleep
 # from discord.utils import get
 
 
-class other(commands.Cog):
+class Other(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -163,4 +163,4 @@ class other(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(other(bot))
+    bot.add_cog(Other(bot))
