@@ -13,7 +13,7 @@ from discord.utils import get
 import loadconfig
 
 
-__version__ = '1.2.4'
+__version__ = '1.3.0'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
@@ -63,13 +63,13 @@ async def on_ready():
     while not discord.opus.is_loaded():
         discord.opus.load_opus('libopus')
     bot.startTime = datetime.datetime.now()
-    bot.startDate = time.ctime()
+    bot.startDate = time.strftime("%d %m %Y, %H:%M:%S")
     bot.botVersion = __version__
     bot.userAgentHeaders = {'User-Agent': f'ubuntu:talking-pineapple:v{__version__}'}
     bot.gamesLoop = asyncio.ensure_future(_randomGame())
     channel = bot.get_channel(499938558174560256)
 
-    await channel.send(f'Privetique! Время запуска - {bot.startDate}')
+    await channel.send(f':white_circle: Время запуска - {bot.startDate}')
 
 @bot.event
 async def on_member_join(member):
@@ -119,7 +119,7 @@ async def info(ctx):
 async def qb(ctx):
     if await ctx.bot.is_owner(ctx.author):
         channel = bot.get_channel(499938558174560256)
-        await channel.send(f'Poka! Время отключения - {time.ctime()}')
+        await channel.send(f':red_circle: Время отключения - {time.strftime("%d %m %Y, %H:%M:%S")}')
 
         await bot.logout()
         sys.exit(0)

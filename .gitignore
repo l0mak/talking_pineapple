@@ -12,3 +12,4 @@ bac_1/
 .venv/
 .env/
 .idea/
+voice/*.mp3
