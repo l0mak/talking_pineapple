@@ -157,11 +157,6 @@ class MusicPlayer:
             source.cleanup()
             self.current = None
 
-            try:
-                # We are no longer playing this song...
-                await self.np.delete()
-            except discord.HTTPException:
-                pass
 
     def destroy(self, guild):
         """Disconnect and cleanup the player."""
@@ -349,11 +344,6 @@ class Voice(commands.Cog):
         if not player.current:
             return await ctx.send('Да я особо ничего и не проигрываю!')
 
-        try:
-            # Remove our previous now_playing message.
-            await player.np.delete()
-        except discord.HTTPException:
-            pass
         player.np = await ctx.send(f'Сейчас играет: **{vc.source.title}** по заказу **{vc.source.requester}**')
 
     @commands.command(name='volume', aliases=['vol'])
