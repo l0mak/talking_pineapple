@@ -1,5 +1,7 @@
 import asyncio
 import random
+import aiohttp
+import io
 import logging
 from logging.handlers import RotatingFileHandler
 import datetime
@@ -30,7 +32,7 @@ description = "Talking Pineapple Project is a Bot for Discord Voice Chat."
 
 bot = commands.Bot(command_prefix=';', description=description)
 
-bot.remove_command('help');
+bot.remove_command('help')
 
 async def _randomGame():
     while True:
@@ -92,6 +94,15 @@ async def on_message(message):
             await message.channel.send('Здравствуйте!')
         else:
             await message.channel.send('''Простите, не понимаю Вас! Вы можете использовать комнады **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:''')
+    if random.randint(0, 50) > 45:
+        async with aiohttp.ClientSession() as session:
+            async with session.get('https://cdn.discordapp.com/attachments/325398248330100737/639544485042192404/penis.png') as resp:
+                if resp.status != 200:
+                    await message.channel.send('Ой-ой! Хотел скинуть картинку, но не смог...')
+                    return
+                else:
+                    data = io.BytesIO(await resp.read())
+                    await message.channel.send(file=discord.File(data, 'pic.png'))
     else:
         await bot.process_commands(message)
 

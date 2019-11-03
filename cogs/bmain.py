@@ -35,7 +35,6 @@ class BotMain(commands.Cog):
                                                                 **;roll user** Случайный Ананасик.
                                                                 ''', inline=False)
         embed.add_field(name='**;voice**', value='Информация о голосовых возможностях бота.', inline=False)
-        embed.add_field(name='**;music**', value='Информация о музыкальном плеере бота.', inline=False)
         embed.add_field(name='**;other**', value='Прочие команды.', inline=False)
         embed.add_field(name="**;info**", value="Вызов справки по Боту.", inline=False)
         embed.add_field(name="**;help**", value="Вызов этого сообщения.", inline=False)

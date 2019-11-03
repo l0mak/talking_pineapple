@@ -389,16 +389,20 @@ class Voice(commands.Cog):
         if len(message.clean_content) <= 4:
             await ctx.send('Но тут же не о чем говорить.')
         else:
-            path = 'voice/' + str(message.id) + '.mp3'
-            tts = gTTS(text=message.clean_content[5:], lang='ru', slow=False)
-            tts.save(path)
-            vc = ctx.voice_client
+            try:
+                path = 'voice/' + str(message.id) + '.mp3'
+                tts = gTTS(text=message.clean_content[5:], lang='ru', slow=False)
+                tts.save(path)
+                vc = ctx.voice_client
 
-            if not vc:
-                await ctx.invoke(self.connect_)
+                if not vc:
+                    await ctx.invoke(self.connect_)
 
-            source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(path))
-            ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else os.remove(path))
+                source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(path))
+                ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else os.remove(path))
+            except:
+                pass
+            await ctx.send('Жу-жу-жу...')
 
             # player = self.get_player(ctx)
             # source = discord.FFmpegPCMAudio(path)

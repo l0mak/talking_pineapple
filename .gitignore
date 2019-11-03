@@ -13,3 +13,6 @@ bac_1/
 .env/
 .idea/
 voice/*.mp3
+Dockerfile
+*.ogg
+venv/
