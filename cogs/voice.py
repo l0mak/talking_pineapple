@@ -411,7 +411,7 @@ class Voice(commands.Cog):
 
         await ctx.message.delete()
 
-    @commands.command()
+    @commands.command(aliases=['music'])
     async def voice(self, ctx):
         embed = discord.Embed(title="", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')

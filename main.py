@@ -94,7 +94,7 @@ async def on_message(message):
             await message.channel.send('Здравствуйте!')
         else:
             await message.channel.send('''Простите, не понимаю Вас! Вы можете использовать комнады **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:''')
-    if random.randint(0, 50) > 45:
+    if random.randint(0, 100) > 95:
         async with aiohttp.ClientSession() as session:
             async with session.get('https://cdn.discordapp.com/attachments/325398248330100737/639544485042192404/penis.png') as resp:
                 if resp.status != 200:
