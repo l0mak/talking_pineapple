@@ -5,3 +5,5 @@ __wowLocale__ = 'en_EU'
 __wowRegion__ = 'eu'
 __blacklist__ = [LIST, OF, INTEGERS, OF, USER, IDs]
 __whitelist__ = [LIST, OF, INTEGERS, OF, USER, IDs]
+__piclist__ = ['url.to/funny/picture.jpg',
+               ]

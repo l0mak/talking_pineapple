@@ -15,7 +15,7 @@ from discord.utils import get
 import loadconfig
 
 
-__version__ = '1.3.0'
+__version__ = '1.3.1'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
@@ -96,7 +96,8 @@ async def on_message(message):
             await message.channel.send('''Простите, не понимаю Вас! Вы можете использовать комнады **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:''')
     if random.randint(0, 100) > 95:
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://cdn.discordapp.com/attachments/325398248330100737/639544485042192404/penis.png') as resp:
+            source = random.choice(loadconfig.__piclist__)
+            async with session.get(source) as resp:
                 if resp.status != 200:
                     await message.channel.send('Ой-ой! Хотел скинуть картинку, но не смог...')
                     return
