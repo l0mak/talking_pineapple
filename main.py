@@ -19,8 +19,8 @@ __version__ = '1.3.1'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
-# logger.setLevel(logging.DEBUG)
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.DEBUG)
+# logger.setLevel(logging.WARNING)
 handler = RotatingFileHandler(filename='discordbot.log', maxBytes=1024*100, backupCount=2, encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
@@ -33,6 +33,9 @@ description = "Talking Pineapple Project is a Bot for Discord Voice Chat."
 bot = commands.Bot(command_prefix=';', description=description)
 
 bot.remove_command('help')
+
+home_channel = 499938558174560256
+dm_copy_channels = 655745237926281248
 
 async def _randomGame():
     while True:
@@ -69,7 +72,7 @@ async def on_ready():
     bot.botVersion = __version__
     bot.userAgentHeaders = {'User-Agent': f'ubuntu:talking-pineapple:v{__version__}'}
     bot.gamesLoop = asyncio.ensure_future(_randomGame())
-    channel = bot.get_channel(499938558174560256)
+    channel = bot.get_channel(home_channel)
 
     await channel.send(f':white_circle: Время запуска - {bot.startDate}')
 
@@ -89,11 +92,15 @@ async def on_message(message):
         return
     if message.author.id in loadconfig.__blacklist__:
         return
+    if isinstance(message.channel, discord.DMChannel):
+        channel = bot.get_channel(dm_copy_channels)
+        await channel.send(f'{message.author} - {message.content}')
+
     if bot.user.mentioned_in(message) and message.mention_everyone is False:
         if 'привет' in message.content.lower():
             await message.channel.send('Здравствуйте!')
         else:
-            await message.channel.send('''Простите, не понимаю Вас! Вы можете использовать комнады **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:''')
+            await message.channel.send('''Простите, не понимаю Вас! Вы можете использовать команды **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:''')
     if random.randint(0, 100) > 95:
         async with aiohttp.ClientSession() as session:
             source = random.choice(loadconfig.__piclist__)
