@@ -106,7 +106,7 @@ async def on_message(message):
             source = random.choice(loadconfig.__piclist__)
             async with session.get(source) as resp:
                 if resp.status != 200:
-                    await message.channel.send('Ой-ой! Хотел скинуть картинку, но не смог...')
+                    await message.channel.send('Ой-ой! Потерял боевую картиночку...')
                     return
                 else:
                     data = io.BytesIO(await resp.read())
@@ -131,6 +131,9 @@ async def info(ctx):
     embed.add_field(name="Время работы", value=f'{str((datetime.datetime.now() - bot.startTime))[:-7]}')
     embed.add_field(name="Пинг", value=f'{1000*round(bot.latency, 3)}')
     embed.add_field(name="Справка по командам", value="**;help**")
+
+    embed.add_field(name="Благодарности", value="Капитану Пирожку за то, что он есть! Пироксиду за пак с пандочками!")
+
     embed.set_footer(text="/hug")
     await ctx.send(embed=embed)
 
