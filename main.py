@@ -19,8 +19,8 @@ __version__ = '1.3.1'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
-logger.setLevel(logging.DEBUG)
-# logger.setLevel(logging.WARNING)
+# logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 handler = RotatingFileHandler(filename='discordbot.log', maxBytes=1024*100, backupCount=2, encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
@@ -78,12 +78,26 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    channel = get(member.guild.channels, name='user_count')
+    dedicated = get(member.guild.channels, name='user_count')
+    main = get(member.guild.channels, id=member.guild.id)
+    if dedicated:
+        channel = dedicated
+    elif main:
+        channel = main
+    else:
+        channel = get(member.guild.channels, name='токсичный-канал')
     await channel.send(f'Сдается мне, у нас новый друг - {member.mention}! Oora!')
 
 @bot.event
 async def on_member_remove(member):
-    channel = get(member.guild.channels, name='user_count')
+    dedicated = get(member.guild.channels, name='user_count')
+    main = get(member.guild.channels, id=member.guild.id)
+    if dedicated:
+        channel = dedicated
+    elif main:
+        channel = main
+    else:
+        channel = get(member.guild.channels, name='токсичный-канал')
     await channel.send(f'Ананасик покинул наc! {member.mention}, куда же Вы!')
 
 @bot.event
