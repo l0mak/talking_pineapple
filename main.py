@@ -139,14 +139,18 @@ async def info(ctx):
     embed.set_author(name=f'{bot.user.name}', icon_url='https://i.imgur.com/A7tQuJ1.png')
     embed.add_field(name="Версия", value=f'{__version__}')
     embed.add_field(name="Префикс", value=f'**{bot.command_prefix}**')
+    embed.add_field(name="Справка по командам", value="**;help ;other ;voice**")
     embed.add_field(name="Автор", value="<@!440103092009304064>")
+    embed.add_field(name="Пинг", value=f'{1000*round(bot.latency, 3)}')
+
     embed.add_field(name="Количество Серверов", value=f'{len(bot.guilds)}')
     embed.add_field(name="Дата и время запуска", value=f'{bot.startDate}')
     embed.add_field(name="Время работы", value=f'{str((datetime.datetime.now() - bot.startTime))[:-7]}')
-    embed.add_field(name="Пинг", value=f'{1000*round(bot.latency, 3)}')
-    embed.add_field(name="Справка по командам", value="**;help**")
 
-    embed.add_field(name="Благодарности", value="Капитану Пирожку за то, что он есть! Пироксиду за пак с пандочками!")
+    embed.add_field(inline=False, name="Благодарности", value="""**Капитану Пирожку** за то, что он есть!
+                                                              **Пироксиду** за пак с пандочками!
+                                                              **Магтяну** за пейринг!""")
+
 
     embed.set_footer(text="/hug")
     await ctx.send(embed=embed)
