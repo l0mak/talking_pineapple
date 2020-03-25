@@ -46,7 +46,10 @@ class BotMain(commands.Cog):
         if isinstance(ctx.message.channel, discord.DMChannel):
             await ctx.send('Сообщение отправлено!')
         else:
-            await ctx.message.delete()
+            try:
+                await ctx.message.delete()
+            except:
+                await ctx.send('Не могу тут удалять сообщения! Удалите сами а то, анонимно не получится!')
 
         ch = self.bot.get_channel(int(channel))
 
