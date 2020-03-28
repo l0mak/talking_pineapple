@@ -408,8 +408,10 @@ class Voice(commands.Cog):
             # source = discord.FFmpegPCMAudio(path)
             #
             # await player.queue.put(source)
-
-        await ctx.message.delete()
+        try:
+            await ctx.message.delete()
+        except:
+            await ctx.send('Не могу тут удалять сообщения! Удалите сами а то, анонимно не получится!')
 
     @commands.command(aliases=['music'])
     async def voice(self, ctx):
