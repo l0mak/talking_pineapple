@@ -8,6 +8,9 @@ import datetime
 import time
 import sys
 
+import ctypes
+import ctypes.util
+
 import discord
 from discord.ext import commands
 from discord.utils import get
@@ -66,7 +69,9 @@ async def on_ready():
         except Exception:
             print(f'Couldn\'t load cog {cog}')
     while not discord.opus.is_loaded():
-        discord.opus.load_opus('libopus')
+        opus_lib_name = ctypes.util.find_library('opus')
+        discord.opus.load_opus(opus_lib_name)
+
     bot.startTime = datetime.datetime.now()
     bot.startDate = time.strftime("%d %m %Y, %H:%M:%S")
     bot.botVersion = __version__
