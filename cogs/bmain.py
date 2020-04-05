@@ -49,7 +49,7 @@ class BotMain(commands.Cog):
             try:
                 await ctx.message.delete()
             except:
-                await ctx.send('Не могу тут удалять сообщения! Удалите сами а то, анонимно не получится!')
+                await ctx.send('Не могу тут удалять сообщения! Удалите сами, пожалуйста, а то анонимно не получится!')
 
         ch = self.bot.get_channel(int(channel))
 

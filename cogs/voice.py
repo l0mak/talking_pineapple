@@ -402,7 +402,7 @@ class Voice(commands.Cog):
                 ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else os.remove(path))
             except:
                 pass
-            await ctx.send('Жу-жу-жу...')
+                await ctx.send('Жу-жу-жу... что-то пошло не так...')
 
             # player = self.get_player(ctx)
             # source = discord.FFmpegPCMAudio(path)
@@ -411,7 +411,7 @@ class Voice(commands.Cog):
         try:
             await ctx.message.delete()
         except:
-            await ctx.send('Не могу тут удалять сообщения! Удалите сами а то, анонимно не получится!')
+            await ctx.send('Не могу тут удалять сообщения! Удалите сами, пожалуйста!')
 
     @commands.command(aliases=['music'])
     async def voice(self, ctx):
