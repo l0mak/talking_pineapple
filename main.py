@@ -18,7 +18,7 @@ from discord.utils import get
 import loadconfig
 
 
-__version__ = '1.3.1'
+__version__ = '1.3.2'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
@@ -68,6 +68,7 @@ async def on_ready():
             bot.load_extension(cog)
         except Exception:
             print(f'Couldn\'t load cog {cog}')
+
     while not discord.opus.is_loaded():
         opus_lib_name = ctypes.util.find_library('opus')
         discord.opus.load_opus(opus_lib_name)
@@ -120,7 +121,7 @@ async def on_message(message):
             await message.channel.send('Здравствуйте!')
         else:
             await message.channel.send('''Простите, не понимаю Вас! Вы можете использовать команды **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:''')
-    if random.randint(0, 100) > 95:
+    if random.randint(0, 100) > 98:
         async with aiohttp.ClientSession() as session:
             source = random.choice(loadconfig.__piclist__)
             async with session.get(source) as resp:

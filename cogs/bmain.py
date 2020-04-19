@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 import random
+from PIL import Image, ImageDraw, ImageFont
+import io
 
 
 class BotMain(commands.Cog):
@@ -35,11 +37,127 @@ class BotMain(commands.Cog):
                                                                 **;roll coin** Монетка. 
                                                                 **;roll user** Случайный Ананасик.
                                                                 ''', inline=False)
+        embed.add_field(name="**;roles**", value="Просмотреть список доступных ролей.", inline=False)
+        embed.add_field(name="**;role <number>**", value="Назначить себе роль с ID из списка выше.", inline=False)
+        embed.add_field(name="**;addrole <color>**", value="Создать роль с цветом. Цвет можно выбрать в гугле по запросу **color picker**. ```;addrole #6fd1a5```", inline=False)
+
+
         embed.add_field(name='**;voice**', value='Информация о голосовых возможностях бота.', inline=False)
         embed.add_field(name='**;other**', value='Прочие команды.', inline=False)
         embed.add_field(name="**;info**", value="Вызов справки по Боту.", inline=False)
         embed.add_field(name="**;help**", value="Вызов этого сообщения.", inline=False)
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def roles(self, ctx):
+        colors = []
+        for role in ctx.guild.roles:
+            if str(role.name).startswith('#'):
+                colors.append(str(role.name))
+
+        await ctx.send(f'**Уже добавленные на сервер {ctx.guild.name} роли:**')
+
+        for i in range(len(colors)):
+            img = Image.new('RGBA', (240, 32), (0, 0, 0, 0))
+
+            font_path = 'font.otf'
+            font = ImageFont.truetype(font_path, size=20)
+
+            d = ImageDraw.Draw(img)
+            d.text((10, 10), f'Color ID {i}', fill=colors[i], font=font)
+
+            img_byte_arr = io.BytesIO()
+            img.save(img_byte_arr, 'png')
+            img_byte_arr.seek(0)
+
+            # img_byte_arr.getvalue() was there...
+            await ctx.send(file=discord.File(img_byte_arr, 'pic.png'))
+
+
+
+    @commands.command()
+    async def role(self, ctx, *arg):
+        if ctx.invoked_subcommand is None:
+            if not arg:
+                await ctx.send('Вы не указали номер цвета! Посмотреть все цвета на сервере можно командой **;roles**, добавить свой цвет командой **;addcolor <hex_color>** (<hex_color> можно выбрать в гугле, по запросу **color picker**)')
+
+            elif int(arg[0]) >= 0:
+                color_id = int(arg[0])
+
+                colors = []
+                for role in ctx.guild.roles:
+                    if str(role.name).startswith('#'):
+                        colors.append(str(role.name))
+
+                user = ctx.message.author
+                for role in user.roles:
+                    if str(role.name).startswith('#'):
+                        if str(role.name) == colors[color_id]:
+                            await ctx.send('Так она же у вас есть!')
+                        else:
+                            await user.remove_roles(role, reason='Delete old one!')
+                            await ctx.send('Удалил старую!')
+
+                            role_name = colors[color_id].upper()
+                            role = discord.utils.get(ctx.guild.roles, name=role_name)
+
+                            if role:
+                                await ctx.author.add_roles(role, reason='Add new one!')
+                                await ctx.send('Добавил Вам новую роль!')
+
+            else:
+                await ctx.send('Ля какой хитрый лисёнок!')
+
+    @commands.command()
+    async def rmroles(self, ctx):
+        if await ctx.bot.is_owner(ctx.author):
+            for role in ctx.guild.roles:
+                if str(role.name).startswith('#'):
+                    await role.delete()
+            await ctx.send('yep')
+        else:
+            await ctx.send('nope')
+
+    @commands.command()
+    async def purgeroles(self, ctx):
+        if await ctx.bot.is_owner(ctx.author):
+            i = 0
+            for role in ctx.guild.roles:
+                if str(role.name).startswith('#') and len(role.members) == 0:
+                    await role.delete()
+                    i+=1
+
+            await ctx.send(f'yep {i} times')
+        else:
+            await ctx.send('nope')
+
+    @commands.command()
+    async def addrole(self, ctx, *arg):
+        user = ctx.message.author
+        for role in user.roles:
+            if str(role.name).startswith('#'):
+                await user.remove_roles(role, reason='Delete old one!')
+                await ctx.send('Удалил старую!')
+
+
+        role_name = str(arg[0]).upper()
+        role = discord.utils.get(ctx.guild.roles, name=role_name)
+
+        if role:
+            await ctx.author.add_roles(role, reason='Add new one!')
+            await ctx.send('Добавил Вам новую роль!')
+
+        else:
+            new_role = await ctx.guild.create_role(name=role_name, color=discord.Colour(int(arg[0][1:], 16)))
+            await ctx.author.add_roles(new_role, reason='Add new one!')
+            await ctx.send('Добавил Вам новую роль!')
+
+            bot_role = discord.utils.get(ctx.guild.roles, name='Ananasique')
+
+            role = discord.utils.get(ctx.guild.roles, name=role_name)
+
+            await role.edit(position=bot_role.position - 1)
+
 
     @commands.command()
     async def echo(self, ctx, channel: str, *message: str):
