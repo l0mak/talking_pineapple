@@ -35,7 +35,7 @@ class BotMain(commands.Cog):
         embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
         embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. **<username> - @mention или ник Ананасика** (чувствительно к регистру). Просто **;userinfo** выдаст информацию о Вас', inline=False) 
         embed.add_field(name='**;serverinfo**', value='Информация о дискорд сервере.', inline=False)
-        embed.add_field(name='**;choose X Y Z**', value='Случайный выбор из введенных вариантов (не больше 10; просто потому что!) ```;choose Druid Shaman Priest```', inline=False)
+        embed.add_field(name='**;choose X, Y, Z**', value='Случайный выбор из введенных через запятую вариантов (не больше 10; просто потому что!) ```;choose Druid, Shaman, Priest```', inline=False)
         embed.add_field(name="**;random ;roll ;rand** ", value='''**;roll** Случайное чилсо от 0 до 100. 
                                                                 **;roll X Y** Случайное число в конкретном диапазоне. 
                                                                 **;roll coin** Монетка. 
@@ -237,12 +237,12 @@ class BotMain(commands.Cog):
 
     @commands.command()
     async def choose(self, ctx, *choices: str):
-        choose_str = " ".join(choices)
-        choose_list = choose_str.split(' ')
+        choose_str = "".join(choices)
+        choose_list = choose_str.split(',')
         if len(choose_list) <= 1:
             await ctx.send('Боюсь, что тут выбор очевиден! Вы Dodique!')
         elif len(choose_list) > 10:
-            await ctx.send('Слишком сложно! Попробуйте ввести 10 или меньше вариантов!')
+            await ctx.send('Слишком сложно! Попробуйте ввести меньше вариантов!')
         else:
             await ctx.send(f':thinking: RNG боги сделали выбор! {random.choice(choose_list)}')
 
