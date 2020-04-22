@@ -237,7 +237,7 @@ class BotMain(commands.Cog):
 
     @commands.command()
     async def choose(self, ctx, *choices: str):
-        choose_str = "".join(choices)
+        choose_str = " ".join(choices)
         choose_list = choose_str.split(',')
         if len(choose_list) <= 1:
             await ctx.send('Боюсь, что тут выбор очевиден! Вы Dodique!')
