@@ -32,18 +32,27 @@ class WowRelated(commands.Cog):
         with open('lists/maybe.txt', 'r') as m:
             maybe = [line.strip() for line in m]
             m.close
-        embed = discord.Embed(title="Список записавшихся в мифический рейд:", description=f'Записаться можно командой **;mladd**, чтобы выбрать роль добавьте **tank heal dd** после пробела! Отписаться можно командой **;mlrm**. ', color=0xa500ff)
+
+        embed = discord.Embed(title="Список записавшихся в мифический рейд:", description=f'''Записаться можно командой **;mladd**, чтобы выбрать роль добавьте **tank heal dd** после пробела! 
+                                                                                                Отписаться можно командой **;mlrm**. 
+                                                                                                Очистить список можно командой **;mlclear** если Вы Доми, конечно
+                                                                                            ''', color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="Всего:", value=f'''**{len(tanks)+len(healers)+len(dodos)+len(maybe)}** Ананасиков
-                                                **{len(tanks)}** Танков
-                                                **{len(healers)}** Лекарей
-                                                **{len(dodos)}** Наносителей урона
-                                                **{len(maybe)}** Неопределившихся''')
-        embed.add_field(name="Танки", value=tanks)
-        embed.add_field(name="Лекари", value=healers)
-        embed.add_field(name="Бойцы", value=dodos)
-        embed.add_field(name="Ананасики без роли", value=maybe)
+        embed.add_field(inline=False, name="Всего:", value=f'''**{len(tanks)+len(healers)+len(dodos)+len(maybe)}** Ананасиков
+                                                **{str(len(tanks))}** Танков
+                                                **{str(len(healers))}** Лекарей
+                                                **{str(len(dodos))}** Наносителей урона
+                                                **{str(len(maybe))}** Неопределившихся''')
+        if tanks:
+            embed.add_field(name="Танки", value=''.join(x + ' ' for x in tanks))
+        if healers:
+            embed.add_field(name="Лекари", value=''.join(x + ' ' for x in healers))
+        if dodos:
+            embed.add_field(name="Бойцы", value=''.join(x + ' ' for x in dodos))
+        if maybe:
+            embed.add_field(inline=False, name="Ананасики без роли", value=''.join(x + ' ' for x in maybe))
+
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -150,6 +159,24 @@ class WowRelated(commands.Cog):
             await ctx.send('Ой-ой! Вы очистили список мифических Ананасиков!')
         else:
             await ctx.send('Ой-ой! Вам нельзя пользоваться этой командой!')
+
+    #
+    # @commands.command()
+    # async def mlassemble(self, ctx):
+    #     if ctx.author.id in __whitelist__:
+    #         m = open('lists/maybe.txt', 'w')
+    #         m.close
+    #         t = open('lists/tanks.txt', 'w')
+    #         t.close
+    #         h = open('lists/healers.txt', 'w')
+    #         h.close
+    #         h = open('lists/dodos.txt', 'w')
+    #         h.close
+    #         await ctx.send('Ой-ой! Вы очистили список мифических Ананасиков!')
+    #     else:
+    #         await ctx.send('Ой-ой! Вам нельзя пользоваться этой командой!')
+    #
+
 
     @commands.command()
     async def wq(self, ctx):

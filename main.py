@@ -127,10 +127,11 @@ async def on_message(message):
             async with session.get(source) as resp:
                 if resp.status != 200:
                     await message.channel.send('Ой-ой! Потерял боевую картиночку...')
-                    return
                 else:
                     data = io.BytesIO(await resp.read())
                     await message.channel.send(file=discord.File(data, 'pic.png'))
+        await bot.process_commands(message)
+
     else:
         await bot.process_commands(message)
 

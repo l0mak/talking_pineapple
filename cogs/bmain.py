@@ -4,8 +4,10 @@ import random
 try:
     from PIL import Image, ImageDraw, ImageFont
 except ModuleNotFoundError:
-    import Image, ImageDraw, ImageFont
-    
+    import Image
+    import ImageDraw
+    import ImageFont
+
 import io
 
 
@@ -23,24 +25,31 @@ class BotMain(commands.Cog):
                                 Введите команду в формате ;echo <channel_id> <text> и я скажу все за Вас.
                                 ```;echo 499938558174560256 Привет, Я Господин Ананасик!```''', inline=False)
         embed.add_field(name="**;channels**", value="Получить список каналов и их ID для этого сервера", inline=False)
+
         embed.add_field(name="**;wt**", value="WowToken", inline=True)
         embed.add_field(name="**;wf**", value="WarFronts", inline=True)
         embed.add_field(name="**;wq**", value="WorldQuests", inline=True)
         embed.add_field(name="**;wowlinks ;uselesslinks**", value="Ссылки на никому не нужную информацию.", inline=False)
         embed.add_field(name="**;wowclasses ;classsites**", value="Ссылки на никому не нужную классовую информацию.", inline=False)
+        embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
+
         embed.add_field(name="**;ml**", value="Mythic List. Список мифических Ананасиков.", inline=False)
         embed.add_field(name="**;mladd <role>**", value="Записаться в ряды мифических ананасиков. Роли **tank heal dd** ```;mladd tank```", inline=False)
         embed.add_field(name="**;mlrm**", value="Убрать себя из списка мифических Ананасиков.", inline=False)
         embed.add_field(name="**;mlclear**", value="Очистить список мифических Ананасиков.", inline=False)
-        embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
+        # embed.add_field(name="**;mlassemble**", value="Вызов всех записавшихся Ананасиков!", inline=False)
+
+
         embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. **<username> - @mention или ник Ананасика** (чувствительно к регистру). Просто **;userinfo** выдаст информацию о Вас', inline=False) 
         embed.add_field(name='**;serverinfo**', value='Информация о дискорд сервере.', inline=False)
+
         embed.add_field(name='**;choose X, Y, Z**', value='Случайный выбор из введенных через запятую вариантов (не больше 10; просто потому что!) ```;choose Druid, Shaman, Priest```', inline=False)
         embed.add_field(name="**;random ;roll ;rand** ", value='''**;roll** Случайное чилсо от 0 до 100. 
                                                                 **;roll X Y** Случайное число в конкретном диапазоне. 
                                                                 **;roll coin** Монетка. 
                                                                 **;roll user** Случайный Ананасик.
                                                                 ''', inline=False)
+
         embed.add_field(name="**;roles**", value="Просмотреть список доступных ролей.", inline=False)
         embed.add_field(name="**;role <number>**", value="Назначить себе роль с ID из списка выше.", inline=False)
         embed.add_field(name="**;addrole <color>**", value="Создать роль с цветом. Цвет можно выбрать в гугле по запросу **color picker**. ```;addrole #6fd1a5```", inline=False)
