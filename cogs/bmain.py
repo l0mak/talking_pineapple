@@ -142,8 +142,8 @@ class BotMain(commands.Cog):
 
                 user = ctx.message.author
                 for role in user.roles:
-                    if str(role.name) in colors:
-                        if str(role.name) == colors[color_id]:
+                    if str(role.name) in colors or str(role.name) in class_dict:
+                        if str(role.name) == colors[color_id] or str(role.name) == str(arg[0]):
                             await ctx.send('Так она же у вас есть!')
                         else:
                             await user.remove_roles(role, reason='Delete old one!')
