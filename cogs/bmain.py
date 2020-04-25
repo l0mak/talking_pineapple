@@ -63,12 +63,30 @@ class BotMain(commands.Cog):
 
     @commands.command()
     async def roles(self, ctx):
+        embed = discord.Embed(title="Роли!", description=f"Информация по выбору ролей на {ctx.guild.name}", color=0xa500ff)
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
+        embed.add_field(name="Роли по цвету класса **;role <class_name>**:", value='''Death Knight
+                                                                                    Demon Hunter	
+                                                                                    Druid	
+                                                                                    Hunter	
+                                                                                    Mage	
+                                                                                    Monk	
+                                                                                    Paladin	
+                                                                                    Priest
+                                                                                    Rogue
+                                                                                    Shaman
+                                                                                    Warlock	
+                                                                                    Warrior	
+                                                                                    ''', inline=False)
+        await ctx.send(embed=embed)
+
+        await ctx.send(f'Или Вы можете выбрать из уже добавленных на сервер {ctx.guild.name} ролей командой **;role <id>**:')
+
         colors = []
         for role in ctx.guild.roles:
             if str(role.name).startswith('#'):
                 colors.append(str(role.name))
-
-        await ctx.send(f'**Уже добавленные на сервер {ctx.guild.name} роли:**')
 
         for i in range(len(colors)):
             img = Image.new('RGBA', (240, 32), (0, 0, 0, 0))
@@ -90,36 +108,83 @@ class BotMain(commands.Cog):
 
     @commands.command()
     async def role(self, ctx, *arg):
+        class_dict = {'Death Knight' : '#C41F3B',
+                      'Demon Hunter' : '#A330C9	',
+                        'Druid' : '#FF7D0A',
+                        'Hunter' : '#ABD473',
+                        'Mage' : '#69CCF0',
+                        'Monk' : '#00FF96',
+                        'Paladin' : '#F58CBA',
+                        'Priest' : '#FFFFFF',
+                        'Rogue' : '#FFF569',
+                        'Shaman' : '#0070DE',
+                        'Warlock' : '#9482C9',
+                        'Warrior' : '#C79C6E',}
+
         if ctx.invoked_subcommand is None:
             if not arg:
-                await ctx.send('Вы не указали номер цвета! Посмотреть все цвета на сервере можно командой **;roles**, добавить свой цвет командой **;addcolor <hex_color>** (<hex_color> можно выбрать в гугле, по запросу **color picker**)')
+                await ctx.send('Вы не указали цвет! Посмотреть все цвета на сервере можно командой **;roles**, выбрать **;role <id>** или **;role <class_name>**, добавить свой цвет командой **;addcolor <hex_color>** (<hex_color> можно выбрать в гугле, по запросу **color picker**)')
 
-            elif int(arg[0]) >= 0:
-                color_id = int(arg[0])
+            elif int(arg[0]) < 0:
+                await ctx.send('Ля какой хитрый вульперенок!')
+
+            else:
+                if arg[0] in class_dict:
+                    color_id = class_dict[arg[0]]
+                else:
+                    color_id = int(arg[0])
 
                 colors = []
                 for role in ctx.guild.roles:
-                    if str(role.name).startswith('#'):
+                    if str(role.name).startswith('#') or str(role.name) in class_dict:
                         colors.append(str(role.name))
 
                 user = ctx.message.author
                 for role in user.roles:
-                    if str(role.name).startswith('#'):
+                    if str(role.name) in colors:
                         if str(role.name) == colors[color_id]:
                             await ctx.send('Так она же у вас есть!')
                         else:
                             await user.remove_roles(role, reason='Delete old one!')
                             await ctx.send('Удалил старую!')
 
-                            role_name = colors[color_id].upper()
-                            role = discord.utils.get(ctx.guild.roles, name=role_name)
 
-                            if role:
-                                await ctx.author.add_roles(role, reason='Add new one!')
-                                await ctx.send('Добавил Вам новую роль!')
+                role_name = colors[color_id].upper()
+                role = discord.utils.get(ctx.guild.roles, name=role_name)
 
-            else:
-                await ctx.send('Ля какой хитрый лисёнок!')
+                if role:
+                    await ctx.author.add_roles(role, reason='Add new one!')
+                    await ctx.send('Добавил Вам новую роль!')
+
+
+            #
+            #
+            # elif int(arg[0]) >= 0:
+            #     color_id = int(arg[0])
+            #
+            #     colors = []
+            #     for role in ctx.guild.roles:
+            #         if str(role.name).startswith('#'):
+            #             colors.append(str(role.name))
+            #
+            #     user = ctx.message.author
+            #     for role in user.roles:
+            #         if str(role.name).startswith('#'):
+            #             if str(role.name) == colors[color_id]:
+            #                 await ctx.send('Так она же у вас есть!')
+            #             else:
+            #                 await user.remove_roles(role, reason='Delete old one!')
+            #                 await ctx.send('Удалил старую!')
+            #
+            #                 role_name = colors[color_id].upper()
+            #                 role = discord.utils.get(ctx.guild.roles, name=role_name)
+            #
+            #                 if role:
+            #                     await ctx.author.add_roles(role, reason='Add new one!')
+            #                     await ctx.send('Добавил Вам новую роль!')
+
+
+
 
     @commands.command()
     async def rmroles(self, ctx):
