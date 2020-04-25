@@ -9,6 +9,18 @@ import datetime
 import requests
 import re
 
+
+from selenium import webdriver
+
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except ModuleNotFoundError:
+    import Image
+    import ImageDraw
+    import ImageFont
+
+from io import BytesIO
+
 from bs4 import BeautifulSoup
 
 from loadconfig import __wowID__, __wowSecret__, __wowLocale__, __whitelist__
@@ -176,62 +188,152 @@ class WowRelated(commands.Cog):
     #     else:
     #         await ctx.send('Ой-ой! Вам нельзя пользоваться этой командой!')
     #
+    #
+    #
+    # @commands.command()
+    # async def wq(self, ctx):
+    #     wq_page = 'https://www.wowhead.com/world-quests/bfa/eu'
+    #     page = requests.get(wq_page)
+    #     soup = BeautifulSoup(page.text, 'html.parser')
+    #
+    #     emissary_div = soup.find(class_="world-quests-header")
+    #     emissary_items = emissary_div.find_all('a')
+    #
+    #     all_names = []
+    #     for emissary in emissary_items:
+    #         all_names.append(emissary.contents)
+    #
+    #     str_names = "".join( repr(e) for e in all_names[:-7])
+    #     names = re.sub("[^A-Za-z0-9'` ]+", '\n', str_names )
+    #
+    #     embed = discord.Embed(title="Сейчас в игре:", color=0xa500ff)
+    #     embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+    #     embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
+    #     embed.add_field(name="Локальные задания", value=names)
+    #     await ctx.send(embed=embed)
 
 
-    @commands.command()
-    async def wq(self, ctx):
-        wq_page = 'https://www.wowhead.com/world-quests/bfa/eu'        
-        page = requests.get(wq_page)
-        soup = BeautifulSoup(page.text, 'html.parser')
-
-        emissary_div = soup.find(class_="world-quests-header")
-        emissary_items = emissary_div.find_all('a')
-
-        all_names = []
-        for emissary in emissary_items:
-            all_names.append(emissary.contents)
-
-        str_names = "".join( repr(e) for e in all_names[:-7])
-        names = re.sub("[^A-Za-z0-9'` ]+", '\n', str_names )
-
-        embed = discord.Embed(title="Сейчас в игре:", color=0xa500ff)
-        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="Локальные задания", value=names)
-        await ctx.send(embed=embed)
-
-
-    @commands.command()
-    async def wf(self, ctx):
-        fr_page = 'https://www.wowhead.com'
-        page = requests.get(fr_page)
-        soup = BeautifulSoup(page.text, 'html.parser')
-
-        fr_eu_div = soup.find(class_='tiw-region-EU')
-        fr_div = fr_eu_div.find(class_='tiw-group-wrapper-warfront')
-
-        fr_headings = fr_div.find_all(class_='imitation-heading')
-        fr_perc_spans = fr_div.find_all('span')
-
-        fr_states = []
-        for s in fr_headings:
-            fr_states.append(s.contents)
-
-        fr_perc = []
-        for s in fr_perc_spans:
-            fr_perc.append(s.contents)
-
-        arathi_wf = "".join("{0} - {1}".format(x,y) for x,y in zip(fr_states[0],fr_perc[0]))
-        darkshore_wf= "".join("{0} - {1}".format(x,y) for x,y in zip(fr_states[1],fr_perc[1]))
-
-        embed = discord.Embed(title="Сейчас в игре:", color=0xa500ff)
-        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
-        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
-        embed.add_field(name="Arathi", value=arathi_wf, inline=False )
-        embed.add_field(name="Dark Shore", value=darkshore_wf, inline=False )
-
-        await ctx.send(embed=embed)
-
+    # @commands.command()
+    # async def wf(self, ctx):
+    #     fr_page = 'https://www.wowhead.com'
+    #     page = requests.get(fr_page)
+    #     soup = BeautifulSoup(page.text, 'html.parser')
+    #
+    #     fr_eu_div = soup.find(class_='tiw-region-EU')
+    #     fr_div = fr_eu_div.find(class_='tiw-group-wrapper-warfront')
+    #
+    #     fr_headings = fr_div.find_all(class_='imitation-heading')
+    #     fr_perc_spans = fr_div.find_all('span')
+    #
+    #     fr_states = []
+    #     for s in fr_headings:
+    #         fr_states.append(s.contents)
+    #
+    #     fr_perc = []
+    #     for s in fr_perc_spans:
+    #         fr_perc.append(s.contents)
+    #
+    #     arathi_wf = "".join("{0} - {1}".format(x,y) for x,y in zip(fr_states[0],fr_perc[0]))
+    #     darkshore_wf= "".join("{0} - {1}".format(x,y) for x,y in zip(fr_states[1],fr_perc[1]))
+    #
+    #     embed = discord.Embed(title="Сейчас в игре:", color=0xa500ff)
+    #     embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+    #     embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
+    #     embed.add_field(name="Arathi", value=arathi_wf, inline=False )
+    #     embed.add_field(name="Dark Shore", value=darkshore_wf, inline=False )
+    #
+    #     await ctx.send(embed=embed)
+    #
+    #
+    #
+    # @commands.command()
+    # async def wowtoday(self, ctx):
+    #     await ctx.send('Секундочку плюс минуточку...')
+    #     driver = webdriver.Firefox()
+    #     driver.maximize_window()
+    #     # driver.headless = True
+    #     #
+    #     # scheight = .1
+    #     # while scheight < 9.9:
+    #     #     fox.execute_script("window.scrollTo(0, document.body.scrollHeight/%s);" % scheight)
+    #     #     scheight += .01
+    #     #
+    #
+    #     driver.get('https://www.wowhead.com')
+    #
+    #     element = driver.find_element_by_css_selector(".row-featured-content")
+    #     location = element.location
+    #     size = element.size
+    #     # png = driver.get_screenshot_as_png()
+    #     # driver.quit()
+    #
+    #     # img = Image.open(BytesIO(png))
+    #     #
+    #     # left = location['x']
+    #     # top = location['y']
+    #     # right = location['x'] + size['width']
+    #     # bottom = location['y'] + size['height']
+    #     #
+    #     # img = img.crop((left, top, right, bottom))
+    #
+    #     # img_byte_arr = BytesIO()
+    #     # img.save(img_byte_arr, 'png')
+    #     # img_byte_arr.seek(0)
+    #
+    #     img_li = []  # to store image fragment
+    #     offset = 0  # where to start
+    #
+    #     # js to get height
+    #     height = driver.execute_script('return Math.max('
+    #                                    'document.documentElement.clientHeight, window.innerHeight);')
+    #
+    #     # js to get the maximum scroll height
+    #     # Ref--> https://stackoverflow.com/questions/17688595/finding-the-maximum-scroll-position-of-a-page
+    #     max_window_height = driver.execute_script('return Math.max('
+    #                                               'document.body.scrollHeight, '
+    #                                               'document.body.offsetHeight, '
+    #                                               'document.documentElement.clientHeight, '
+    #                                               'document.documentElement.scrollHeight, '
+    #                                               'document.documentElement.offsetHeight);')
+    #
+    #     # looping from top to bottom, append to img list
+    #     # Ref--> https://gist.github.com/fabtho/13e4a2e7cfbfde671b8fa81bbe9359fb
+    #     while offset < max_window_height:
+    #         # Scroll to height
+    #         driver.execute_script(f'window.scrollTo(0, {offset});')
+    #         img = Image.open(BytesIO((driver.get_screenshot_as_png())))
+    #         img_li.append(img)
+    #         offset += height
+    #
+    #     # Stitch image into one
+    #     # Set up the full screen frame
+    #     img_frame_height = sum([img_frag.size[1] for img_frag in img_li])
+    #     img_frame = Image.new('RGB', (img_li[0].size[0], img_frame_height))
+    #     offset = 0
+    #     for img_frag in img_li:
+    #         img_frame.paste(img_frag, (0, offset))
+    #         offset += img_frag.size[1]
+    #
+    #
+    #
+    #     left = location['x']+160
+    #     top = location['y']+1500
+    #     right = left + size['width']
+    #     bottom = top + size['height']
+    #
+    #     img_frame = img_frame.crop((left, top, right, bottom))
+    #
+    #
+    #
+    #
+    #     img_byte_arr = BytesIO()
+    #     img_frame.save(img_byte_arr, 'png')
+    #     img_byte_arr.seek(0)
+    #
+    #
+    #     await ctx.send('Спасибо WoWHead за это:')
+    #
+    #     await ctx.send(file=discord.File(img_byte_arr, 'pic.png'))
 
     @commands.command()
     async def wt(self, ctx):

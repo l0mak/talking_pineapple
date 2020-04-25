@@ -8,7 +8,7 @@ except ModuleNotFoundError:
     import ImageDraw
     import ImageFont
 
-import io
+from io import BytesIO
 
 
 class BotMain(commands.Cog):
@@ -16,7 +16,7 @@ class BotMain(commands.Cog):
         self.bot = bot
     
     @commands.command()
-    async def help(self, ctx):    
+    async def help(self, ctx):
         embed = discord.Embed(title="Привет!", description="Я Говорящий Ананасик! Сейчас я умею:", color=0xa500ff)
         embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
         embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
@@ -26,9 +26,10 @@ class BotMain(commands.Cog):
                                 ```;echo 499938558174560256 Привет, Я Господин Ананасик!```''', inline=False)
         embed.add_field(name="**;channels**", value="Получить список каналов и их ID для этого сервера", inline=False)
 
+        embed.add_field(name="**;wowtoday**", value="Информация с сайта WowHead об актуальных событиях в игре! **В данный момент в разработке**", inline=True)
         embed.add_field(name="**;wt**", value="WowToken", inline=True)
-        embed.add_field(name="**;wf**", value="WarFronts", inline=True)
-        embed.add_field(name="**;wq**", value="WorldQuests", inline=True)
+        # embed.add_field(name="**;wf**", value="WarFronts", inline=True)
+        # embed.add_field(name="**;wq**", value="WorldQuests", inline=True)
         embed.add_field(name="**;wowlinks ;uselesslinks**", value="Ссылки на никому не нужную информацию.", inline=False)
         embed.add_field(name="**;wowclasses ;classsites**", value="Ссылки на никому не нужную классовую информацию.", inline=False)
         embed.add_field(name="**;bosslist ;bossiques ;listboss**", value="Список подземелий по которым можно получить тактику.", inline=False)
@@ -40,7 +41,7 @@ class BotMain(commands.Cog):
         # embed.add_field(name="**;mlassemble**", value="Вызов всех записавшихся Ананасиков!", inline=False)
 
 
-        embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. **<username> - @mention или ник Ананасика** (чувствительно к регистру). Просто **;userinfo** выдаст информацию о Вас', inline=False) 
+        embed.add_field(name='**;userinfo <username>**', value='Информация об Ананасике. **<username> - @mention или ник Ананасика** (чувствительно к регистру). Просто **;userinfo** выдаст информацию о Вас', inline=False)
         embed.add_field(name='**;serverinfo**', value='Информация о дискорд сервере.', inline=False)
 
         embed.add_field(name='**;choose X, Y, Z**', value='Случайный выбор из введенных через запятую вариантов (не больше 10; просто потому что!) ```;choose Druid, Shaman, Priest```', inline=False)
@@ -97,7 +98,7 @@ class BotMain(commands.Cog):
             d = ImageDraw.Draw(img)
             d.text((10, 10), f'Color ID {i}', fill=colors[i], font=font)
 
-            img_byte_arr = io.BytesIO()
+            img_byte_arr = BytesIO()
             img.save(img_byte_arr, 'png')
             img_byte_arr.seek(0)
 
@@ -108,35 +109,35 @@ class BotMain(commands.Cog):
 
     @commands.command()
     async def role(self, ctx, *arg):
-        class_dict = {'Death Knight' : '#C41F3B',
-                      'Demon Hunter' : '#A330C9	',
-                        'Druid' : '#FF7D0A',
-                        'Hunter' : '#ABD473',
-                        'Mage' : '#69CCF0',
-                        'Monk' : '#00FF96',
-                        'Paladin' : '#F58CBA',
-                        'Priest' : '#FFFFFF',
-                        'Rogue' : '#FFF569',
-                        'Shaman' : '#0070DE',
-                        'Warlock' : '#9482C9',
-                        'Warrior' : '#C79C6E',}
+        class_dict = {'DEATH KNIGHT': '#C41F3B',
+                      'DEMON HUNTER': '#A330C9	',
+                      'DRUID': '#FF7D0A',
+                      'HUNTER': '#ABD473',
+                      'MAGE': '#69CCF0',
+                      'MONK': '#00FF96',
+                      'PALADIN': '#F58CBA',
+                      'PRIEST': '#FFFFFF',
+                      'ROGUE': '#FFF569',
+                      'SHAMAN': '#0070DE',
+                      'WARLOCK': '#9482C9',
+                      'WARRIOR': '#C79C6E', }
 
         if ctx.invoked_subcommand is None:
             if not arg:
                 await ctx.send('Вы не указали цвет! Посмотреть все цвета на сервере можно командой **;roles**, выбрать **;role <id>** или **;role <class_name>**, добавить свой цвет командой **;addcolor <hex_color>** (<hex_color> можно выбрать в гугле, по запросу **color picker**)')
 
+            elif str(ctx.message.clean_content).upper()[6:] in class_dict:
+                await self.addrole(ctx, str(ctx.message.clean_content).upper()[6:])
+
             elif int(arg[0]) < 0:
                 await ctx.send('Ля какой хитрый вульперенок!')
 
-            else:
-                if arg[0] in class_dict:
-                    color_id = class_dict[arg[0]]
-                else:
-                    color_id = int(arg[0])
+            elif int(arg[0]) >= 0:
+                color_id = int(arg[0])
 
                 colors = []
                 for role in ctx.guild.roles:
-                    if str(role.name).startswith('#') or str(role.name) in class_dict:
+                    if str(role.name).startswith('#'):
                         colors.append(str(role.name))
 
                 user = ctx.message.author
@@ -155,6 +156,9 @@ class BotMain(commands.Cog):
                 if role:
                     await ctx.author.add_roles(role, reason='Add new one!')
                     await ctx.send('Добавил Вам новую роль!')
+                else:
+                    await ctx.send('Что-то пошло не так!')
+
 
 
             #
@@ -183,7 +187,8 @@ class BotMain(commands.Cog):
             #                     await ctx.author.add_roles(role, reason='Add new one!')
             #                     await ctx.send('Добавил Вам новую роль!')
 
-
+            else:
+                await ctx.send(f'Я запутался и не смог разобрать какой Вы хотите цвет! Простите!')
 
 
     @commands.command()
@@ -211,9 +216,22 @@ class BotMain(commands.Cog):
 
     @commands.command()
     async def addrole(self, ctx, *arg):
+        class_dict = {'DEATH KNIGHT' : '#C41F3B',
+                    'DEMON HUNTER' : '#A330C9	',
+                    'DRUID' : '#FF7D0A',
+                    'HUNTER' : '#ABD473',
+                    'MAGE' : '#69CCF0',
+                    'MONK' : '#00FF96',
+                    'PALADIN' : '#F58CBA',
+                    'PRIEST' : '#FFFFFF',
+                    'ROGUE' : '#FFF569',
+                    'SHAMAN' : '#0070DE',
+                    'WARLOCK' : '#9482C9',
+                    'WARRIOR' : '#C79C6E',}
+
         user = ctx.message.author
         for role in user.roles:
-            if str(role.name).startswith('#'):
+            if str(role.name).startswith('#') or str(role.name) in class_dict:
                 await user.remove_roles(role, reason='Delete old one!')
                 await ctx.send('Удалил старую!')
 
@@ -226,7 +244,17 @@ class BotMain(commands.Cog):
             await ctx.send('Добавил Вам новую роль!')
 
         else:
-            new_role = await ctx.guild.create_role(name=role_name, color=discord.Colour(int(arg[0][1:], 16)))
+            if str(arg[0]).startswith('#'):
+                new_role = await ctx.guild.create_role(name=role_name, color=discord.Colour(int(arg[0][1:], 16)))
+
+            elif arg[0] in class_dict:
+                new_role = await ctx.guild.create_role(name=role_name, color=discord.Colour(int(class_dict.get(role_name)[1:], 16)))
+
+            else:
+                await ctx.send(f'Ошибка {arg[0]} - {role_name} - {class_dict}')
+
+
+
             await ctx.author.add_roles(new_role, reason='Add new one!')
             await ctx.send('Добавил Вам новую роль!')
 

@@ -25,7 +25,7 @@ class ErrorsFeedback(commands.Cog):
             return
         
         else:
-            await ctx.channel.send(f'Ой-ой! Что-то пошло не так! Возможно это как-то Вам поможет: {error}')
+            await ctx.channel.send(f'Ой-ой! Что-то пошло не так! Возможно это как-то Вам поможет: ```py\n{error}``` ')
             
 def setup(bot):
     bot.add_cog(ErrorsFeedback(bot))
