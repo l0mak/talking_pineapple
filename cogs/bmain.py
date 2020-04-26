@@ -54,6 +54,7 @@ class BotMain(commands.Cog):
         embed.add_field(name="**;roles**", value="Просмотреть список доступных ролей.", inline=False)
         embed.add_field(name="**;role <number>**", value="Назначить себе роль с ID из списка выше.", inline=False)
         embed.add_field(name="**;addrole <color>**", value="Создать роль с цветом. Цвет можно выбрать в гугле по запросу **color picker**. ```;addrole #6fd1a5```", inline=False)
+        embed.add_field(name="**;rolerm**", value="Снять с себя все цветные роли!", inline=False)
 
 
         embed.add_field(name='**;voice**', value='Информация о голосовых возможностях бота.', inline=False)
@@ -189,6 +190,29 @@ class BotMain(commands.Cog):
 
             else:
                 await ctx.send(f'Я запутался и не смог разобрать какой Вы хотите цвет! Простите!')
+
+
+    @commands.command()
+    async def rolerm(self, ctx):
+        class_dict = {'DEATH KNIGHT' : '#C41F3B',
+                    'DEMON HUNTER' : '#A330C9	',
+                    'DRUID' : '#FF7D0A',
+                    'HUNTER' : '#ABD473',
+                    'MAGE' : '#69CCF0',
+                    'MONK' : '#00FF96',
+                    'PALADIN' : '#F58CBA',
+                    'PRIEST' : '#FFFFFF',
+                    'ROGUE' : '#FFF569',
+                    'SHAMAN' : '#0070DE',
+                    'WARLOCK' : '#9482C9',
+                    'WARRIOR' : '#C79C6E',}
+
+        user = ctx.message.author
+        for role in user.roles:
+            if str(role.name).startswith('#') or str(role.name) in class_dict:
+                await role.delete()
+                await ctx.send('Удалил с Вас цветные роли!')
+
 
 
     @commands.command()
