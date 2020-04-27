@@ -210,7 +210,7 @@ class BotMain(commands.Cog):
         user = ctx.message.author
         for role in user.roles:
             if str(role.name).startswith('#') or str(role.name) in class_dict:
-                await role.delete()
+                await user.remove_roles(role, reason='Asked to delete!!')
                 await ctx.send('Удалил с Вас цветные роли!')
 
 
