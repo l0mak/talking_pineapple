@@ -15,7 +15,21 @@ from io import BytesIO
 class BotMain(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
+
+    class_color_dict = {'DEATH KNIGHT': '#C41F3B',
+                  'DEMON HUNTER': '#A330C9	',
+                  'DRUID': '#FF7D0A',
+                  'HUNTER': '#ABD473',
+                  'MAGE': '#69CCF0',
+                  'MONK': '#00FF96',
+                  'PALADIN': '#F58CBA',
+                  'PRIEST': '#FFFFFF',
+                  'ROGUE': '#FFF569',
+                  'SHAMAN': '#0070DE',
+                  'WARLOCK': '#9482C9',
+                  'WARRIOR': '#C79C6E', }
+
+
     @commands.command()
     async def help(self, ctx):
         embed = discord.Embed(title="Привет!", description="Я Говорящий Ананасик! Сейчас я умею:", color=0xa500ff)
@@ -111,24 +125,11 @@ class BotMain(commands.Cog):
 
     @commands.command()
     async def role(self, ctx, *arg):
-        class_dict = {'DEATH KNIGHT': '#C41F3B',
-                      'DEMON HUNTER': '#A330C9	',
-                      'DRUID': '#FF7D0A',
-                      'HUNTER': '#ABD473',
-                      'MAGE': '#69CCF0',
-                      'MONK': '#00FF96',
-                      'PALADIN': '#F58CBA',
-                      'PRIEST': '#FFFFFF',
-                      'ROGUE': '#FFF569',
-                      'SHAMAN': '#0070DE',
-                      'WARLOCK': '#9482C9',
-                      'WARRIOR': '#C79C6E', }
-
         if ctx.invoked_subcommand is None:
             if not arg:
                 await ctx.send('Вы не указали цвет! Посмотреть все цвета на сервере можно командой **;roles**, выбрать **;role <id>** или **;role <class_name>**, добавить свой цвет командой **;addcolor <hex_color>** (<hex_color> можно выбрать в гугле, по запросу **color picker**)')
 
-            elif str(ctx.message.clean_content).upper()[6:] in class_dict:
+            elif str(ctx.message.clean_content).upper()[6:] in self.class_color_dict:
                 await self.addrole(ctx, str(ctx.message.clean_content).upper()[6:])
 
             elif int(arg[0]) < 0:
@@ -144,7 +145,7 @@ class BotMain(commands.Cog):
 
                 user = ctx.message.author
                 for role in user.roles:
-                    if str(role.name) in colors or str(role.name) in class_dict:
+                    if str(role.name) in colors or str(role.name) in self.class_color_dict:
                         if str(role.name) == colors[color_id] or str(role.name) == str(arg[0]):
                             await ctx.send('Так она же у вас есть!')
                         else:
@@ -195,22 +196,9 @@ class BotMain(commands.Cog):
 
     @commands.command()
     async def rolerm(self, ctx):
-        class_dict = {'DEATH KNIGHT' : '#C41F3B',
-                    'DEMON HUNTER' : '#A330C9	',
-                    'DRUID' : '#FF7D0A',
-                    'HUNTER' : '#ABD473',
-                    'MAGE' : '#69CCF0',
-                    'MONK' : '#00FF96',
-                    'PALADIN' : '#F58CBA',
-                    'PRIEST' : '#FFFFFF',
-                    'ROGUE' : '#FFF569',
-                    'SHAMAN' : '#0070DE',
-                    'WARLOCK' : '#9482C9',
-                    'WARRIOR' : '#C79C6E',}
-
         user = ctx.message.author
         for role in user.roles:
-            if str(role.name).startswith('#') or str(role.name) in class_dict:
+            if str(role.name).startswith('#') or str(role.name) in self.class_color_dict:
                 await user.remove_roles(role, reason='Asked to delete!!')
                 await ctx.send('Удалил с Вас цветные роли!')
 
@@ -241,22 +229,9 @@ class BotMain(commands.Cog):
 
     @commands.command()
     async def addrole(self, ctx, *arg):
-        class_dict = {'DEATH KNIGHT' : '#C41F3B',
-                    'DEMON HUNTER' : '#A330C9	',
-                    'DRUID' : '#FF7D0A',
-                    'HUNTER' : '#ABD473',
-                    'MAGE' : '#69CCF0',
-                    'MONK' : '#00FF96',
-                    'PALADIN' : '#F58CBA',
-                    'PRIEST' : '#FFFFFF',
-                    'ROGUE' : '#FFF569',
-                    'SHAMAN' : '#0070DE',
-                    'WARLOCK' : '#9482C9',
-                    'WARRIOR' : '#C79C6E',}
-
         user = ctx.message.author
         for role in user.roles:
-            if str(role.name).startswith('#') or str(role.name) in class_dict:
+            if str(role.name).startswith('#') or str(role.name) in self.class_color_dict:
                 await user.remove_roles(role, reason='Delete old one!')
                 await ctx.send('Удалил старую!')
 
@@ -272,11 +247,11 @@ class BotMain(commands.Cog):
             if str(arg[0]).startswith('#'):
                 new_role = await ctx.guild.create_role(name=role_name, color=discord.Colour(int(arg[0][1:], 16)))
 
-            elif arg[0] in class_dict:
-                new_role = await ctx.guild.create_role(name=role_name, color=discord.Colour(int(class_dict.get(role_name)[1:], 16)))
+            elif arg[0] in self.class_color_dict:
+                new_role = await ctx.guild.create_role(name=role_name, color=discord.Colour(int(self.class_color_dict.get(role_name)[1:], 16)))
 
             else:
-                await ctx.send(f'Ошибка {arg[0]} - {role_name} - {class_dict}')
+                await ctx.send(f'Ошибка {arg[0]} - {role_name} - {self.class_color_dict}')
 
 
 

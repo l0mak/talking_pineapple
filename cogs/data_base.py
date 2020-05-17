@@ -1,7 +1,12 @@
+import datetime
+
 from sqlalchemy import create_engine
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
+import discord
+from discord.ext import commands
 
 from config.config import postgres_conn_string
 
@@ -14,10 +19,10 @@ base = declarative_base()
 class CommandsTable(base):
     __tablename__ = 'commands'
 
-    id = Column(Integer, primary_key=True)
-    server = Column(Integer)
-    channel = Column(Integer)
-    author = Column(Integer)
+    id = Column(String, primary_key=True)
+    server = Column(String)
+    channel = Column(String)
+    author = Column(String)
     command = Column(String)
     timestamp = Column(DateTime)
 
@@ -25,10 +30,10 @@ class CommandsTable(base):
 class MythicListTable(base):
     __tablename__ = 'mythiclist'
 
-    id = Column(Integer, primary_key=True)
-    server = Column(Integer)
-    uid = Column(Integer)
-    role = Column(Integer)
+    id = Column(String, primary_key=True)
+    server = Column(String)
+    uid = Column(String)
+    role = Column(String)
     timestamp = Column(DateTime)
 
 
@@ -37,17 +42,50 @@ session = Session()
 
 base.metadata.create_all(db)
 
-# Example
-# doctor_strange = Film(title="Doctor Strange", director="Scott Derrickson", year="2016")
-# session.add(doctor_strange)
-# session.commit()
+# session.add()
 #
-# films = session.query(Film)
-# for film in films:
-#     print(film.title)
+# session.query()
 #
-# doctor_strange.title = "Some2016Film"
-# session.commit()
+# session.delete()
 #
-# session.delete(doctor_strange)
 # session.commit()
+
+
+class DataBase(commands.Cog):
+
+    def __init__(self, bot):
+      self.bot = bot
+
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.content.startswith(';'):
+            timestamp = datetime.datetime.now()
+            some_command = CommandsTable(id=str(message.id),
+                                         server=str(message.guild.name),
+                                         channel=str(message.channel.name),
+                                         author=str(message.author.id),
+                                         command=f'{message.content[1:]}',
+                                         timestamp=timestamp,
+                                         )
+
+            session.add(some_command)
+            session.commit()
+
+
+
+    @commands.command()
+    async def stats(self,ctx):
+        embed = discord.Embed(title="", color=0xa500ff)
+        embed.set_author(name='Господин Ананасик', icon_url='https://i.imgur.com/A7tQuJ1.png')
+        embed.set_thumbnail(url="https://i.imgur.com/A7tQuJ1.png")
+        embed.set_footer(text="")
+
+        commands = session.query(CommandsTable)
+        for command in commands:
+            embed.add_field(name=f'{command.command}', value=f'server-{command.server}, channel-{command.channel}, author-<@{command.author}>, time-{command.timestamp}', inline=False)
+
+        await ctx.send(embed=embed)
+
+def setup(bot):
+    bot.add_cog(DataBase(bot))

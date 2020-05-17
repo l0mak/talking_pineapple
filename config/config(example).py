@@ -2,7 +2,7 @@ import discord
 
 bot_token = 'DISCORD BOT TOKEN'
 
-postgres_conn_string = 'db://login:password@host:port/compose'
+postgres_conn_string = 'db://login:password@host:port/dbname'
 
 wow_api_id = 'WOW API ID'
 wow_api_token = 'WOW API SECRET'
