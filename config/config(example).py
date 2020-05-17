@@ -1,9 +1,25 @@
-__token__ = 'DISCORD BOTTOKEN'
-__wowID__ = 'WOW API ID'
-__wowSecret__ = 'WOW API SECRET'
-__wowLocale__ = 'en_EU'
-__wowRegion__ = 'eu'
-__blacklist__ = [LIST, OF, INTEGERS, OF, USER, IDs]
-__whitelist__ = [LIST, OF, INTEGERS, OF, USER, IDs]
-__piclist__ = ['url.to/funny/picture.jpg',
+import discord
+
+bot_token = 'DISCORD BOT TOKEN'
+
+postgres_conn_string = 'db://login:password@host:port/compose'
+
+wow_api_id = 'WOW API ID'
+wow_api_token = 'WOW API SECRET'
+wow_locale = 'en_EU'
+wow_region = 'eu'
+
+blacklist = [LIST, OF, INTEGERS, OF, USER, IDs]
+whitelist = [LIST, OF, INTEGERS, OF, USER, IDs]
+
+piclist = ['url.to/funny/picture.jpg',
                ]
+
+games = [
+    (discord.ActivityType.playing, 'SMTH'),
+    (discord.ActivityType.watching, 'SMTH'),
+    (discord.ActivityType.listening, 'SMTH'),
+
+]
+
+games_timer = 2 * 60

@@ -8,28 +8,31 @@ import datetime
 import time
 import sys
 
-import ctypes
-import ctypes.util
-
 import discord
 from discord.ext import commands
 from discord.utils import get
 
-import loadconfig
 
+from config.config import bot_token, whitelist, blacklist, games, games_timer, piclist
 
 __version__ = '1.3.2'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
-# logger.setLevel(logging.DEBUG)
 logger.setLevel(logging.WARNING)
 handler = RotatingFileHandler(filename='discordbot.log', maxBytes=1024*100, backupCount=2, encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-extensions = ['cogs.bmain', 'cogs.wow', 'cogs.test', 'cogs.encounters',
-              'cogs.errors_feedback', 'cogs.other', 'cogs.voice']
+extensions = ['cogs.bot_main',
+              'cogs.wow',
+              'cogs.test',
+              'cogs.encounters',
+              'cogs.errors_feedback',
+              'cogs.other',
+              'cogs.voice',
+              'cogs.data_base',
+              ]
 
 description = "Talking Pineapple Project is a Bot for Discord Voice Chat."
 
@@ -40,22 +43,31 @@ bot.remove_command('help')
 home_channel = 499938558174560256
 dm_copy_channels = 655745237926281248
 
-async def _randomGame():
+dev_uid = 497897875733348353
+dev_home_channel = 708713933124403261
+bot.dev = False
+
+async def _random_game():
     while True:
         guildCount = len(bot.guilds)
         memberCount = len(list(bot.get_all_members()))
-        randomGame = random.choice(loadconfig.__games__)
+        randomGame = random.choice(games)
         await bot.change_presence(activity=discord.Activity(type=randomGame[0],
                                                             name=randomGame[1].format(guilds = guildCount,
                                                                                       members = memberCount)))
-        await asyncio.sleep(loadconfig.__gamesTimer__)
+        await asyncio.sleep(games_timer)
+
 
 @bot.event
 async def on_ready():
-    if bot.user.id == 449543738486816769:
+    if bot.user.id == dev_uid:
         bot.dev = True
+        logger.setLevel(logging.DEBUG)
+        channel = bot.get_channel(dev_home_channel)
     else:
-        bot.dev = False
+        channel = bot.get_channel(home_channel)
+
+    print('-----------')
     print('Logged in as')
     print(f'Bot-Name: {bot.user.name}')
     print(f'Bot-ID: {bot.user.id}')
@@ -63,22 +75,21 @@ async def on_ready():
     print(f'Discord Version: {discord.__version__}')
     print(f'Bot Version: {__version__}')
     print('-----------')
+
     for cog in extensions:
         try:
             bot.load_extension(cog)
-        except Exception:
-            print(f'Couldn\'t load cog {cog}')
-
-    while not discord.opus.is_loaded():
-        opus_lib_name = ctypes.util.find_library('opus')
-        discord.opus.load_opus(opus_lib_name)
+            print(f'Loaded: {cog}')
+        except Exception as some_error:
+            print(f'Could not load cog: {cog} because of {some_error}.')
 
     bot.startTime = datetime.datetime.now()
     bot.startDate = time.strftime("%d %m %Y, %H:%M:%S")
+
     bot.botVersion = __version__
-    bot.userAgentHeaders = {'User-Agent': f'ubuntu:talking-pineapple:v{__version__}'}
-    bot.gamesLoop = asyncio.ensure_future(_randomGame())
-    channel = bot.get_channel(home_channel)
+    bot.userAgentHeaders = {'User-Agent': f'Debian:(Talking Pineapple Discord Bot/v{bot.botVersion})'}
+    bot.gamesLoop = asyncio.ensure_future(_random_game())
+
 
     await channel.send(f':white_circle: Время запуска - {bot.startDate}')
 
@@ -110,7 +121,7 @@ async def on_member_remove(member):
 async def on_message(message):
     if message.author.bot:
         return
-    if message.author.id in loadconfig.__blacklist__:
+    if message.author.id in blacklist:
         return
     if isinstance(message.channel, discord.DMChannel):
         channel = bot.get_channel(dm_copy_channels)
@@ -121,9 +132,10 @@ async def on_message(message):
             await message.channel.send('Здравствуйте!')
         else:
             await message.channel.send('''Простите, не понимаю Вас! Вы можете использовать команды **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:''')
+
     if random.randint(0, 100) > 98:
         async with aiohttp.ClientSession() as session:
-            source = random.choice(loadconfig.__piclist__)
+            source = random.choice(piclist)
             async with session.get(source) as resp:
                 if resp.status != 200:
                     await message.channel.send('Ой-ой! Потерял боевую картиночку...')
@@ -166,17 +178,28 @@ async def info(ctx):
     embed.set_footer(text="/hug")
     await ctx.send(embed=embed)
 
+
+def _is_owner():
+    async def predicate(ctx):
+        if not await ctx.bot.is_owner(ctx.author):
+            raise await ctx.send('Вы не являетесь моим автором!')
+        return True
+
+    return commands.check(predicate)
+
+
+@_is_owner()
 @bot.command(hidden=True)
 async def qb(ctx):
-    if await ctx.bot.is_owner(ctx.author):
-        channel = bot.get_channel(499938558174560256)
-        await channel.send(f':red_circle: Время отключения - {time.strftime("%d %m %Y, %H:%M:%S")}')
-
-        await bot.logout()
-        sys.exit(0)
+    if bot.dev:
+        channel = bot.get_channel(dev_home_channel)
     else:
-        await ctx.send('Вам нельзя укладывать меня спать!')
+        channel = bot.get_channel(home_channel)
+
+    await channel.send(f':red_circle: Время отключения - {time.strftime("%d %m %Y, %H:%M:%S")}')
+    await bot.logout()
+    sys.exit(0)
 
 
 if __name__ == '__main__':
-    bot.run(loadconfig.__token__)
+    bot.run(bot_token)
