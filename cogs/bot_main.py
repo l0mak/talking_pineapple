@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import random
+
 try:
     from PIL import Image, ImageDraw, ImageFont
 except ModuleNotFoundError:

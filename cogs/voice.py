@@ -4,8 +4,6 @@ Original Music Module - https://gist.github.com/EvieePy/ab667b74e9758433b3eb806c
 Added Google Text-to-speech
 """
 
-import discord
-from discord.ext import commands
 
 import asyncio
 import itertools
@@ -14,9 +12,14 @@ import os
 import traceback
 from async_timeout import timeout
 from functools import partial
+
 from youtube_dl import YoutubeDL
 from gtts import gTTS
 
+import discord
+from discord.ext import commands
+
+import ctypes.util
 
 ytdlopts = {
     'format': 'bestaudio/best',
@@ -38,6 +41,23 @@ ffmpegopts = {
 }
 
 ytdl = YoutubeDL(ytdlopts)
+
+while not discord.opus.is_loaded():
+    try:
+        opus_lib_name = ctypes.util.find_library('libopus.x86')
+        discord.opus.load_opus(opus_lib_name)
+    except:
+        pass
+    try:
+        opus_lib_name = ctypes.util.find_library('libopus.x64')
+        discord.opus.load_opus(opus_lib_name)
+    except:
+        pass
+    try:
+        opus_lib_name = ctypes.util.find_library('opus')
+        discord.opus.load_opus(opus_lib_name)
+    except:
+        pass
 
 
 class VoiceConnectionError(commands.CommandError):
