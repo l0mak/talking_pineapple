@@ -15,8 +15,7 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 
-import loadconfig
-
+from config import config
 
 __version__ = '1.3.2'
 
@@ -44,15 +43,15 @@ async def _randomGame():
     while True:
         guildCount = len(bot.guilds)
         memberCount = len(list(bot.get_all_members()))
-        randomGame = random.choice(loadconfig.__games__)
+        randomGame = random.choice(config.games)
         await bot.change_presence(activity=discord.Activity(type=randomGame[0],
                                                             name=randomGame[1].format(guilds = guildCount,
                                                                                       members = memberCount)))
-        await asyncio.sleep(loadconfig.__gamesTimer__)
+        await asyncio.sleep(config.games_timer)
 
 @bot.event
 async def on_ready():
-    if bot.user.id == 449543738486816769:
+    if bot.user.id == 497897875733348353:
         bot.dev = True
     else:
         bot.dev = False
@@ -110,7 +109,7 @@ async def on_member_remove(member):
 async def on_message(message):
     if message.author.bot:
         return
-    if message.author.id in loadconfig.__blacklist__:
+    if message.author.id in config.blacklist:
         return
     if isinstance(message.channel, discord.DMChannel):
         channel = bot.get_channel(dm_copy_channels)
@@ -123,7 +122,7 @@ async def on_message(message):
             await message.channel.send('''Простите, не понимаю Вас! Вы можете использовать команды **;info** и **;help**, чтобы больше узнать обо мне и моих возможностях! :hugging:''')
     if random.randint(0, 100) > 98:
         async with aiohttp.ClientSession() as session:
-            source = random.choice(loadconfig.__piclist__)
+            source = random.choice(config.piclist)
             async with session.get(source) as resp:
                 if resp.status != 200:
                     await message.channel.send('Ой-ой! Потерял боевую картиночку...')
@@ -179,4 +178,4 @@ async def qb(ctx):
 
 
 if __name__ == '__main__':
-    bot.run(loadconfig.__token__)
+    bot.run(config.bot_token)

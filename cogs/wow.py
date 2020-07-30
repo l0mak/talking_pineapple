@@ -23,7 +23,7 @@ from io import BytesIO
 
 from bs4 import BeautifulSoup
 
-from loadconfig import __wowID__, __wowSecret__, __wowLocale__, __whitelist__
+from config import config
 
 
 class WowRelated(commands.Cog):
@@ -159,7 +159,7 @@ class WowRelated(commands.Cog):
 
     @commands.command()
     async def mlclear(self, ctx):
-        if ctx.author.id in __whitelist__:
+        if ctx.author.id in config.whitelist:
             m = open('lists/maybe.txt', 'w')
             m.close
             t = open('lists/tanks.txt', 'w')
@@ -338,7 +338,7 @@ class WowRelated(commands.Cog):
     @commands.command()
     async def wt(self, ctx):
         auth_path = 'https://eu.battle.net/oauth/token'
-        auth_credentials = aiohttp.BasicAuth(login=__wowID__, password=__wowSecret__)
+        auth_credentials = aiohttp.BasicAuth(login=config.wow_api_id, password=config.wow_api_token)
         async with aiohttp.ClientSession(auth=auth_credentials) as client:
             async with client.get(auth_path, params={'grant_type': 'client_credentials'}) as auth_response:
                 assert auth_response.status == 200
