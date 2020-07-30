@@ -19,7 +19,7 @@ __version__ = '1.3.2'
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.DEBUG)
 handler = RotatingFileHandler(filename='discordbot.log', maxBytes=1024*100, backupCount=2, encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
@@ -35,8 +35,9 @@ extensions = ['cogs.bot_main',
               ]
 
 description = "Talking Pineapple Project is a Bot for Discord Voice Chat."
+prefix = ';'
 
-bot = commands.Bot(command_prefix=';', description=description)
+bot = commands.Bot(command_prefix=prefix, description=description)
 
 bot.remove_command('help')
 
@@ -62,10 +63,10 @@ async def _random_game():
 async def on_ready():
     if bot.user.id == dev_uid:
         bot.dev = True
-        logger.setLevel(logging.DEBUG)
         channel = bot.get_channel(dev_home_channel)
     else:
         channel = bot.get_channel(home_channel)
+        logger.setLevel(logging.WARNING)
 
     print('-----------')
     print('Logged in as')
